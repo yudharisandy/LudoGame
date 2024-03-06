@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Ludo\\ConsoleLudo\\ConsoleLudo.csproj": {}
+    "E:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\ConsoleLudo\\ConsoleLudo.csproj": {}
   },
   "projects": {
-    "D:\\Ludo\\ConsoleLudo\\ConsoleLudo.csproj": {
+    "E:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\ConsoleLudo\\ConsoleLudo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Ludo\\ConsoleLudo\\ConsoleLudo.csproj",
+        "projectUniqueName": "E:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\ConsoleLudo\\ConsoleLudo.csproj",
         "projectName": "ConsoleLudo",
-        "projectPath": "D:\\Ludo\\ConsoleLudo\\ConsoleLudo.csproj",
-        "packagesPath": "C:\\Users\\Batch 9\\.nuget\\packages\\",
-        "outputPath": "D:\\Ludo\\ConsoleLudo\\obj\\",
+        "projectPath": "E:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\ConsoleLudo\\ConsoleLudo.csproj",
+        "packagesPath": "C:\\Users\\Yudha Putra Arisandy\\.nuget\\packages\\",
+        "outputPath": "E:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\ConsoleLudo\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Batch 9\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Yudha Putra Arisandy\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

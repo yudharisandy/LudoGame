@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ConsoleLudo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+14367a30b02fbc044724c87355fae8e341703460")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c6458338b133228a458b8cd409eb9bd792175d8f")]
 [assembly: System.Reflection.AssemblyProductAttribute("ConsoleLudo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ConsoleLudo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
