@@ -1,22 +1,20 @@
+using System.Dynamic;
+
 namespace LudoGame.GameObject;
 
 public interface IPlayer
 {
-    // <<interface>>
-    // + ID : readonly
+    public int ID {get;}
 }
 public interface IContextManager<T>
 {
-    // <<interface>>
-    // + T GetContext()
+    // public T GetContext(){}
 }
 public interface IPlayerWithAction : IPlayer
 {
-    // <<interface>>
-    // + IActionable GetActionable()
+    // public IActionable GetActionable(){}
 }
 public interface IActionable
 {
-    // <<interface>>
-    // + Step()    
+    public void Step(){}
 }

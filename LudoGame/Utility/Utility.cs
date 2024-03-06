@@ -1,6 +1,6 @@
 namespace LudoGame.Utility;
 
-public class Path
+public class PathBoard
 {
-    // + List~int~ Path
+    public List<int> path;
 }

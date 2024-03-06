@@ -1,14 +1,15 @@
 namespace LudoGame.LudoObjectsRendering;
+using LudoGame.LudoObjects;
 
 public class TotemRendering
 {
-    // - Totem totem
+    private Totem totem;
 }
 public class BoardRendering
 {
-    // - Board board    
+    private Board board;
 }
 public class LudoDiceRendering
 {
-    // - LudoDice dice
+    private LudoDice dice;
 }

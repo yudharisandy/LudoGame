@@ -1,35 +1,47 @@
+using System.Dynamic;
+using LudoGame.GameObject;
+using LudoGame.Utility;
+
 namespace LudoGame.LudoObjects;
 
 public class Totem
 {
-    // + mathvector position : public get
-    // + mathvector homePosition : public get
-    // - List~int~ path
-    // + IPlayer Owner : readonly
-    // + void AdvanceOnce()
-    // + void GoHome()
+    public MathVector position {get;}
+    public MathVector homePosition {get;}
+    private List<int> path;
+    public IPlayer Owner {get; private set;}
+    public void AdvanceOnce(){}
+    public void GoHome(){}
+}
+public class MathVector(){
+
 }
 public class Cell
 {
-    // + CellType type : readonly
-    // - List~Totem~ Occupants
-    // + void AddTotem(Totem)
-    // + bool KickTotem(Totem)
-    // + IPlayer GetOwnership()
+    public CellType Type {get; private set;}
+    private List<Totem> Occupants {get;set;}
+    public void AddTotem(Totem totem){}
+    public bool KickTotem(Totem totem){
+        return true; // example
+    }
+    // public IPlayer GetOwnership(){}
 }
 public enum CellType
 {
-    // <<enumeration>>
-    // Normal
-    // Safe
+    Normal,
+    Safe
 }
 public class LudoDice
 {
-    // +int GetLastRoll()
-    // +int Roll()
+    public int GetLastRoll(){
+        return 1;
+    }
+    public int Roll(){
+        return 1;
+    }
 }
 public class Board
 {
-    // +List~Cell~ Cells : readonly
-    // +List~Path~ Paths : readonly
+    public List<Cell> Cells {get; private set;}
+    public List<PathBoard> Paths {get; private set;}
 }

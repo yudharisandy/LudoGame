@@ -42,6 +42,7 @@ public interface ISceneManager
 }
 public class ConsoleRenderable : IRenderable
 {
+    public void Draw(){}
     public ConsoleRenderable(){}
 }
 public interface IScene
@@ -50,6 +51,5 @@ public interface IScene
 }
 public interface IRenderable
 {
-    // <<interface>>
-    // + void Draw()
+    public void Draw();
 }
