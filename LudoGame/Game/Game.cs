@@ -11,21 +11,14 @@ public class LudoGameScene : IScene, IContextManager
     public void Update(){}
     protected void NextTurn(){}
 }
-public class LudoContext
-{
-    public List<IPlayerWithAction> players;
-    public Board board;
-    public LudoDice dice;
-    private Dictionary<IPlayer, List<Totem>> _playerTotem;
-    
-    // public List<Totem> GetTotems(IPlayer player){}
-    
 
-}
 public class LudoPlayer : IPlayerWithAction
 {
     public int ID {get; set;}
     private IContextManager _contextManager;
+    public LudoPlayer(int id){
+        ID = id;
+    }
 }
 public class LudoRule
 {
@@ -39,6 +32,7 @@ public class LudoRule
     }
     public void RegisterRule(Func<Board,bool> func){}
 }
+
 public interface IContextManager
 {
     // Ludo Context

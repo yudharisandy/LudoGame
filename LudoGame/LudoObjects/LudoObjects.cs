@@ -6,10 +6,15 @@ namespace LudoGame.LudoObjects;
 
 public class Totem
 {
+    public int ID {get; set;}
     public MathVector Position {get;}
     public MathVector HomePosition {get;}
     private List<int> path;
     public IPlayer Owner {get; private set;}
+    // Constructor
+    public Totem(int id){
+        ID = id;
+    }
     public void AdvanceOnce(){}
     public void GoHome(){}
 }
@@ -40,9 +45,4 @@ public class LudoDice
     public int Roll(){
         return 1;
     }
-}
-public class Board
-{
-    public List<Cell> Cells {get; private set;}
-    public List<PathBoard> Paths {get; private set;}
 }
