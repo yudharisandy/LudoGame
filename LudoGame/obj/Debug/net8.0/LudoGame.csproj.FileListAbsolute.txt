@@ -28,3 +28,18 @@ d:\Ludo\LudoGame\obj\Debug\net8.0\refint\LudoGame.dll
 d:\Ludo\LudoGame\obj\Debug\net8.0\LudoGame.pdb
 d:\Ludo\LudoGame\obj\Debug\net8.0\LudoGame.genruntimeconfig.cache
 d:\Ludo\LudoGame\obj\Debug\net8.0\ref\LudoGame.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\LudoGame.exe
+e:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\LudoGame.deps.json
+e:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\LudoGame.runtimeconfig.json
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\LudoGame.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\LudoGame.pdb
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\LudoGame.GeneratedMSBuildEditorConfig.editorconfig
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\LudoGame.AssemblyInfoInputs.cache
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\LudoGame.AssemblyInfo.cs
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\LudoGame.csproj.CoreCompileInputs.cache
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\LudoGame.sourcelink.json
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\LudoGame.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\refint\LudoGame.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\LudoGame.pdb
+e:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\LudoGame.genruntimeconfig.cache
+e:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\ref\LudoGame.dll

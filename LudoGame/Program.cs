@@ -5,15 +5,19 @@ using LudoGame.LudoObjects;
 public class Program{
     static void Main(){
         // Create player
-        IPlayerWithAction player1 = new LudoPlayer();
+        IPlayerWithAction player1 = new LudoPlayer();        
         IPlayerWithAction player2 = new LudoPlayer();
 
-        // Create ludo objects
+        // Create ludo objects       
         Totem totem1Player1 = new();
         Totem totem1Player2 = new();
-
         Cell cell = new();
         LudoDice ludoDice = new();
         Board board = new();
+
+        // Star the game
+        Console.WriteLine(totem1Player1);
+
+
     }
 }
