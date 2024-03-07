@@ -5,7 +5,7 @@ namespace LudoGame.Game;
 
 public class LudoContext
 {
-    public List<IPlayerWithAction> players;
+    private List<IPlayerWithAction> _players;
     public Board board;
     public LudoDice dice;
     private Dictionary<IPlayer, List<Totem>> _playerTotem;
@@ -13,7 +13,7 @@ public class LudoContext
     // Constructor
     public LudoContext(){
         // Create new list when Ludo context created
-        players = new List<IPlayerWithAction>();
+        _players = new List<IPlayerWithAction>();
         _playerTotem = new Dictionary<IPlayer, List<Totem>>();
     }
     public List<Totem> GetTotems(IPlayer player){
@@ -24,8 +24,18 @@ public class LudoContext
         }
         return null;
     }
-    public void RegisterTotems(IPlayer player, List<Totem> totems){
+    public bool RegisterTotems(IPlayer player, List<Totem> totems){
         _playerTotem.Add(player, totems);
+        return true;
     }
-
+    public bool RegisterPlayers(IPlayerWithAction player){
+        _players.Add(player);
+        return true;
+    }
+    public List<IPlayerWithAction> GetAllPlayers(){
+        return _players;
+    }
+    public bool StartGame(){
+        return true;
+    }
 }

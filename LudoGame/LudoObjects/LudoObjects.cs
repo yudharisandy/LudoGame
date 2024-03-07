@@ -39,10 +39,13 @@ public enum CellType
 }
 public class LudoDice
 {
-    public int GetLastRoll(){
-        return 1;
-    }
+    private int _diceValue;
+    // public int GetLastRoll(){
+    //     return 1;
+    // }
     public int Roll(){
-        return 1;
+        Random rnd = new Random();
+        _diceValue = rnd.Next(1, 7);
+        return _diceValue;
     }
 }

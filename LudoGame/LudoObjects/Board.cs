@@ -1,20 +1,21 @@
+namespace LudoGame.LudoObjects;
+
 using System.Dynamic;
 using LudoGame.GameObject;
 using LudoGame.Utility;
-
-namespace LudoGame.LudoObjects;
 
 public class Board
 {
     private int _xBoard = 14; // Size of Ludo Board (14, 14) - start from 0
     private int _yBoard = 14; // Size of Ludo board (14, 14) - start from 0
     private List<(int, int)> _boardCoordinates;
+    public List<Cell> Cells {get; private set;}
+    public List<PathBoard> Paths {get; private set;}
+
     public Board(){
         _boardCoordinates = new List<(int, int)>();
         AddBoardCoordinate();
     }
-    public List<Cell> Cells {get; private set;}
-    public List<PathBoard> Paths {get; private set;}
 
     private void AddBoardCoordinate(){
         // Up part of the borad (x, y)
@@ -45,11 +46,9 @@ public class Board
         _boardCoordinates.Add((7, 6));
         _boardCoordinates.Add((7, 8));
         _boardCoordinates.Add((6, 7));
-        _boardCoordinates.Add((7, 8));
+        _boardCoordinates.Add((8, 7));
 
         // Add 4 home coordinates (2x2 each)
-        
-
     }
     public List<(int, int)> GetBoardCoordinate(){
         return _boardCoordinates;
