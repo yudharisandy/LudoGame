@@ -12,7 +12,7 @@ public partial class LudoApplication
     {
         // Create TableLayoutPanel for the grid
         this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-        this.tableLayoutPanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+        this.tableLayoutPanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.None;
         this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Right; // Dock to the right side
         this.tableLayoutPanel.Size = new System.Drawing.Size(800, 800); // Adjust the size to fit the form
         this.tableLayoutPanel.Location = new System.Drawing.Point(200, 0); // Adjusted the starting position from the left edge

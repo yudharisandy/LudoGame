@@ -15,7 +15,7 @@ public partial class LudoApplication
         circlePanel.BackColor = color; // Change color as needed
         circlePanel.Width = 20; // Adjust size as needed
         circlePanel.Height = 20; // Adjust size as needed
-        circlePanel.BorderStyle = BorderStyle.Fixed3D; // Add border if needed
+        circlePanel.BorderStyle = BorderStyle.FixedSingle; // Add border if needed
         circlePanel.Dock = DockStyle.Fill;
 
         // Add label with the specified letter
