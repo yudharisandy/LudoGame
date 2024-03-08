@@ -17,7 +17,7 @@ public partial class LudoApplication
         this.diceButton = new System.Windows.Forms.Button();
         this.diceButton.Text = "Roll Dice";
         this.diceButton.Size = new System.Drawing.Size(100, 50);
-        this.diceButton.Location = new System.Drawing.Point(50, 10); // Position the button on the left side
+        this.diceButton.Location = new System.Drawing.Point(100, 10); // Position the button on the left side
         this.Controls.Add(this.diceButton);
         this.diceButton.Click += DiceButton_Click;
     }
@@ -29,14 +29,14 @@ public partial class LudoApplication
         this.diceResultLabel.Text = "6";
         this.diceResultLabel.Font = new Font("Arial", 12, FontStyle.Bold); // Set font size to 12 and make it bold
         this.diceResultLabel.AutoSize = true;
-        this.diceResultLabel.Location = new System.Drawing.Point(83, 70); // Position the label below the player label
+        this.diceResultLabel.Location = new System.Drawing.Point(133, 70); // Position the label below the player label
         this.Controls.Add(this.diceResultLabel);
     }
 
     private void DiceButton_Click(object sender, EventArgs e)
     {
         // Generate a random number from 1 to 6 and display it
-        int diceValue = _dice.Roll();
+        int diceValue = _ludoContext.dice.Roll();
         diceResultLabel.Text = $"{diceValue}"; // Update the label with the dice result
     }
 }

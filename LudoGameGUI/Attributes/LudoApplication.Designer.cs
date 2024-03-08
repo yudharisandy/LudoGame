@@ -12,6 +12,43 @@ public partial class LudoApplication
     private TableLayoutPanel tableLayoutPanel;
 
 
+    #region Windows Form Designer generated code
+    private void InitializeComponent()
+    {
+        this.components = new System.ComponentModel.Container();
+        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        this.ClientSize = new System.Drawing.Size(1100, 800);
+        this.Text = "LudoApp";
+        
+        #region Board
+        CreateGrid();
+        // AddColorGrid(); // Interact with library -> LudoContext.Board
+        #endregion
+
+        #region Dice
+        CreateDiceButton(); // Interact with library -> LudoContext.LudoDice
+        CreateDiceResultLabel();
+        #endregion
+
+        #region Player
+        CreateAddPlayerButton(); // Interact with library -> LudoPlayer, LudoContext
+        CreatePlayersLabel();
+        CreateInputPlayerTextBox();
+        #endregion
+
+        #region Totem
+        CreateAddTotemButton(); // Interact with library -> Totem, LudoContext
+        CreateInputTotemTextBox();
+        CreateTotemsLabel();
+        #endregion
+
+        #region Start
+        CreateStartButton(); // Interact with library -> LudoContext
+        CreateStartLabel();
+        #endregion
+    }
+    #endregion
+
     protected override void Dispose(bool disposing)
     {
         if (disposing && (components != null))
@@ -20,39 +57,5 @@ public partial class LudoApplication
         }
         base.Dispose(disposing);
     }
-
-    #region Windows Form Designer generated code
-    private void InitializeComponent()
-    {
-        this.components = new System.ComponentModel.Container();
-        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(900, 800); // Increased width to accommodate additional space
-        this.Text = "LudoApp";
-        
-        #region // Board
-        CreateGrid();
-        StartButton();
-        CreateStartLabel();
-        ColorTheGrid();
-        #endregion
-
-        #region // Dice
-        CreateDiceButton();
-        CreateDiceResultLabel(); // Create the label to display the dice result
-        #endregion
-
-        #region // Player
-        CreatePlayersLabel();
-        CreateInputPlayerTextBox();
-        CreateAddPlayerButton();
-        #endregion
-
-        #region // Totem
-        CreateAddTotemButton();
-        CreateInputTotemTextBox();
-        CreateTotemsLabel();
-        #endregion
-    }
-    #endregion
 }
 

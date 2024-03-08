@@ -7,13 +7,15 @@ namespace LudoGame.LudoObjects;
 public class Totem
 {
     public int ID {get; set;}
-    public MathVector Position {get;}
-    public MathVector HomePosition {get;}
+    public MathVector Position {get;set;}
+    public MathVector HomePosition {get;set;}
     private List<int> path;
     public IPlayer Owner {get; private set;}
     // Constructor
     public Totem(int id){
         ID = id;
+        Position = new MathVector();
+        HomePosition = new MathVector();
     }
     public void AdvanceOnce(){}
     public void GoHome(){}
