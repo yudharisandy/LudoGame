@@ -16,6 +16,9 @@ public class Board
         _boardCoordinates = new List<(int, int)>();
         AddBoardCoordinate();
     }
+    // public void PutTotemOnBoard(){
+
+    // }
 
     private void AddBoardCoordinate(){
         // Up part of the borad (x, y)
@@ -48,7 +51,29 @@ public class Board
         _boardCoordinates.Add((6, 7));
         _boardCoordinates.Add((8, 7));
 
-        // Add 4 home coordinates (2x2 each)
+        #region Add 4 home coordinates (2x2 each)
+        // Player 1 (bottom-left)
+        _boardCoordinates.Add((2, 11));
+        _boardCoordinates.Add((3, 11));
+        _boardCoordinates.Add((2, 12));
+        _boardCoordinates.Add((3, 12));
+        // Player 2 (up-right)
+        _boardCoordinates.Add((11, 2));
+        _boardCoordinates.Add((12, 2));
+        _boardCoordinates.Add((11, 3));
+        _boardCoordinates.Add((12, 3));
+        // Player 3 (bottom-right)
+        _boardCoordinates.Add((11, 11));
+        _boardCoordinates.Add((12, 11));
+        _boardCoordinates.Add((11, 12));
+        _boardCoordinates.Add((12, 12));
+        // Player 4 (up-left)
+        _boardCoordinates.Add((2, 2));
+        _boardCoordinates.Add((3, 2));
+        _boardCoordinates.Add((2, 3));
+        _boardCoordinates.Add((3, 3));        
+        #endregion
+
     }
     public List<(int, int)> GetBoardCoordinate(){
         return _boardCoordinates;

@@ -59,7 +59,7 @@ public partial class LudoApplication
         List<(int, int)> playCoordinate = _board.GetBoardCoordinate();
         foreach(var i in playCoordinate){
             Panel coloredPanel = new Panel();
-            coloredPanel.BackColor = Color.SteelBlue;
+            coloredPanel.BackColor = Color.Turquoise;
             coloredPanel.Dock = DockStyle.Fill;
             // Add panels to each cell and set their background color
             int x = i.Item1; // Example row index

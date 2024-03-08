@@ -44,6 +44,7 @@ public partial class LudoApplication
         // Get the input number of players
         if (int.TryParse(_inputTotemTextBox.Text, out int numberOfTotems))
         {
+            List<Totem> totemsList = new();
             // Clear previous player names
             _totemsLabel.Text = "";
 
@@ -51,9 +52,10 @@ public partial class LudoApplication
             for (int i = 1; i <= numberOfTotems; i++)
             {
                 Totem _totem = new(i);
-                // bool status = _ludoContext.RegisterPlayers(_ludoPlayers);
+                totemsList.Add(_totem);
                 _totemsLabel.Text += $"Totem {i}\n";
             }
+            bool status = _ludoContext.RegisterTotems(totemsList);
         }
         else
         {

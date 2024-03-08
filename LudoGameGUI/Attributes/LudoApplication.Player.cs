@@ -18,7 +18,7 @@ public partial class LudoApplication
         this._inputPlayerButton = new Button();
         this._inputPlayerButton.Text = "Add Player";
         this._inputPlayerButton.Size = new Size(123, 50);
-        this._inputPlayerButton.Location = new Point(40, 200); // Position the button below the text box
+        this._inputPlayerButton.Location = new Point(40, 200);
         this.Controls.Add(this._inputPlayerButton);
         this._inputPlayerButton.Click += PlayerInputButton_Click;
     }
