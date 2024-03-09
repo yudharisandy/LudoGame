@@ -11,42 +11,29 @@ public partial class LudoApplication
     private Label _playerTurnLabel;
     private int userInputTotemID;
     private TaskCompletionSource<bool> chooseTotemToMove;
-    private UserChoiceSixInDice userChoiceSixInDice; // Temporary (for trial only)
-    private TaskCompletionSource<bool> chooseOutHomeOrPlayForward; // Temporary (for trial only)
     
     private async void Play(){
         while(true){
             // Loop for every player
             foreach(var player in _ludoGameScene.ludoContext._playerTotems){
-                Color color = SetTotemColor(player.Key);
+                
                 _playerTurnLabel.Text = $"Turn: Player {player.Key.ID + 1}";
                 
-                // Wait player push "Roll Dice"
                 rollDiceClickedTask = new TaskCompletionSource<bool>();
-                await rollDiceClickedTask.Task; // Change the "diceValue"
+                await rollDiceClickedTask.Task; // // Wait player push "Roll Dice" to change the "diceValue" (1-6)
                 
-                chooseOutHomeOrPlayForward = new TaskCompletionSource<bool>();
-                await chooseOutHomeOrPlayForward.Task;
-                // UserChoiceSixInDice userChoiceSixInDice = UserChoiceSixInDice.GetOutHome; // Example
-
                 chooseTotemToMove = new TaskCompletionSource<bool>();
-                await chooseTotemToMove.Task;
-                // int userinputTotemID = 0; // Example (0-3)
+                await chooseTotemToMove.Task; // Wait player to choose one totem to change "userinputTotemID" (0-3)
                 
-                _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID, userChoiceSixInDice);
+                _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
 
-                if (diceValue == 6 && userChoiceSixInDice == UserChoiceSixInDice.GetOutHome){
-                    RemoveTotem(player.Value[userInputTotemID].HomePosition.x, player.Value[userInputTotemID].HomePosition.y);
-                    MoveTotem(player.Value[userInputTotemID].Position.x, player.Value[userInputTotemID].Position.y, color, player.Value[userInputTotemID]);
-                }
-                else{
-                    // if (there is Totem OnPlay, choose one to move)
-                    if(player.Value[userInputTotemID].totemStatus == TotemStatus.OnPlay){
-                        RemoveTotem(player.Value[userInputTotemID].PreviousPosition.x, player.Value[userInputTotemID].PreviousPosition.y);
-                        MoveTotem(player.Value[userInputTotemID].Position.x, player.Value[userInputTotemID].Position.y, color, player.Value[userInputTotemID]);
-                    }
-                    // else (nothing to do)
-                }
+                RemoveTotem(player.Value[userInputTotemID].HomePosition.x, player.Value[userInputTotemID].HomePosition.y);
+                RemoveTotem(player.Value[userInputTotemID].PreviousPosition.x, player.Value[userInputTotemID].PreviousPosition.y);
+                
+                Color color = SetTotemColor(player.Key);
+                MoveTotem(player.Value[userInputTotemID].Position.x, player.Value[userInputTotemID].Position.y, color, player.Value[userInputTotemID]);
+
+                // Next: Logic to check the totem collision
 
                 await Task.Delay(1000);
             }

@@ -8,12 +8,10 @@ using LudoGame.LudoObjects;
 
 public partial class LudoApplication
 {
-    #region Initialization of totemplayerbutton
     private Button _totem1PlayerButton;
     private Button _totem2PlayerButton;
     private Button _totem3PlayerButton;
     private Button _totem4PlayerButton;
-    #endregion
     private Label _totemPlayersLabel;
 
     
@@ -22,8 +20,8 @@ public partial class LudoApplication
         CreateTotemPlayerLabel();
         
         // Temporary
-        CreateChooseMoveOutHomeButton();
-        CreateChooseToMoveForwardButton();
+        // CreateChooseMoveOutHomeButton();
+        // CreateChooseToMoveForwardButton();
         CreateInputDiceTextBox();
     }
     private void CreateTotemPlayerLabel()

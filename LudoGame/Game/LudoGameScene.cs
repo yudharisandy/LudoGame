@@ -13,20 +13,24 @@ public class LudoGameScene : IScene, IContextManager
     }
     public void Update(){}
 
-    public void NextTurn(IPlayer player, List<Totem> totemList, int diceValue, int userinputTotemID, UserChoiceSixInDice userInputChoice){
+    public void NextTurn(IPlayer player, List<Totem> totemList, int diceValue, int userinputTotemID){
         if (diceValue == 6){
-            GotSixInDice(player, totemList, diceValue, userinputTotemID, userInputChoice);
+            GotSixInDice(player, totemList, diceValue, userinputTotemID);
         }
         else{
             // Move available Totem (if totemStatus is OnPlay)
             if (totemList[userinputTotemID].totemStatus == TotemStatus.OnPlay){
                 UpdateTotemPosition(player, totemList[userinputTotemID], diceValue);
             }
+            else{
+                totemList[userinputTotemID].Position.x =  totemList[userinputTotemID].HomePosition.x;
+                totemList[userinputTotemID].Position.y =  totemList[userinputTotemID].HomePosition.y;
+            }
         }
     }
 
-    private void GotSixInDice(IPlayer player, List<Totem> totemList, int diceValue, int userinputTotemID, UserChoiceSixInDice userInputChoice){
-        if (userInputChoice == UserChoiceSixInDice.GetOutHome){
+    private void GotSixInDice(IPlayer player, List<Totem> totemList, int diceValue, int userinputTotemID){
+        if (totemList[userinputTotemID].totemStatus == TotemStatus.OnHome){
             // Options: Change Totem OnHome -> OnPlay
             totemList[userinputTotemID].totemStatus = TotemStatus.OnPlay;
             UpdateOutHomePosition(player, totemList[userinputTotemID]);
@@ -88,10 +92,4 @@ public class LudoGameScene : IScene, IContextManager
             totem.Position.y = ludoContext.board.Paths.pathPlayer4[0].y;
         }
     }
-}
-
-public enum UserChoiceSixInDice
-{
-    GetOutHome,
-    MoveTotemForward
 }

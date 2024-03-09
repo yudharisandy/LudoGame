@@ -31,20 +31,5 @@ public partial class LudoApplication
         }
         this.Controls.Add(this.tableLayoutPanel);
     }
-    private void AddColorGrid(){
-        // [Interact to Library]
-        List<(int, int)> playCoordinate = _ludoGameScene.ludoContext.board.GetBoardCoordinate();
-        
-        foreach(var i in playCoordinate){
-            Panel coloredPanel = new Panel();
-            coloredPanel.BackColor = Color.Turquoise;
-            // coloredPanel.Dock = DockStyle.Fill;
-            // Add panels to each cell and set their background color
-            int x = i.Item1; // Example row index
-            int y = i.Item2; // Example column index
-            this.tableLayoutPanel.Controls.Add(coloredPanel, x, y);
-        }
-    }
-
 }
 
