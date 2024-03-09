@@ -33,20 +33,21 @@ public partial class LudoApplication
     }
     private void StartButton_Click(object sender, EventArgs e)
     {
-        // Clear previous player names
-        _startLabel.Text = "";
-        bool status = _ludoContext.StartGame();
-        _startLabel.Text += $"Status: {status}\n";
-        
-        _ludoContext.AssignTotemHomePosition();
+        _ludoGameScene.ludoContext.AssignTotemHomePosition();
         CreateTotemHomePosition();
 
+        // Clear previous player names
+        _startLabel.Text = "";
+        bool status = _ludoGameScene.ludoContext.StartGame();
+        _startLabel.Text += $"Status: {status}\n";
+
+        Play();
     }
     private void CreateTotemHomePosition(){
-        foreach(var totemList in _ludoContext._playerTotems){
+        foreach(var totemList in _ludoGameScene.ludoContext._playerTotems){
             Color color = SetTotemColor(totemList);
             foreach(var totem in totemList.Value){
-                AddCircle(totem.HomePosition.x, totem.HomePosition.y, color);            
+                AddTotem(totem.HomePosition.x, totem.HomePosition.y, color);            
             } 
         }
     }

@@ -46,6 +46,10 @@ public partial class LudoApplication
         CreateStartButton(); // Interact with library -> LudoContext
         CreateStartLabel();
         #endregion
+
+        #region  On-game
+        CreatePlayerTurnLabel();
+        #endregion
     }
     #endregion
 

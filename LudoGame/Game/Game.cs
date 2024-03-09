@@ -1,16 +1,8 @@
+namespace LudoGame.Game;
+
 using LudoGame.GameFramework;
 using LudoGame.GameObject;
 using LudoGame.LudoObjects;
-
-namespace LudoGame.Game;
-
-public class LudoGameScene : IScene, IContextManager
-{
-    protected ISceneManager _sceneManager;
-    protected LudoContext _context;
-    public void Update(){}
-    protected void NextTurn(){}
-}
 
 public class LudoPlayer : IPlayerWithAction
 {
@@ -19,18 +11,6 @@ public class LudoPlayer : IPlayerWithAction
     public LudoPlayer(int id){
         ID = id;
     }
-}
-public class LudoRule
-{
-    private IContextManager<LudoContext> _contextManager;
-    private Func<Board,bool> _ruleSet;
-    public bool Check(IActionable action){
-        return true; // example
-    }
-    public bool statusCheck(){
-        return true; // example
-    }
-    public void RegisterRule(Func<Board,bool> func){}
 }
 
 public interface IContextManager

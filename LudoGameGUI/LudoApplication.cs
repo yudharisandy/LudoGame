@@ -5,12 +5,12 @@ using LudoGame.LudoObjects;
 
 public partial class LudoApplication : Form
 {
-    private LudoContext _ludoContext;
+    private LudoGameScene _ludoGameScene;
 
     public LudoApplication()
     {  
         // Instanciate
-        _ludoContext = new LudoContext(); 
+        _ludoGameScene = new LudoGameScene();
         
         InitializeComponent();           
     }

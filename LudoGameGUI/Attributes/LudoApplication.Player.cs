@@ -51,7 +51,7 @@ public partial class LudoApplication
             for (int i = 1; i <= numberOfPlayers; i++)
             {
                 LudoPlayer _ludoPlayer = new(i);
-                bool status = _ludoContext.RegisterPlayers(_ludoPlayer);
+                bool status = _ludoGameScene.ludoContext.RegisterPlayers(_ludoPlayer);
                 _playersLabel.Text += $"Player {i}, Status: {status}\n";
             }
         }

@@ -10,10 +10,12 @@ public class Board
     private int _yBoard = 14; // Size of Ludo board (14, 14) - start from 0
     private List<(int, int)> _boardCoordinates;
     public List<Cell> Cells {get; private set;}
-    public List<PathBoard> Paths {get; private set;}
+    public PathBoard Paths {get;set;}
 
     public Board(){
         _boardCoordinates = new List<(int, int)>();
+        Paths = new PathBoard();
+
         AddBoardCoordinate();
     }
     // public void PutTotemOnBoard(){

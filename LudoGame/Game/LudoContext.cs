@@ -70,6 +70,7 @@ public class LudoContext
     }
 
     public bool StartGame(){
+        // _playerTotems -> dictionary
         return true;
     }
 }

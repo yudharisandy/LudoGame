@@ -33,7 +33,7 @@ public partial class LudoApplication
     }
     private void AddColorGrid(){
         // [Interact to Library]
-        List<(int, int)> playCoordinate = _ludoContext.board.GetBoardCoordinate();
+        List<(int, int)> playCoordinate = _ludoGameScene.ludoContext.board.GetBoardCoordinate();
         
         foreach(var i in playCoordinate){
             Panel coloredPanel = new Panel();
