@@ -21,13 +21,13 @@ public class LudoContext
     public void AssignTotemHomePosition(){
         foreach(var player in _playerTotems){
             var coord = new List<(int,int)>();
-            if(player.Key.ID == 1){ // Player 1
+            if(player.Key.ID == 0){ // Player 1
                 coord.AddRange(new List<(int,int)> { (2, 11), (3, 11), (2, 12), (3, 12) });
             }
-            else if(player.Key.ID == 2){ // Player 2
+            else if(player.Key.ID == 1){ // Player 2
                 coord.AddRange(new List<(int,int)> { (11, 2), (12, 2), (11, 3), (12, 3) }); 
             }
-            else if(player.Key.ID == 3){ // Player 3
+            else if(player.Key.ID == 2){ // Player 3
                 coord.AddRange(new List<(int,int)> { (11, 11), (12, 11), (11, 12), (12, 12) });
             }
             else{ // Player 4

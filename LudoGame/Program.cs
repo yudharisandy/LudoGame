@@ -54,8 +54,6 @@ public class Program{
         // System.Console.WriteLine($"boardCoordinate count: {boardCoordinate.Count}");
         // foreach (var i in boardCoordinate){
         //     System.Console.WriteLine(i);
-        // }
-
-        
+        // } 
     }
 }

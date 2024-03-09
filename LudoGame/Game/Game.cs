@@ -7,10 +7,17 @@ using LudoGame.LudoObjects;
 public class LudoPlayer : IPlayerWithAction
 {
     public int ID {get; set;}
+    public PlayerTotemHome PlayersTotemHome {get; set;} 
     private IContextManager _contextManager;
     public LudoPlayer(int id){
         ID = id;
+        PlayersTotemHome = PlayerTotemHome.StillHaveInHome;
     }
+}
+public enum PlayerTotemHome
+{
+    StillHaveInHome,
+    AllOnPlay
 }
 
 public interface IContextManager

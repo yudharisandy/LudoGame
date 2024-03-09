@@ -1,10 +1,12 @@
 using System.Dynamic;
+using LudoGame.Game;
 
 namespace LudoGame.GameObject;
 
 public interface IPlayer
 {
     public int ID {get;}
+    public PlayerTotemHome PlayersTotemHome {get; set;}
 }
 public interface IContextManager<T>
 {

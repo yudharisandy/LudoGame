@@ -1,29 +1,9 @@
+namespace LudoGame.LudoObjects;
+
 using System.Dynamic;
 using LudoGame.GameObject;
 using LudoGame.Utility;
 
-namespace LudoGame.LudoObjects;
-
-public class Totem
-{
-    public int ID {get; set;}
-    public MathVector Position {get;set;}
-    public MathVector HomePosition {get;set;}
-    private List<int> path;
-    public IPlayer Owner {get; private set;}
-    // Constructor
-    public Totem(int id){
-        ID = id;
-        Position = new MathVector();
-        HomePosition = new MathVector();
-    }
-    public void AdvanceOnce(){}
-    public void GoHome(){}
-}
-public class MathVector(){
-    public int x;
-    public int y;
-}
 public class Cell
 {
     public CellType Type {get; private set;}

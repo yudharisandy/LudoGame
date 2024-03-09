@@ -18,7 +18,7 @@ public partial class LudoApplication
         this._inputPlayerButton = new Button();
         this._inputPlayerButton.Text = "Add Player";
         this._inputPlayerButton.Size = new Size(123, 50);
-        this._inputPlayerButton.Location = new Point(90, 200);
+        this._inputPlayerButton.Location = new Point(90, 285);
         this.Controls.Add(this._inputPlayerButton);
         this._inputPlayerButton.Click += PlayerInputButton_Click;
     }
@@ -26,7 +26,7 @@ public partial class LudoApplication
     {
         // Create a text box for inputting the number of players
         this._inputPlayerTextBox = new TextBox();
-        this._inputPlayerTextBox.Location = new System.Drawing.Point(100, 170);
+        this._inputPlayerTextBox.Location = new System.Drawing.Point(100, 255);
         this._inputPlayerTextBox.Size = new System.Drawing.Size(100, 20);
         this.Controls.Add(this._inputPlayerTextBox);
     }
@@ -36,7 +36,7 @@ public partial class LudoApplication
         this._playersLabel = new Label();
         this._playersLabel.Text = "";
         this._playersLabel.AutoSize = true;
-        this._playersLabel.Location = new System.Drawing.Point(70, 260);
+        this._playersLabel.Location = new System.Drawing.Point(70, 345);
         this.Controls.Add(this._playersLabel);
     }
     private void PlayerInputButton_Click(object sender, EventArgs e)
@@ -48,7 +48,7 @@ public partial class LudoApplication
             _playersLabel.Text = "";
 
             // Display player names
-            for (int i = 1; i <= numberOfPlayers; i++)
+            for (int i = 0; i < numberOfPlayers; i++)
             {
                 LudoPlayer _ludoPlayer = new(i);
                 bool status = _ludoGameScene.ludoContext.RegisterPlayers(_ludoPlayer);

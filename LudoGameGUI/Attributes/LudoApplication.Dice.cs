@@ -40,7 +40,12 @@ public partial class LudoApplication
     private void DiceButton_Click(object sender, EventArgs e)
     {
         // Generate a random number from 1 to 6 and display it
-        diceValue = _ludoGameScene.ludoContext.dice.Roll();
+        if(int.TryParse(_inputDiceTextBox.Text, out diceValue)){
+            // ... something
+        }
+        else{
+            diceValue = _ludoGameScene.ludoContext.dice.Roll();
+        }
         diceResultLabel.Text = $"{diceValue}"; // Update the label with the dice result
         rollDiceClickedTask.SetResult(true);
     }

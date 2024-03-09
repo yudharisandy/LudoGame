@@ -6,6 +6,7 @@ using System;
 using System.Windows.Forms;
 using LudoGame;
 using LudoGame.Game;
+using LudoGame.GameObject;
 using LudoGame.LudoObjects;
 
 public partial class LudoApplication
@@ -18,7 +19,7 @@ public partial class LudoApplication
         this._startButton = new Button();
         this._startButton.Text = "Start The Game";
         this._startButton.Size = new Size(123, 70);
-        this._startButton.Location = new Point(90, 670); // Position the button below the text box
+        this._startButton.Location = new Point(90, 690); // Position the button below the text box
         this.Controls.Add(this._startButton);
         this._startButton.Click += StartButton_Click;
     }
@@ -45,22 +46,22 @@ public partial class LudoApplication
     }
     private void CreateTotemHomePosition(){
         foreach(var totemList in _ludoGameScene.ludoContext._playerTotems){
-            Color color = SetTotemColor(totemList);
+            Color color = SetTotemColor(totemList.Key);
             foreach(var totem in totemList.Value){
-                AddTotem(totem.HomePosition.x, totem.HomePosition.y, color);            
+                AddTotem(totem.HomePosition.x, totem.HomePosition.y, color, totem);            
             } 
         }
     }
-    private Color SetTotemColor(KeyValuePair<LudoGame.GameObject.IPlayer, List<Totem>> totemList)
+    private Color SetTotemColor(IPlayer player)
     {
-        if (totemList.Key.ID == 1){ // Player 1
+        if (player.ID == 0){ // Player 1
             return Color.DarkBlue;
         }
-        else if (totemList.Key.ID == 2){ // Player 2
+        else if (player.ID == 1){ // Player 2
             return Color.DarkGreen;
         }
-        else if (totemList.Key.ID == 3){ // Player 3
-            return Color.Yellow;
+        else if (player.ID == 2){ // Player 3
+            return Color.YellowGreen;
         }
         return Color.DarkRed; // Player 4
     }

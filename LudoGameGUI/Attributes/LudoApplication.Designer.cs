@@ -20,6 +20,10 @@ public partial class LudoApplication
         this.ClientSize = new System.Drawing.Size(1100, 800);
         this.Text = "LudoApp";
         
+        #region Preparation
+        CreateTotemPlayerButton();
+        #endregion
+
         #region Board
         CreateGrid();
         // AddColorGrid(); // Interact with library -> LudoContext.Board
