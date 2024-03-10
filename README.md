@@ -6,3 +6,6 @@ This repository is part of The Bootcamp of Formulatrix Software Engineering, at 
 
 ### Progress Update
 ![progress-game-app](assets/progress3.png)
+
+### Board Scheme
+![Board-Scheme](assests/ludoScheme.jpg)

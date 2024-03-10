@@ -11,15 +11,56 @@ public class Board
     // private List<(int, int)> _boardCoordinates;
     public List<Cell> Cells {get; private set;}
     public PathBoard Paths {get;set;}
+    private List<(int, int)> _allNormalCellsCoordinate;
+    private List<(int, int)> _allSafeCellsCoordinate;
 
     public Board(){
         // _boardCoordinates = new List<(int, int)>();
         Paths = new PathBoard();
         Cells = new List<Cell>();
 
-        // AddBoardCoordinate();
+        RegisterAllCell();
     }
-    
+    private void RegisterAllCell(){
+        UpdateNormalCellsCoordinate();
+        UpdateSafeCellsCoordinate();
+
+        foreach(var i in _allNormalCellsCoordinate){
+            Cell cell = new(i.Item1, i.Item2, CellType.Normal);
+            Cells.Add(cell);
+        }
+
+        foreach(var i in _allSafeCellsCoordinate){
+            Cell cell = new(i.Item1, i.Item2, CellType.Safe);
+            Cells.Add(cell);
+        }
+    }
+    private void UpdateNormalCellsCoordinate(){
+        _allNormalCellsCoordinate = new List<(int, int)> {
+            (6, 13), (6, 12), (6, 11), (6, 10), (6, 9),
+            (5, 8), (4, 8), (3, 8), (2, 8), (1, 8), (0, 8), (0, 7),
+            (0, 6), (1, 6), (2, 6), (3, 6), (4, 6), (5, 6),
+            (6, 5), (6, 4), (6, 3), (6, 2), (6, 1), (6, 0), (7, 0),
+            (8, 0), (8, 1), (8, 2), (8, 3), (8, 4), (8, 5),
+            (9, 6), (10, 6), (11, 6), (12, 6), (13, 6), (14, 6), (14, 7),
+            (14, 8), (13, 8), (12, 8), (11, 8), (10, 8), (9, 8),
+            (8, 9), (8, 10), (8, 11), (8, 12), (8, 13), (8, 14), (7, 14),
+            (6, 14)
+        };
+    }
+    private void UpdateSafeCellsCoordinate(){
+        _allSafeCellsCoordinate = new List<(int, int)> {
+            (6, 13), (6, 12), (6, 11), (6, 10), (6, 9),
+            (5, 8), (4, 8), (3, 8), (2, 8), (1, 8), (0, 8), (0, 7),
+            (0, 6), (1, 6), (2, 6), (3, 6), (4, 6), (5, 6),
+            (6, 5), (6, 4), (6, 3), (6, 2), (6, 1), (6, 0), (7, 0),
+            (8, 0), (8, 1), (8, 2), (8, 3), (8, 4), (8, 5),
+            (9, 6), (10, 6), (11, 6), (12, 6), (13, 6), (14, 6), (14, 7),
+            (14, 8), (13, 8), (12, 8), (11, 8), (10, 8), (9, 8),
+            (8, 9), (8, 10), (8, 11), (8, 12), (8, 13), (8, 14), (7, 14),
+            (6, 14)
+        };
+    }
     // public void PutTotemOnBoard(){
 
     // }

@@ -9,10 +9,15 @@ public class Cell
     public CellType Type {get; private set;}
     private List<Totem> Occupants {get;set;}
     public MathVector Position {get; set;}
-    public Cell(){
+    public Cell(int x, int y, CellType type){
         Occupants = new List<Totem>();
+        
         Type = new CellType();
+        Type = type;
+
         Position = new MathVector();
+        Position.x = x;
+        Position.y = y;
     }
     public void AddTotem(Totem totem){
         Occupants.Add(totem);
