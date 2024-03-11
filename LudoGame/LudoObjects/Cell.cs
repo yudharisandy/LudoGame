@@ -1,16 +1,17 @@
 namespace LudoGame.LudoObjects;
 
 using System.Dynamic;
+using LudoGame.Game;
 using LudoGame.GameObject;
 using LudoGame.Utility;
 
 public class Cell
 {
     public CellType Type {get; private set;}
-    private List<Totem> Occupants {get;set;}
+    public Dictionary<IPlayer, Totem> Occupants {get;set;}
     public MathVector Position {get; set;}
     public Cell(int x, int y, CellType type){
-        Occupants = new List<Totem>();
+        Occupants = new Dictionary<IPlayer, Totem>();
         
         Type = new CellType();
         Type = type;
@@ -19,8 +20,8 @@ public class Cell
         Position.x = x;
         Position.y = y;
     }
-    public void AddTotem(Totem totem){
-        Occupants.Add(totem);
+    public void AddTotem(IPlayer player, Totem totem){
+        Occupants.Add(player, totem);
     }
     public bool KickTotem(Totem totem){
         return true; // example

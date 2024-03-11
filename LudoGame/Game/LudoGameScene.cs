@@ -12,7 +12,6 @@ public class LudoGameScene : IScene, IContextManager
         ludoContext = new LudoContext();
     }
     public void Update(){}
-
     public void NextTurn(IPlayer player, List<Totem> totemList, int diceValue, int userinputTotemID){
         if (diceValue == 6){
             GotSixInDice(player, totemList, diceValue, userinputTotemID);
@@ -27,6 +26,15 @@ public class LudoGameScene : IScene, IContextManager
                 totemList[userinputTotemID].Position.y =  totemList[userinputTotemID].HomePosition.y;
             }
         }
+        UpdateTotemBasedOnCellCondition();
+    }
+    private void UpdateTotemBasedOnCellCondition(){
+        // totem to be checked: totemList[userinputTotemID]
+        // Take certain cell (from ludoContext.board.Cells) with the same x, y as totemList[userinputTotemID].Position.x, y
+        // Check ludoContext.board.Cells.Occupants, if there is another totem from different player -> Kick
+            // Kick: the totem Position = HomePosition, remove from occupantas
+            // if the player is same -> Cells.AddTotem(player, totem)
+            // if Occupant is null -> Cells.AddTotem(player, totem)
     }
 
     private void GotSixInDice(IPlayer player, List<Totem> totemList, int diceValue, int userinputTotemID){
@@ -65,14 +73,6 @@ public class LudoGameScene : IScene, IContextManager
         }
     }
 
-    public bool CheckTotemStatus(IPlayer player, List<Totem> totemList){
-        foreach(var totem in totemList){
-            if (totem.totemStatus == TotemStatus.OnPlay){
-                return true;
-            }
-        }
-        return false;
-    }
     public void UpdateOutHomePosition(IPlayer player, Totem totem){
         // Move out of HomePosition (pathPlayer[0] == Initial totem position on board)
         if (player.ID == 0){
@@ -92,4 +92,13 @@ public class LudoGameScene : IScene, IContextManager
             totem.Position.y = ludoContext.board.Paths.pathPlayer4[0].y;
         }
     }
+
+    // public bool CheckTotemStatus(IPlayer player, List<Totem> totemList){
+    //     foreach(var totem in totemList){
+    //         if (totem.totemStatus == TotemStatus.OnPlay){
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 }
