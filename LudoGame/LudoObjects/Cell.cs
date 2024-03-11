@@ -19,11 +19,14 @@ public class Cell
         Position = new MathVector();
         Position.x = x;
         Position.y = y;
+
+        Occupants = new Dictionary<IPlayer, Totem>();
     }
     public void AddTotem(IPlayer player, Totem totem){
         Occupants.Add(player, totem);
     }
-    public bool KickTotem(Totem totem){
+    public bool KickTotem(IPlayer player){
+        Occupants.Remove(player);
         return true; // example
     }
     // public IPlayer GetOwnership(){}

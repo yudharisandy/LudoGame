@@ -15,22 +15,54 @@ public class LudoGameScene : IScene, IContextManager
     public void NextTurn(IPlayer player, List<Totem> totemList, int diceValue, int userinputTotemID){
         if (diceValue == 6){
             GotSixInDice(player, totemList, diceValue, userinputTotemID);
+            UpdateTotemBasedOnCellCondition(player, totemList[userinputTotemID]);
         }
         else{
             // Move available Totem (if totemStatus is OnPlay)
             if (totemList[userinputTotemID].totemStatus == TotemStatus.OnPlay){
                 UpdateTotemPosition(player, totemList[userinputTotemID], diceValue);
+                UpdateTotemBasedOnCellCondition(player, totemList[userinputTotemID]);
             }
             else{
                 totemList[userinputTotemID].Position.x =  totemList[userinputTotemID].HomePosition.x;
                 totemList[userinputTotemID].Position.y =  totemList[userinputTotemID].HomePosition.y;
             }
         }
-        UpdateTotemBasedOnCellCondition();
+        
     }
-    private void UpdateTotemBasedOnCellCondition(){
+    private void UpdateTotemBasedOnCellCondition(IPlayer player, Totem totem){
         // totem to be checked: totemList[userinputTotemID]
         // Take certain cell (from ludoContext.board.Cells) with the same x, y as totemList[userinputTotemID].Position.x, y
+        int index = 0;
+        for(index = 0; index < ludoContext.board.Cells.Count; index++){
+            if (totem.Position.x == ludoContext.board.Cells[index].Position.x 
+                && totem.Position.y == ludoContext.board.Cells[index].Position.y){
+                // return index;
+                break;
+            }
+        } // got index of working cell
+        var cell = ludoContext.board.Cells[index]; // bug: if cell is null -> OutOfRange
+
+        if (cell.Occupants is null || cell.Type == CellType.Safe){
+            cell.AddTotem(player, totem);
+        }
+        else{
+            foreach(var playerTotem in cell.Occupants){
+                if(player == playerTotem.Key){
+                    cell.AddTotem(player, totem);
+                }
+                else{
+                    // change totem position to HomePosition 
+                    // Set status to OnHome
+                    playerTotem.Value.Position.x = playerTotem.Value.HomePosition.x;
+                    playerTotem.Value.Position.y = playerTotem.Value.HomePosition.y; 
+                    playerTotem.Value.totemStatus = TotemStatus.OnHome;
+                    playerTotem.Value.pathStatus = 0;
+                    cell.KickTotem(playerTotem.Key);
+                }
+            }
+            
+        }
         // Check ludoContext.board.Cells.Occupants, if there is another totem from different player -> Kick
             // Kick: the totem Position = HomePosition, remove from occupantas
             // if the player is same -> Cells.AddTotem(player, totem)
