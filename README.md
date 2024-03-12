@@ -37,8 +37,9 @@ LudoGameGUI
     - Specific path/route of play for each player    
 
 ### Issues (To be solved soon)
-- Still working on collision rule
+- Collision rule
 - Got number six: the same player holds
+- No need to choose Totem if there is no totem OnPlay (dice != 6)
 
 ### Board Coordinate Scheme
 This library is built based on the following board coordinate scheme.
@@ -46,7 +47,16 @@ This library is built based on the following board coordinate scheme.
 
 ### How to Use
 - Clone the repo: 
-    ``` git clone https://github.com/yudharisandy/LudoGame.git ```
+
+    ``` 
+    git clone https://github.com/yudharisandy/LudoGame.git 
+    ```
+
+- Instanciate ```LudoGameScene```.
+
+    ``` 
+    var _ludoGameScene = new LudoGameScene(); 
+    ```
 
 - Register Players: Here is the example of block code to register player in your interface. Firstly, you need to specified ``` int numberOfPlyers```.
 
@@ -73,7 +83,10 @@ This library is built based on the following board coordinate scheme.
     ```
 
 - Roll dice.
-    ``` int diceValue = _ludoGameScene.ludoContext.dice.Roll(); ```
+
+    ``` 
+    int diceValue = _ludoGameScene.ludoContext.dice.Roll(); 
+    ```
 
 - Run the game: Here is the example of block code to run the game.
 

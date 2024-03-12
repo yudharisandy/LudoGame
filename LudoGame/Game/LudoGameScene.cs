@@ -16,16 +16,19 @@ public class LudoGameScene : IScene, IContextManager
         if (diceValue == 6){
             GotSixInDice(player, totemList, diceValue, userinputTotemID);
             UpdateTotemBasedOnCellCondition(player, totemList[userinputTotemID]);
+            System.Console.WriteLine("Dice 6");
         }
         else{
             // Move available Totem (if totemStatus is OnPlay)
             if (totemList[userinputTotemID].totemStatus == TotemStatus.OnPlay){
                 UpdateTotemPosition(player, totemList[userinputTotemID], diceValue);
                 UpdateTotemBasedOnCellCondition(player, totemList[userinputTotemID]);
+                System.Console.WriteLine("Dice not 6 & totem OnPlay");
             }
             else{
                 totemList[userinputTotemID].Position.x =  totemList[userinputTotemID].HomePosition.x;
                 totemList[userinputTotemID].Position.y =  totemList[userinputTotemID].HomePosition.y;
+                System.Console.WriteLine("Dice not 6 & totem OnHome");
             }
         }
         
@@ -41,24 +44,32 @@ public class LudoGameScene : IScene, IContextManager
                 break;
             }
         } // got index of working cell
-        var cell = ludoContext.board.Cells[index]; // bug: if cell is null -> OutOfRange
+        System.Console.WriteLine($"index: {index}");
+        System.Console.WriteLine($"cell[index]: {ludoContext.board.Cells[index]}");
+        System.Console.WriteLine($"cell[index].Occupants: {ludoContext.board.Cells[index].Occupants}");
 
-        if (cell.Occupants is null || cell.Type == CellType.Safe){
-            cell.AddTotem(player, totem);
+        if (ludoContext.board.Cells[index].Occupants.Count == 0 || ludoContext.board.Cells[index].Type == CellType.Safe){
+            ludoContext.board.Cells[index].AddTotem(player, totem);
+            System.Console.WriteLine("Totem added to Cell");
+            // System.Console.WriteLine(cell.Occupants.Values);
         }
         else{
-            foreach(var playerTotem in cell.Occupants){
+            System.Console.WriteLine("1st: Ocupanst is null Or Cell is Normal");
+            foreach(var playerTotem in ludoContext.board.Cells[index].Occupants){
+                System.Console.WriteLine("2nd: Occupants is not null or CellType is Normal");
                 if(player == playerTotem.Key){
-                    cell.AddTotem(player, totem);
+                    ludoContext.board.Cells[index].AddTotem(player, totem);
                 }
                 else{
+                    // Bug: The code doesn't enter this block
+
                     // change totem position to HomePosition 
                     // Set status to OnHome
                     playerTotem.Value.Position.x = playerTotem.Value.HomePosition.x;
                     playerTotem.Value.Position.y = playerTotem.Value.HomePosition.y; 
                     playerTotem.Value.totemStatus = TotemStatus.OnHome;
                     playerTotem.Value.pathStatus = 0;
-                    cell.KickTotem(playerTotem.Key);
+                    ludoContext.board.Cells[index].KickTotem(playerTotem.Key);
                 }
             }
             

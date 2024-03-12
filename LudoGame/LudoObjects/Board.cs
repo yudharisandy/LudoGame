@@ -36,7 +36,7 @@ public class Board
         }
     }
     private void UpdateNormalCellsCoordinate(){
-        _allNormalCellsCoordinate = new List<(int, int)> {
+        _allNormalCellsCoordinate = new List<(int, int)> { // 44
             (6, 14), (6, 12), (6, 11), (6, 10), (6, 9),
             (5, 8), (4, 8), (3, 8), (1, 8), (0, 8), (0, 7),
             (0, 6), (2, 6), (3, 6), (4, 6), (5, 6),
@@ -48,7 +48,7 @@ public class Board
         };
     }
     private void UpdateSafeCellsCoordinate(){
-        _allSafeCellsCoordinate = new List<(int, int)> {
+        _allSafeCellsCoordinate = new List<(int, int)> { // 
             (2, 8), (6, 2), (12, 6), (8, 12),
             (6, 13), (1, 6), (8, 1), (13, 8)
         };

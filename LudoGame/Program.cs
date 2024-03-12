@@ -1,59 +1,71 @@
-﻿namespace  LudoGame;
+﻿namespace LudoGame;
 
 using LudoGame.Game;
 using LudoGame.GameObject;
 using LudoGame.LudoObjects;
 
-public class Program{
-    static void Main(){
-        // // Create ludo objects
-        // Cell cell = new();
-        // LudoDice ludoDice = new();
-        // Board board = new();
+public class Program
+{
+    static void Main()
+    {
+        // Instanciate LudoGameScene
+        var _ludoGameScene = new LudoGameScene();
 
-        // // Create player instances
-        // IPlayerWithAction player1 = new LudoPlayer(1);        
-        // IPlayerWithAction player2 = new LudoPlayer(2);
+        // Register player
+        int numberOfPlayers = 4;
+        for (int i = 0; i < numberOfPlayers; i++)
+        {
+            LudoPlayer _ludoPlayer = new(i);
+            bool status = _ludoGameScene.ludoContext.RegisterPlayers(_ludoPlayer);
+        }
 
-        // // Create totme instances
-        // Totem totem1Player1 = new(1);
-        // // Totem totem2Player1 = new(2);
-        // // Totem totem3Player1 = new(3);
-        // Totem totem1Player2 = new(1);
+        // Register Totem
+        int numberOfTotems = 4;
+        foreach (var player in _ludoGameScene.ludoContext._players)
+        {
+            List<Totem> totemsList = new();
 
-        // // Create ludo context instance (to store all ludo live objects)
-        // LudoContext ludoContext = new();
+            for (int i = 0; i < numberOfTotems; i++)
+            {
+                Totem _totem = new(i);
+                totemsList.Add(_totem);
+            }
+            bool status = _ludoGameScene.ludoContext.RegisterTotems(player, totemsList);
+        }
 
-        // // Assign players to ludo context
-        // // ludoContext._players.Add(player1);
-        // // ludoContext.players.Add(player2);
-        // // System.Console.WriteLine(ludoContext.players);
+        // Roll the dice
+        // int diceValue = _ludoGameScene.ludoContext.dice.Roll();
+        int diceValue = 0;
+        int userInputTotemID;
 
-        // // Assign totems to dict of player-totems in ludo context
-        // List<Totem> totemsPlayer1 = new();
-        // List<Totem> totemsPlayer2 = new();
-        // totemsPlayer1.Add(totem1Player1);
-        // // totemsPlayer1.Add(totem2Player1);
-        // // totemsPlayer1.Add(totem3Player1);
-        // totemsPlayer2.Add(totem1Player2);
-        // ludoContext.RegisterTotems(player1, totemsPlayer1);
-        // ludoContext.RegisterTotems(player2, totemsPlayer2);
+        // Run the game
+        while (true)
+        {
+            // Loop for every player
+            foreach (var player in _ludoGameScene.ludoContext._playerTotems)
+            {
+                // Player turn
+                System.Console.WriteLine($"Turn: Player {player.Key.ID + 1}");
 
-        // // Check totems that were already registered
-        // var totemplayersatu = ludoContext.GetTotems(player1);
-        // foreach (var i in totemplayersatu){
-        //     System.Console.WriteLine(i);
-        // }
+                // Roll dice
+                System.Console.Write("Input dice: ");
+                string diceString = Console.ReadLine();
+                int.TryParse(diceString, out diceValue);
+                // System.Console.WriteLine(diceValue);
 
-        // // This stage: Already have dict Players and List<Totem>
+                // Choose totem to be moved
+                System.Console.Write("Totem to be moved: ");
+                string userInputTotemIDString = Console.ReadLine();
+                int.TryParse(userInputTotemIDString, out userInputTotemID);
+                // System.Console.WriteLine(userInputTotemID);
 
-        // // Start the game
+                _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
 
-        // // Get all available board coordinates
-        // var boardCoordinate = board.GetBoardCoordinate();
-        // System.Console.WriteLine($"boardCoordinate count: {boardCoordinate.Count}");
-        // foreach (var i in boardCoordinate){
-        //     System.Console.WriteLine(i);
-        // } 
+                // ... method to update each totems position in your interface
+
+                System.Console.WriteLine("--------------------------");
+            }
+        }
+
     }
 }
