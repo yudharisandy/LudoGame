@@ -45,10 +45,13 @@ This library is built based on the following board coordinate scheme.
 ![Board-Scheme](assets/ludoScheme.jpg)
 
 ### How to Use
-- First, ...
+- Register Player
+```
+bool status = _ludoGameScene.ludoContext.RegisterPlayers(_ludoPlayer);
+```
 - Second, ...
 - Third, ...
 
 ### References
 - [Class Diagram](https://github.com/probabilitynokami/ClassDiagram/blob/main/Ludo.md)
-- [Formulatrix Bootcamp Repository]()https://github.com/yudharisandy/Bootcamp-Formulatrix-CSharp
+- [Formulatrix Bootcamp Repository](https://github.com/yudharisandy/Bootcamp-Formulatrix-CSharp)
