@@ -45,6 +45,9 @@ This library is built based on the following board coordinate scheme.
 ![Board-Scheme](assets/ludoScheme.jpg)
 
 ### How to Use
+- Clone the repo: 
+    ``` git clone https://github.com/yudharisandy/LudoGame.git ```
+
 - Register Players: Here is the example of block code to register player in your interface. Firstly, you need to specified ``` int numberOfPlyers```.
 
     ```
@@ -55,7 +58,7 @@ This library is built based on the following board coordinate scheme.
     }
     ```
 
-- Register Totems: Here is the example of block code to register totem to each player. Firstly, you need to specify ``` int numberOfTotems```.
+- Register totems: Here is the example of block code to register totem to each player. Firstly, you need to specify ``` int numberOfTotems```.
 
     ```
     foreach(var player in _ludoGameScene.ludoContext._players){
@@ -68,6 +71,9 @@ This library is built based on the following board coordinate scheme.
         bool status = _ludoGameScene.ludoContext.RegisterTotems(player, totemsList);
     }
     ```
+
+- Roll dice.
+    ``` int diceValue = _ludoGameScene.ludoContext.dice.Roll(); ```
 
 - Run the game: Here is the example of block code to run the game.
 
