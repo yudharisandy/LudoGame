@@ -19,11 +19,9 @@ public class Cell
         Position = new MathVector();
         Position.x = x;
         Position.y = y;
-
-        Occupants = new Dictionary<IPlayer, Totem>();
     }
-    public void AddTotem(IPlayer player, Totem totem){
-        Occupants.Add(player, totem);
+    public void AddTotem(IPlayer player, Totem totems){
+        Occupants.Add(player, totems);
     }
     public bool KickTotem(IPlayer player){
         Occupants.Remove(player);
