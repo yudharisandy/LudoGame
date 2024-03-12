@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\LudoGame\\LudoGame.csproj": {}
+    "E:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\LudoGame\\LudoGame.csproj": {}
   },
   "projects": {
-    "e:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\LudoGame\\LudoGame.csproj": {
+    "E:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\LudoGame\\LudoGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\LudoGame\\LudoGame.csproj",
+        "projectUniqueName": "E:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\LudoGame\\LudoGame.csproj",
         "projectName": "LudoGame",
-        "projectPath": "e:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\LudoGame\\LudoGame.csproj",
+        "projectPath": "E:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\LudoGame\\LudoGame.csproj",
         "packagesPath": "C:\\Users\\Yudha Putra Arisandy\\.nuget\\packages\\",
-        "outputPath": "e:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\LudoGame\\obj\\",
+        "outputPath": "E:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\LudoGame\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Yudha Putra Arisandy\\AppData\\Roaming\\NuGet\\NuGet.Config"

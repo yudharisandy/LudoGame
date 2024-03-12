@@ -32,13 +32,14 @@ LudoGameGUI
 - Support for 2-4 players
 - Provide a simple graphical user interface to be played around
 - Support specific Ludo rules: 
+    - Got number six: the same player holds
     - Collision rule: Send totem back to home position.
     - Specific path/route of play for each player.    
 
-### Issues (To be solved soon)
-- Collision rule: Bug in older cell still have totem.
-- Got number six: the same player holds
+### Issues (still be working on)
+- Collision rule: GUI bug.
 - No need to choose Totem if there is no totem OnPlay (dice != 6)
+- Method to choose the winner and stop the game.
 
 ### Board Coordinate Scheme
 This library is built based on the following board coordinate scheme.
@@ -57,7 +58,7 @@ This library is built based on the following board coordinate scheme.
     var _ludoGameScene = new LudoGameScene(); 
     ```
 
-- Register Players: Here is the example of block code to register player in your interface. Firstly, you need to specified ``` int numberOfPlyers```.
+- Register Players: Here is the example of block code to register player in your interface. Firstly, you need to specify ``` int numberOfPlyers```.
 
     ```
     for (int i = 0; i < numberOfPlayers; i++)
@@ -90,21 +91,29 @@ This library is built based on the following board coordinate scheme.
 - Run the game: Here is the example of block code to run the game.
 
     ```
-    while(true){
+    while (true)
+    {
         // Loop for every player
-        foreach(var player in _ludoGameScene.ludoContext._playerTotems){
-            
-            rollDiceClickedTask = new TaskCompletionSource<bool>();
-            await rollDiceClickedTask.Task;
-            
-            chooseTotemToMove = new TaskCompletionSource<bool>();
-            await chooseTotemToMove.Task;
-            
-            _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
+        foreach (var player in _ludoGameScene.ludoContext._playerTotems)
+        {
+            do {
+                // Player turn
+                System.Console.WriteLine($"Turn: Player {player.Key.ID + 1}");
 
-            // ... method to update each totems position in your interface
+                // Roll dice
+                int diceValue = _ludoGameScene.ludoContext.dice.Roll(); 
+                // ... method to wait or show the diceValue
 
-            await Task.Delay(1000);
+                // Choose totem to be moved
+                System.Console.Write("Totem to be moved: ");
+                string userInputTotemIDString = Console.ReadLine();
+                int.TryParse(userInputTotemIDString, out userInputTotemID);
+
+                _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
+
+                // ... method to update each totems position in your interface
+
+            } while (diceValue == 6);
         }
     }
     ```

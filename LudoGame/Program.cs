@@ -44,26 +44,29 @@ public class Program
             // Loop for every player
             foreach (var player in _ludoGameScene.ludoContext._playerTotems)
             {
-                // Player turn
-                System.Console.WriteLine($"Turn: Player {player.Key.ID + 1}");
+                do {
+                    // Player turn
+                    System.Console.WriteLine($"Turn: Player {player.Key.ID + 1}");
 
-                // Roll dice
-                System.Console.Write("Input dice: ");
-                string diceString = Console.ReadLine();
-                int.TryParse(diceString, out diceValue);
-                // System.Console.WriteLine(diceValue);
+                    // Roll dice
+                    System.Console.Write("Input dice: ");
+                    string diceString = Console.ReadLine();
+                    int.TryParse(diceString, out diceValue);
+                    // System.Console.WriteLine(diceValue);
 
-                // Choose totem to be moved
-                System.Console.Write("Totem to be moved: ");
-                string userInputTotemIDString = Console.ReadLine();
-                int.TryParse(userInputTotemIDString, out userInputTotemID);
-                // System.Console.WriteLine(userInputTotemID);
+                    // Choose totem to be moved
+                    System.Console.Write("Totem to be moved: ");
+                    string userInputTotemIDString = Console.ReadLine();
+                    int.TryParse(userInputTotemIDString, out userInputTotemID);
+                    // System.Console.WriteLine(userInputTotemID);
 
-                _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
+                    _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
 
-                // ... method to update each totems position in your interface
+                    // ... method to update each totems position in your interface
 
-                System.Console.WriteLine("--------------------------");
+                    System.Console.WriteLine("--------------------------");
+                } while (diceValue == 6);
+
             }
         }
 
