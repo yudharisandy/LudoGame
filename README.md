@@ -46,9 +46,16 @@ This library is built based on the following board coordinate scheme.
 
 ### How to Use
 - Register Player
-```
-bool status = _ludoGameScene.ludoContext.RegisterPlayers(_ludoPlayer);
-```
+Here is the example of block code to register player in your interface. You need to specified ``` int numberOfPlyers``` 
+    ```
+    for (int i = 0; i < numberOfPlayers; i++)
+    {
+        LudoPlayer _ludoPlayer = new(i);
+        bool status = _ludoGameScene.ludoContext.RegisterPlayers(_ludoPlayer);
+        _playersLabel.Text += $"Player {i}, Status: {status}\n";
+    }
+    ```
+    
 - Second, ...
 - Third, ...
 
