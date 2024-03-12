@@ -35,10 +35,16 @@ public partial class LudoApplication
                     Color color = SetTotemColor(player.Key);
                     MoveTotem(player.Value[userInputTotemID].Position.x, player.Value[userInputTotemID].Position.y, color, player.Value[userInputTotemID]);
 
-                    // Next: Logic to check the totem collision
+                    // Next: method to update scene due to collision
 
-                    // await Task.Delay(1000);
-                
+                    // Method to check the winner (to stop the game)
+                    // var gameStatus = MethodToGetGameStatus();
+                    // if (gameStatus == false){
+                    // var gameWinner = ChooseWinner();
+                    // StopGame();
+                    // }
+
+                    await Task.Delay(500);
                 } while(diceValue == 6); 
             }
         }

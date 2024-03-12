@@ -11,10 +11,10 @@ This repository is part of The Bootcamp project of Formulatrix Software Engineer
 - [How to Use]()
 - [References]()
 
-### Progress Update
-![progress-game-app](assets/progress3.png)
+## Progress Update
+![progress-game-app](assets/progress.png)
 
-### Repository Foldering Structure
+## Repository Foldering Structure
 ```
 LudoGame
 ├── Game
@@ -28,24 +28,26 @@ LudoGameGUI
           └── LudoGameGUI.exe   
 ```
 
-### Game Features
+## Game Features
 - Support for 2-4 players
 - Provide a simple graphical user interface to be played around
 - Support specific Ludo rules: 
+    - The totem can only go out when dice value is 6
     - Got number six: the same player holds
-    - Collision rule: Send totem back to home position.
-    - Specific path/route of play for each player.    
+    - Collision rule: Send enemy's totem back to the home position.
+    - Specific path/route of play for each player/totem.    
 
-### Issues (still be working on)
-- Collision rule: GUI bug.
+## Next Plan
 - No need to choose Totem if there is no totem OnPlay (dice != 6)
 - Method to choose the winner and stop the game.
+- Bug: A cell can't contain totem from the same player (can't add the same key: Player to the dictionary).
+- Bug: GUI for handling the collision rule update.
 
-### Board Coordinate Scheme
+## Board Coordinate Scheme
 This library is built based on the following board coordinate scheme.
 ![Board-Scheme](assets/ludoScheme.jpg)
 
-### How to Use
+## How to Use
 - Clone the repo: 
 
     ``` 
@@ -118,6 +120,6 @@ This library is built based on the following board coordinate scheme.
     }
     ```
 
-### References
+## References
 - [Class Diagram](https://github.com/probabilitynokami/ClassDiagram/blob/main/Ludo.md)
 - [Formulatrix Bootcamp Repository](https://github.com/yudharisandy/Bootcamp-Formulatrix-CSharp)
