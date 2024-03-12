@@ -45,18 +45,28 @@ This library is built based on the following board coordinate scheme.
 ![Board-Scheme](assets/ludoScheme.jpg)
 
 ### How to Use
-- Register Player
-Here is the example of block code to register player in your interface. You need to specified ``` int numberOfPlyers``` 
+- Register Players
+Here is the example of block code to register player in your interface. Firstly, you need to specified ``` int numberOfPlyers```.
     ```
     for (int i = 0; i < numberOfPlayers; i++)
     {
         LudoPlayer _ludoPlayer = new(i);
         bool status = _ludoGameScene.ludoContext.RegisterPlayers(_ludoPlayer);
-        _playersLabel.Text += $"Player {i}, Status: {status}\n";
     }
     ```
-    
-- Second, ...
+- Register Totems
+Here is the example of block code to register totem to each player. Firstly, you need to specify ``` int numberOfTotems```.
+    ```
+    foreach(var player in _ludoGameScene.ludoContext._players){
+        List<Totem> totemsList = new();
+        for (int i = 0; i < numberOfTotems; i++)
+        {
+            Totem _totem = new(i);
+            totemsList.Add(_totem);
+        }
+        bool status = _ludoGameScene.ludoContext.RegisterTotems(player, totemsList);
+    }
+    ```
 - Third, ...
 
 ### References
