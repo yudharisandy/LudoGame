@@ -32,12 +32,11 @@ LudoGameGUI
 - Support for 2-4 players
 - Provide a simple graphical user interface to be played around
 - Support specific Ludo rules: 
-    - Got number six: the same player holds
-    - Collision rule: 
-    - Specific path/route of play for each player    
+    - Collision rule: Send totem back to home position.
+    - Specific path/route of play for each player.    
 
 ### Issues (To be solved soon)
-- Collision rule
+- Collision rule: Bug in older cell still have totem.
 - Got number six: the same player holds
 - No need to choose Totem if there is no totem OnPlay (dice != 6)
 
