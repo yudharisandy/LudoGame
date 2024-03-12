@@ -68,8 +68,28 @@ This library is built based on the following board coordinate scheme.
         bool status = _ludoGameScene.ludoContext.RegisterTotems(player, totemsList);
     }
     ```
-    
-- Third, ...
+
+- Run the game: Here is the example of block code to run the game.
+
+    ```
+    while(true){
+        // Loop for every player
+        foreach(var player in _ludoGameScene.ludoContext._playerTotems){
+            
+            rollDiceClickedTask = new TaskCompletionSource<bool>();
+            await rollDiceClickedTask.Task;
+            
+            chooseTotemToMove = new TaskCompletionSource<bool>();
+            await chooseTotemToMove.Task;
+            
+            _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
+
+            // ... method to update each totems position in your interface
+
+            await Task.Delay(1000);
+        }
+    }
+    ```
 
 ### References
 - [Class Diagram](https://github.com/probabilitynokami/ClassDiagram/blob/main/Ludo.md)
