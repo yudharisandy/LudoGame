@@ -28,12 +28,22 @@ public partial class LudoApplication
                     await rollDiceClickedTask.Task; // // Wait player push "Roll Dice" to change the "diceValue" (1-6)
                     
                     // To check whether the totem OnPlay exist(s) or not.
-                    bool statusOnPlay = CheckTotemStatus(player.Value);
+                    int numberTotemOnPlay = CheckTotemStatus(player.Value);
 
                     // If there is no Totem OnPlay and dice != 6, continue to next player directly
-                    if (diceValue == 6 || statusOnPlay == true){ 
-                        chooseTotemToMove = new TaskCompletionSource<bool>();
-                        await chooseTotemToMove.Task; // Wait player to choose one totem to change "userinputTotemID" (0-3)
+                    if (diceValue == 6 || numberTotemOnPlay >= 1){ 
+                        
+                        // If there is only 1 OnPlay totem, user doesn't need to choose anymore.
+                        if (numberTotemOnPlay == 1 && diceValue != 6){
+                            // method to get that one totem ID
+                            // When get dice 6, user can choose themselves
+                            userInputTotemID = GetTheOnlyOnPlayTotemID(player.Value);
+                        }
+                        else{
+                            // User chooses by themselves
+                            chooseTotemToMove = new TaskCompletionSource<bool>();
+                            await chooseTotemToMove.Task; // Wait player to choose one totem to change "userinputTotemID" (0-3)
+                        }
                         
                         _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
 
@@ -73,14 +83,29 @@ public partial class LudoApplication
         }
     }
 
-    private bool CheckTotemStatus(List<Totem> totemLists){
+    private int CheckTotemStatus(List<Totem> totemLists){
+        // A method to check how many OnPlay totems are there
+        int index = 0;
         foreach(var totem in totemLists){
             if(totem.totemStatus == TotemStatus.OnPlay){
-                return true;
+                index++;
             }
         }
-        return false;
+        return index;
     }
+
+    private int GetTheOnlyOnPlayTotemID(List<Totem> totemLists){
+        // A method to get the only one OnPlay Totem ID
+        // Called only when there is one OnPlay Totem
+        int id = 0;
+        foreach(var totem in totemLists){
+            if(totem.totemStatus == TotemStatus.OnPlay){
+                id = totem.ID;
+            }
+        }
+        return id;
+    }
+
     private void MoveTotem(int x, int y, Color color, Totem totem)
     {  
         // Create a circle panel

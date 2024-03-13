@@ -45,11 +45,11 @@ LudoGameGUI
     - Method to choose the winner and stop the game.    
     - When a player kick other player's totem -> the same player holds.
     - When a totem reach the final cell -> the same player holds.
-    - When a totem reach a final cell -> be able to run other totem when got non-6 dice
+    - When a totem reach a final cell -> be able to run other totem when got non-6 dice.
+    - When there is only 1 totem OnPlay -> directly move the totem (user doesn't need to choose the totem)
 - Provide a playground interface to be tried out!
 
 ## Next Plan
-- Library: When there is only 1 totem OnPlay -> directly move the totem (user doesn't need to choose the totem)
 - Library: when totem kicked out, next turn to run the totem is affacted player (when accidentally click the kicked out totem)
 - GUI: GUI for handling the collision rule update.
     - GUI Bug: A kicked Totem doesn't automatically go back to Home when it is chosen to move in the next turn.
@@ -167,6 +167,34 @@ The following is the scheme of the ludo paths.
     ```
     // Check whether there is collision or not
     _getCollisionStatus = _ludoGameScene.GetCollisionStatus(); // true: collision | false: no collision
+    ```
+
+- To choose automatically the totem when there is only one OnPlay totem. You can add the following block code example in your run-loop,
+
+    ```
+    // If there is only 1 OnPlay totem, user doesn't need to choose anymore.
+    if (numberTotemOnPlay == 1 && diceValue != 6){
+        // method to get that one totem ID
+        // When get dice 6, user can choose themselves
+        userInputTotemID = GetTheOnlyOnPlayTotemID(player.Value);
+    }
+    else{
+        chooseTotemToMove = new TaskCompletionSource<bool>();
+        await chooseTotemToMove.Task; // Wait player to choose one totem to change "userinputTotemID" (0-3)
+    }
+    ```
+
+    ```
+    private int GetTheOnlyOnPlayTotemID(List<Totem> totemLists){
+        // A method to get the only one OnPlay Totem ID, called only when there is one OnPlay Totem
+        int id = 0;
+        foreach(var totem in totemLists){
+            if(totem.totemStatus == TotemStatus.OnPlay){
+                id = totem.ID;
+            }
+        }
+        return id;
+    }
     ```
 
 ## Methods Explaination
