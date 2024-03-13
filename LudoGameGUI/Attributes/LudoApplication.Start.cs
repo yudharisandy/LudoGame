@@ -21,7 +21,7 @@ public partial class LudoApplication
         this._startButton = new Button();
         this._startButton.Text = "Start The Game";
         this._startButton.Size = new Size(123, 70);
-        this._startButton.Location = new Point(90, 690); // Position the button below the text box
+        this._startButton.Location = new Point(150, 690); // Position the button below the text box
         this.Controls.Add(this._startButton);
         this._startButton.Click += StartButton_Click;
     }
@@ -32,7 +32,7 @@ public partial class LudoApplication
         this._startLabel = new Label();
         this._startLabel.Text = "Status: False";
         this._startLabel.AutoSize = true;
-        this._startLabel.Location = new System.Drawing.Point(96, 760);
+        this._startLabel.Location = new System.Drawing.Point(158, 760);
         this.Controls.Add(this._startLabel);
     }
 

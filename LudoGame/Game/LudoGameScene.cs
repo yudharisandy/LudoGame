@@ -9,14 +9,32 @@ public class LudoGameScene : IScene, IContextManager
     protected ISceneManager _sceneManager;
     public LudoContext ludoContext;
     private bool collisionStatus;
+    private Dictionary<IPlayer, Totem> _totemToBeKicked;
+
     public LudoGameScene(){
         ludoContext = new LudoContext();
+
+        _totemToBeKicked = new Dictionary<IPlayer, Totem>();
     }
 
     public void Update(){}
 
     public bool GetCollisionStatus(){
         return collisionStatus;
+    }
+    public Totem GetTotemToBeKicked(){
+        // There is only one Totem to be kicked!
+        foreach(var i in _totemToBeKicked){
+            return i.Value;
+        }
+        return null;
+    }
+    public IPlayer GetPlayerToBeKicked(){
+        // There is only one Totem to be kicked!
+        foreach(var i in _totemToBeKicked){
+            return i.Key;
+        }
+        return null;
     }
 
     public bool GetTotemReachFinalCellStatus(Totem totem){
@@ -72,7 +90,6 @@ public class LudoGameScene : IScene, IContextManager
                 // System.Console.WriteLine("Dice not 6 & totem OnHome");
             }
         }
-        
     }
 
     private void UpdateTotemBasedOnCellConditionBeforeMove(IPlayer player, Totem totem){
@@ -102,7 +119,7 @@ public class LudoGameScene : IScene, IContextManager
         }
         else if (cell.Occupants.Count != 0 || cell.Type == CellType.Normal){
             foreach(var playerTotem in cell.Occupants){
-                if(player == playerTotem.Key){
+                if(playerTotem.Key == player){
                     cell.AddTotem(player, totem);
                     collisionStatus = false; // To state that there is no collision
                 }
@@ -110,12 +127,20 @@ public class LudoGameScene : IScene, IContextManager
                     // change all totems position to HomePosition 
                     // Set status to OnHome
                     foreach(var totemToKick in playerTotem.Value){
+                        totemToKick.PreviousPosition.x = totemToKick.Position.x;
+                        totemToKick.PreviousPosition.y = totemToKick.Position.y;
                         totemToKick.Position.x = totemToKick.HomePosition.x;
                         totemToKick.Position.y = totemToKick.HomePosition.y; 
                         totemToKick.totemStatus = TotemStatus.OnHome;
                         totemToKick.pathStatus = 0; // Reset the path/route history
+
+                        // Save the totem to be kicked
+                        _totemToBeKicked.Clear(); // Clear before using it
+                        _totemToBeKicked.Add(playerTotem.Key, totemToKick);
                     }
-                    collisionStatus = true; // To state that there is collision
+                    // To state that there is collision
+                    collisionStatus = true; 
+
                     cell.KickTotem(playerTotem.Key);
                 }
             }

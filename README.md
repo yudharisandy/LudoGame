@@ -49,10 +49,11 @@ LudoGameGUI
     - When there is only 1 totem OnPlay -> directly move the totem (user doesn't need to choose the totem)
 - Provide a playground interface to be tried out!
 
-## Next Plan
-- Library: when totem kicked out, next turn to run the totem is affacted player (when accidentally click the kicked out totem)
+## Next Plans
+- Library: when totem kicked out, next turn to run the totem is affacted player (when accidentally click the kicked out totem -> the player just remain the same -> continue to next player)
 - GUI: GUI for handling the collision rule update.
     - GUI Bug: A kicked Totem doesn't automatically go back to Home when it is chosen to move in the next turn.
+    - Optional solution: Create a refresh button!
 
 ## Board Coordinate Scheme
 This library is built based on the following board coordinate scheme.

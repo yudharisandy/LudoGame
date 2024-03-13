@@ -20,7 +20,7 @@ public partial class LudoApplication
         CreateTotemPlayerLabel();
         
         // Temporary
-        // CreateChooseMoveOutHomeButton();
+        CreateRefreshRenderingButton();
         // CreateChooseToMoveForwardButton();
         CreateInputDiceTextBox();
     }
