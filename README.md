@@ -7,7 +7,7 @@ This repo is an individual project of The Bootcamp of Formulatrix Software Engin
 ## Table of Contents
 - [GUI Example]()
 - [Repository Foldering Structure]()
-- [Game Features]()
+- [Game Features](#game-features)
 - [Issues]()
 - [Board Coordinate Scheme]()
 - [Ludo Paths]()
@@ -34,7 +34,7 @@ LudoGameGUI
           └── LudoGameGUI.exe   
 ```
 
-## Game Features
+## <a name="fame-features" id="game-features"></a>Game Features
 - Support for 2-4 players
 - Support specific Ludo rules: 
     - The totem can only go out when dice value is 6
@@ -222,7 +222,9 @@ The following is the scheme of the ludo paths.
 
 - For more details, please refer to ```./LudoGameGUI/Attributes/LudoApplication.OnGame.cs```.
 
+
 ## Methods Explaination
+- tba.
 
 
 ## License
@@ -232,3 +234,4 @@ The following is the scheme of the ludo paths.
 ## References
 - [Class Diagram](https://github.com/probabilitynokami/ClassDiagram/blob/main/Ludo.md)
 - [Formulatrix Bootcamp Repository](https://github.com/yudharisandy/Bootcamp-Formulatrix-CSharp)
+- [System.Windows.Forms](https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms?view=windowsdesktop-8.0)
