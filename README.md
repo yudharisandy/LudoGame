@@ -115,7 +115,7 @@ The following is the scheme of the ludo paths.
 
                 // Roll dice
                 int diceValue = _ludoGameScene.ludoContext.dice.Roll(); 
-                // ... method to wait or show the diceValue
+                // ... method to control/wait/show the diceValue in your UI
 
                 // Choose totem to be moved
                 System.Console.Write("Totem to be moved: ");
@@ -124,10 +124,25 @@ The following is the scheme of the ludo paths.
 
                 _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
 
-                // ... method to update each totems position in your interface
+                // ... method to check the winner
+
+                // ... method to update each totems position in your UI
 
             } while (diceValue == 6);
         }
+    }
+    ```
+
+- Choose the winner: You can add the following block code in your run-loop.
+
+    ```
+    _gameStatus = _ludoGameScene.GetGameStatus(player.Key, player.Value[userInputTotemID]);
+    if (_gameStatus == false){
+        _playerTurnLabel.Text = $"Player {player.Key.ID + 1} Win!";
+        _startLabel.Text += $"Status: {_gameStatus}";
+        
+        // ... method to stop the game;
+        await Task.Delay(100000);
     }
     ```
 
