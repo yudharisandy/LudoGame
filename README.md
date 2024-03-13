@@ -18,7 +18,7 @@ This repo is an individual project of The Bootcamp of Formulatrix Software Engin
 
 ## Graphical User Interface (GUI) Example
 The following is the example of a GUI built using Windwos Forms Apps.
-![progress-game-app](assets/progress.png)
+![progress-game-app](assets/progress.gif)
 
 ## Repository Foldering Structure
 ```
