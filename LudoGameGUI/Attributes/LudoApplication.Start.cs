@@ -44,7 +44,8 @@ public partial class LudoApplication
         // Clear previous player names
         _startLabel.Text = "";
         _gameStatus = _ludoGameScene.ludoContext.StartGame();
-        _startLabel.Text += $"Status: {_gameStatus}\n";
+        _getTotemReachFinalCellStatus = false;
+        _startLabel.Text += $"Status: {_gameStatus}";
 
         Play();
     }

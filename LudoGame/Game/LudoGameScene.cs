@@ -15,6 +15,18 @@ public class LudoGameScene : IScene, IContextManager
 
     public void Update(){}
 
+    public bool GetTotemReachFinalCellStatus(Totem totem){
+        int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.After);
+        var cell = ludoContext.board.Cells[index];
+
+        if (cell.Type == CellType.Final){
+            // this method runs every 1 totem reach the final cell
+            totem.totemStatus = TotemStatus.OnFinal; // Change OnPlay -> OnFinal
+            return true; // Totem reach final cell
+        }
+        return false; // Totem doesn't reach final cell
+    }
+
     public bool GetGameStatus(IPlayer player, Totem totem){
         
         // If the finalCell.Count == TotemList.Count -> game should stop, return false
@@ -50,7 +62,7 @@ public class LudoGameScene : IScene, IContextManager
                 UpdateTotemBasedOnCellConditionAfterMove(player, totemList[userinputTotemID]);
                 // System.Console.WriteLine("Dice not 6 & totem OnPlay");
             }
-            else{
+            else if (totemList[userinputTotemID].totemStatus == TotemStatus.OnHome){
                 totemList[userinputTotemID].Position.x =  totemList[userinputTotemID].HomePosition.x;
                 totemList[userinputTotemID].Position.y =  totemList[userinputTotemID].HomePosition.y;
                 // System.Console.WriteLine("Dice not 6 & totem OnHome");
@@ -137,7 +149,7 @@ public class LudoGameScene : IScene, IContextManager
             totemList[userinputTotemID].totemStatus = TotemStatus.OnPlay;
             UpdateOutHomePosition(player, totemList[userinputTotemID]);
         }
-        else{
+        else if(totemList[userinputTotemID].totemStatus == TotemStatus.OnPlay){
             // Move available Totem
             UpdateTotemPosition(player, totemList[userinputTotemID], diceValue);
             // cell.KickTotem(this from the previous cell)

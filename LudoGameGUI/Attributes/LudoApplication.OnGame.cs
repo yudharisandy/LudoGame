@@ -11,6 +11,7 @@ public partial class LudoApplication
     private Label _playerTurnLabel;
     private int userInputTotemID;
     private TaskCompletionSource<bool> chooseTotemToMove;
+    private bool _getTotemReachFinalCellStatus;
     
     private async void Play(){
         while(true){
@@ -25,6 +26,7 @@ public partial class LudoApplication
                     rollDiceClickedTask = new TaskCompletionSource<bool>();
                     await rollDiceClickedTask.Task; // // Wait player push "Roll Dice" to change the "diceValue" (1-6)
                     
+                    // To check whether the totem OnPlay exist(s) or not.
                     bool statusOnPlay = CheckTotemStatus(player.Value);
 
                     // If there is no Totem OnPlay and dice != 6, continue to next player directly
@@ -40,23 +42,29 @@ public partial class LudoApplication
                         Color color = SetTotemColor(player.Key);
                         MoveTotem(player.Value[userInputTotemID].Position.x, player.Value[userInputTotemID].Position.y, color, player.Value[userInputTotemID]);
 
-                        // Next: method to update scene due to collision (Priority: Minor)
-
                         // Method to check the winner (to stop the game)
                         // Default: _gameStatus = true (when just started)
                         _gameStatus = _ludoGameScene.GetGameStatus(player.Key, player.Value[userInputTotemID]);
                         if (_gameStatus == false){
                             _playerTurnLabel.Text = $"Player {player.Key.ID + 1} Win!";
                             _startLabel.Text += $"Status: {_gameStatus}";
-                            // var gameWinner = ChooseWinner();
-                            
-                            // StopGame();
-                            await Task.Delay(100000);
+
+                            await Task.Delay(100000); // Stop the game;
                         }
+
+                        // Check whether the totem reach the final cell or not
+                        // If true: the same player holds.
+                        _getTotemReachFinalCellStatus = _ludoGameScene.GetTotemReachFinalCellStatus(player.Value[userInputTotemID]);
+
+                        // Next: method to update scene due to collision (Priority: Minor)
+                    }
+                    else{
+                        _getTotemReachFinalCellStatus = false; // Player doesn't have any OnPlay totems -> continue to next player
                     }
 
                     await Task.Delay(500);
-                } while(diceValue == 6); 
+
+                } while(diceValue == 6 || _getTotemReachFinalCellStatus == true);
             }
         }
     }

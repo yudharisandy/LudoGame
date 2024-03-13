@@ -33,5 +33,6 @@ public class MathVector(){
 public enum TotemStatus
 {
     OnHome,
-    OnPlay
+    OnPlay,
+    OnFinal
 }

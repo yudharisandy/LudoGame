@@ -18,6 +18,7 @@ public class LudoContext
         _players = new List<IPlayerWithAction>();
         _playerTotems = new Dictionary<IPlayer, List<Totem>>();
     }
+    
     public void AssignTotemHomePosition(){
         foreach(var player in _playerTotems){
             var coord = new List<(int,int)>();

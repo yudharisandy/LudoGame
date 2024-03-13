@@ -35,7 +35,6 @@ LudoGameGUI
 
 ## Game Features
 - Support for 2-4 players
-- Provide a simple graphical user interface to be played around
 - Support specific Ludo rules: 
     - The totem can only go out when dice value is 6
     - No need to choose Totem if there is no totem OnPlay (dice != 6)
@@ -43,11 +42,16 @@ LudoGameGUI
     - Collision rule: Send enemy's totem back to the home position.
     - Specific path/route of play for each player/totem.
     - Method to choose the winner and stop the game.    
+    - When a totem reach the final cell -> the same player holds.
+    - When a totem reach a final cell -> be able to run other totem when got non-6 dice
+- Provide a playground interface to be tried out!
 
 ## Next Plan
-- Library: When a totem reach the final cell -> the same player holds.
+- Library: When a player kick other player's totem, the same player holds.
+- Library: When there is only 1 totem OnPlay -> directly move the totem (user doesn't need to choose the totem)
+- Library: when totem kicked out, next turn to run the totem is affacted player (when accidentally click the kicked out totem)
 - GUI: GUI for handling the collision rule update.
-    - GUI Bug: A kicked Totem doesn't automatically go back to Home when it is choosen to move in the next turn.
+    - GUI Bug: A kicked Totem doesn't automatically go back to Home when it is chosen to move in the next turn.
 
 ## Board Coordinate Scheme
 This library is built based on the following board coordinate scheme.
@@ -95,7 +99,7 @@ The following is the scheme of the ludo paths.
     }
     ```
 
-- Roll dice.
+- Roll the dice.
 
     ``` 
     int diceValue = _ludoGameScene.ludoContext.dice.Roll(); 
@@ -126,9 +130,11 @@ The following is the scheme of the ludo paths.
 
                 // ... method to check the winner
 
+                // ... method to check _getTotemReachFinalCellStatus
+
                 // ... method to update each totems position in your UI
 
-            } while (diceValue == 6);
+            } while (diceValue == 6 || _getTotemReachFinalCellStatus == true);
         }
     }
     ```
@@ -139,11 +145,18 @@ The following is the scheme of the ludo paths.
     _gameStatus = _ludoGameScene.GetGameStatus(player.Key, player.Value[userInputTotemID]);
     if (_gameStatus == false){
         _playerTurnLabel.Text = $"Player {player.Key.ID + 1} Win!";
-        _startLabel.Text += $"Status: {_gameStatus}";
         
         // ... method to stop the game;
         await Task.Delay(100000);
     }
+    ```
+
+- The same player holds if his/her totem reach the final cell. You can add the following block code in your run-loop.
+
+    ```
+    // Check whether the totem reach the final cell or not
+    // If true: the same player holds.
+    _getTotemReachFinalCellStatus = _ludoGameScene.GetTotemReachFinalCellStatus(player.Value[userInputTotemID]);
     ```
 
 ## Methods Explaination
