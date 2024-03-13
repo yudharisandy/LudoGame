@@ -15,16 +15,25 @@ public class LudoGameScene : IScene, IContextManager
 
     public void Update(){}
 
-    // public bool GetGameStatus(Totem totem, BeforeAfterMoveCell type){
-    //     // If the finalCell.Count == TotemList.Count -> game should stop, return false
-    //     int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.After);
-    //     var cell = ludoContext.board.Cells[index];
+    public bool GetGameStatus(IPlayer player, Totem totem){
+        
+        // If the finalCell.Count == TotemList.Count -> game should stop, return false
+        int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.After);
+        var cell = ludoContext.board.Cells[index];
 
-    //     if (cell.Occupants.Count == ludoContext._playerTotems.){
-    //         return false; // Game stop
-    //     }
-    //     return true; // Game run forward
-    // }
+        // this method run each 1 totem reach the final cell
+        if (cell.Type == CellType.Final){
+            var totemListToCheck = cell.GetListTotemOccupants(player);
+
+            // If the final cell contains totem as many as totems registered -> stop the game
+            // The winner: player
+            int totalNumTotemsEachPlayer = ludoContext.GetTotalNumberTotemsEachPlayer();
+            if (totemListToCheck.Count == totalNumTotemsEachPlayer){ 
+                return false; // Game stop
+            }
+        }
+        return true; // Game run forward
+    }
 
     public void NextTurn(IPlayer player, List<Totem> totemList, int diceValue, int userinputTotemID){
         if (diceValue == 6){

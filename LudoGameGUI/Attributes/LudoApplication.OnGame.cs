@@ -43,12 +43,16 @@ public partial class LudoApplication
                         // Next: method to update scene due to collision (Priority: Minor)
 
                         // Method to check the winner (to stop the game)
-                        // _gameStatus = true (when it was started)
-                        // _gameStatus = _ludoGameScene.GetGameStatus();
-                        // if (gameStatus == false){
-                        // var gameWinner = ChooseWinner();
-                        // StopGame();
-                        // }
+                        // Default: _gameStatus = true (when just started)
+                        _gameStatus = _ludoGameScene.GetGameStatus(player.Key, player.Value[userInputTotemID]);
+                        if (_gameStatus == false){
+                            _playerTurnLabel.Text = $"Player {player.Key.ID + 1} Win!";
+                            _startLabel.Text += $"Status: {_gameStatus}";
+                            // var gameWinner = ChooseWinner();
+                            
+                            // StopGame();
+                            await Task.Delay(100000);
+                        }
                     }
 
                     await Task.Delay(500);

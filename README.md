@@ -41,11 +41,12 @@ LudoGameGUI
     - No need to choose Totem if there is no totem OnPlay (dice != 6)
     - Got number six: the same player holds
     - Collision rule: Send enemy's totem back to the home position.
-    - Specific path/route of play for each player/totem.    
+    - Specific path/route of play for each player/totem.
+    - Method to choose the winner and stop the game.    
 
 ## Next Plan
-- Method to choose the winner and stop the game.
-- GUI Bug: GUI for handling the collision rule update.
+- Library: When a totem reach the final cell -> the same player holds.
+- GUI: GUI for handling the collision rule update.
     - GUI Bug: A kicked Totem doesn't automatically go back to Home when it is choosen to move in the next turn.
 
 ## Board Coordinate Scheme
