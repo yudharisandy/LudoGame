@@ -10,6 +10,7 @@ This repo is an individual project of The Bootcamp of Formulatrix Software Engin
 - [Game Features]()
 - [Issues]()
 - [Board Coordinate Scheme]()
+- [Ludo Paths]()
 - [How to Use]()
 - [Methods Explaination]()
 - [References]()
@@ -49,6 +50,11 @@ LudoGameGUI
 ## Board Coordinate Scheme
 This library is built based on the following board coordinate scheme.
 ![Board-Scheme](assets/ludoScheme.jpg)
+
+## Ludo Paths
+The following is the scheme of the ludo paths.
+![Ludo-Paths](assets/ludo_paths.svg)
+[Image source](https://en.wikipedia.org/wiki/Ludo#:~:text=Ludo%20%28%2F%20%CB%88lju%CB%90do%CA%8A%20%2F%3B%20from%20Latin%20ludo%20%27,is%20derived%20from%20the%20Indian%20game%20Pachisi.%20)
 
 ## How to Use
 - Clone the repo: 
