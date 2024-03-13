@@ -5,22 +5,22 @@ This repo is a library for Ludo Game, a strategy board game for two to four play
 This repo is an individual project of The Bootcamp of Formulatrix Software Engineering, at Formulatrix Company, Salatiga City, Indonesia.
 
 ## Table of Contents
-- [GUI Example]()
-- [Repository Foldering Structure]()
+- [GUI Example](#graphical-user-interface-gui-example)
+- [Repository Foldering Structure](#repository-foldering-structure)
 - [Game Features](#game-features)
-- [Issues]()
-- [Board Coordinate Scheme]()
-- [Ludo Paths]()
-- [How to Use]()
-- [Methods Explaination]()
-- [License]()
-- [References]()
+- [Next Plans](#next-plans)
+- [Board Coordinate Scheme](#board-coordinate-scheme)
+- [Ludo Paths](#ludo-paths)
+- [How to Use](#how-to-use)
+- [Methods Explaination](#methods-explaination)
+- [License](#license)
+- [References](#references)
 
 ## Graphical User Interface (GUI) Example
 The following is the example of a GUI built using Windwos Forms Apps.
 ![progress-game-app](assets/progress.gif)
 
-## Repository Foldering Structure
+## <a name="repo-foldering-structure" id="repo-foldering-structure"></a>Repository Foldering Structure
 ```
 LudoGame
 ├── Game
