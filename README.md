@@ -45,10 +45,8 @@ LudoGameGUI
 
 ## Next Plan
 - Method to choose the winner and stop the game.
-- Library Bug: A cell can't contain totem from the same player (can't add the same key: Player to the dictionary).
-- Library Bug: Collision rule doesn't work (for the second time it tested in each game).
-- GUI Bug: A kicked Totem doesn't automatically go back to Home when it is choosen to move in the next turn.
 - GUI Bug: GUI for handling the collision rule update.
+    - GUI Bug: A kicked Totem doesn't automatically go back to Home when it is choosen to move in the next turn.
 
 ## Board Coordinate Scheme
 This library is built based on the following board coordinate scheme.
