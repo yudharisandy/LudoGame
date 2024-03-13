@@ -38,15 +38,17 @@ LudoGameGUI
 - Provide a simple graphical user interface to be played around
 - Support specific Ludo rules: 
     - The totem can only go out when dice value is 6
+    - No need to choose Totem if there is no totem OnPlay (dice != 6)
     - Got number six: the same player holds
     - Collision rule: Send enemy's totem back to the home position.
     - Specific path/route of play for each player/totem.    
 
 ## Next Plan
-- No need to choose Totem if there is no totem OnPlay (dice != 6)
 - Method to choose the winner and stop the game.
-- Bug: A cell can't contain totem from the same player (can't add the same key: Player to the dictionary).
-- Bug: GUI for handling the collision rule update.
+- Library Bug: A cell can't contain totem from the same player (can't add the same key: Player to the dictionary).
+- Library Bug: Collision rule doesn't work (for the second time it tested in each game).
+- GUI Bug: A kicked Totem doesn't automatically go back to Home when it is choosen to move in the next turn.
+- GUI Bug: GUI for handling the collision rule update.
 
 ## Board Coordinate Scheme
 This library is built based on the following board coordinate scheme.

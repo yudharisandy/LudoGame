@@ -13,6 +13,7 @@ public class Board
     public PathBoard Paths {get;set;}
     private List<(int, int)> _allNormalCellsCoordinate;
     private List<(int, int)> _allSafeCellsCoordinate;
+    private List<(int, int)> _allFinalCellsCoordinate;
 
     public Board(){
         // _boardCoordinates = new List<(int, int)>();
@@ -21,9 +22,11 @@ public class Board
 
         RegisterAllCell();
     }
+    
     private void RegisterAllCell(){
         UpdateNormalCellsCoordinate();
         UpdateSafeCellsCoordinate();
+        UpdateFinalCellsCoordinate();
 
         foreach(var i in _allNormalCellsCoordinate){
             Cell cell = new(i.Item1, i.Item2, CellType.Normal);
@@ -34,7 +37,13 @@ public class Board
             Cell cell = new(i.Item1, i.Item2, CellType.Safe);
             Cells.Add(cell);
         }
+
+        foreach(var i in _allFinalCellsCoordinate){
+            Cell cell = new(i.Item1, i.Item2, CellType.Final);
+            Cells.Add(cell);
+        }
     }
+
     private void UpdateNormalCellsCoordinate(){
         _allNormalCellsCoordinate = new List<(int, int)> { // 44
             (6, 14), (6, 12), (6, 11), (6, 10), (6, 9),
@@ -47,10 +56,17 @@ public class Board
             (8, 9), (8, 10), (8, 11), (8, 13), (8, 14), (7, 14),
         };
     }
+
     private void UpdateSafeCellsCoordinate(){
         _allSafeCellsCoordinate = new List<(int, int)> { // 
             (2, 8), (6, 2), (12, 6), (8, 12),
             (6, 13), (1, 6), (8, 1), (13, 8)
+        };
+    }
+
+    private void UpdateFinalCellsCoordinate(){
+        _allFinalCellsCoordinate = new List<(int, int)> { // 
+            (7, 8), (6, 7), (7, 6), (8, 7)
         };
     }
     // public void PutTotemOnBoard(){

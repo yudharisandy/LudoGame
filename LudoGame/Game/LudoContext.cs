@@ -46,6 +46,15 @@ public class LudoContext
         }
     }
 
+    // public int GetNumberTotems(){
+    //     int numberTotems = 0;
+    //     foreach(var totems in _playerTotems){
+    //         numberTotems = totems.Value.Count;
+    //         break;
+    //     }
+    //     return numberTotems;
+    // }
+
     public List<Totem> GetTotems(IPlayer player){
         foreach(var i in _playerTotems){
             if (i.Key == player){

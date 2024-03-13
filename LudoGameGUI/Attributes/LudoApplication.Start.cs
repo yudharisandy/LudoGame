@@ -13,6 +13,8 @@ public partial class LudoApplication
 {
     private Button _startButton;
     private Label _startLabel;
+    private bool _gameStatus; // Status to start and end the game
+
     private void CreateStartButton()
     {
         // Add a button for confirming the number of players
@@ -23,6 +25,7 @@ public partial class LudoApplication
         this.Controls.Add(this._startButton);
         this._startButton.Click += StartButton_Click;
     }
+
     private void CreateStartLabel()
     {
         // Add a label to display player names
@@ -32,6 +35,7 @@ public partial class LudoApplication
         this._startLabel.Location = new System.Drawing.Point(96, 760);
         this.Controls.Add(this._startLabel);
     }
+
     private void StartButton_Click(object sender, EventArgs e)
     {
         _ludoGameScene.ludoContext.AssignTotemHomePosition();
@@ -39,11 +43,12 @@ public partial class LudoApplication
 
         // Clear previous player names
         _startLabel.Text = "";
-        bool status = _ludoGameScene.ludoContext.StartGame();
-        _startLabel.Text += $"Status: {status}\n";
+        _gameStatus = _ludoGameScene.ludoContext.StartGame();
+        _startLabel.Text += $"Status: {_gameStatus}\n";
 
         Play();
     }
+
     private void CreateTotemHomePosition(){
         foreach(var totemList in _ludoGameScene.ludoContext._playerTotems){
             Color color = SetTotemColor(totemList.Key);
@@ -52,6 +57,7 @@ public partial class LudoApplication
             } 
         }
     }
+
     private Color SetTotemColor(IPlayer player)
     {
         if (player.ID == 0){ // Player 1

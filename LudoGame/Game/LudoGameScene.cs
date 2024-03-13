@@ -8,10 +8,24 @@ public class LudoGameScene : IScene, IContextManager
 {
     protected ISceneManager _sceneManager;
     public LudoContext ludoContext;
+
     public LudoGameScene(){
         ludoContext = new LudoContext();
     }
+
     public void Update(){}
+
+    // public bool GetGameStatus(Totem totem, BeforeAfterMoveCell type){
+    //     // If the finalCell.Count == TotemList.Count -> game should stop, return false
+    //     int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.After);
+    //     var cell = ludoContext.board.Cells[index];
+
+    //     if (cell.Occupants.Count == ludoContext._playerTotems.){
+    //         return false; // Game stop
+    //     }
+    //     return true; // Game run forward
+    // }
+
     public void NextTurn(IPlayer player, List<Totem> totemList, int diceValue, int userinputTotemID){
         if (diceValue == 6){
             GotSixInDice(player, totemList, diceValue, userinputTotemID);
@@ -41,6 +55,8 @@ public class LudoGameScene : IScene, IContextManager
         int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.Before);
         var cell = ludoContext.board.Cells[index];
 
+        // [WARNING] Possibility to kick all available totem in a cell (from the same player)
+        // While only one totem move forward.
         cell.KickTotem(player);
     }
 
@@ -51,12 +67,15 @@ public class LudoGameScene : IScene, IContextManager
         int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.After); 
         var cell = ludoContext.board.Cells[index]; // After-move cell
 
+        // Current occupant totem list of the same player in working cell
+        // var totemList = ludoContext.board.Cells[index].GetListTotemOccupants(player);
+
         if (cell.Occupants.Count == 0 || cell.Type == CellType.Safe){
             cell.AddTotem(player, totem);
             // System.Console.WriteLine("Totem added to Cell");
             // System.Console.WriteLine(cell.Occupants.Values);
         }
-        else{
+        else if (cell.Occupants.Count != 0 || cell.Type == CellType.Normal){
             // System.Console.WriteLine("1st: Ocupanst is null Or Cell is Normal");
             foreach(var playerTotem in cell.Occupants){
                 // System.Console.WriteLine("2nd: Occupants is not null or CellType is Normal");
@@ -64,12 +83,14 @@ public class LudoGameScene : IScene, IContextManager
                     cell.AddTotem(player, totem);
                 }
                 else{
-                    // change totem position to HomePosition 
+                    // change all totems position to HomePosition 
                     // Set status to OnHome
-                    playerTotem.Value.Position.x = playerTotem.Value.HomePosition.x;
-                    playerTotem.Value.Position.y = playerTotem.Value.HomePosition.y; 
-                    playerTotem.Value.totemStatus = TotemStatus.OnHome;
-                    playerTotem.Value.pathStatus = 0;
+                    foreach(var totemToKick in playerTotem.Value){
+                        totemToKick.Position.x = totemToKick.HomePosition.x;
+                        totemToKick.Position.y = totemToKick.HomePosition.y; 
+                        totemToKick.totemStatus = TotemStatus.OnHome;
+                        totemToKick.pathStatus = 0;
+                    }
                     cell.KickTotem(playerTotem.Key);
                 }
             }
@@ -101,7 +122,6 @@ public class LudoGameScene : IScene, IContextManager
         }
     }
     
-
     private void GotSixInDice(IPlayer player, List<Totem> totemList, int diceValue, int userinputTotemID){
         if (totemList[userinputTotemID].totemStatus == TotemStatus.OnHome){
             // Options: Change Totem OnHome -> OnPlay
@@ -114,6 +134,7 @@ public class LudoGameScene : IScene, IContextManager
             // cell.KickTotem(this from the previous cell)
         }
     }
+
     public void UpdateTotemPosition(IPlayer player, Totem totem, int diceValue){
         totem.PreviousPosition.x =  totem.Position.x;
         totem.PreviousPosition.y =  totem.Position.y;
