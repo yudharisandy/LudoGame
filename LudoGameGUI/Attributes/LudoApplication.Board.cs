@@ -19,8 +19,7 @@ public partial class LudoApplication
         this.tableLayoutPanel.Name = "tableLayoutPanel";
         this.tableLayoutPanel.RowCount = 15;
         this.tableLayoutPanel.ColumnCount = 15;
-        string imagePath = "E:/Kelapa/Course, Seminar, Pelatihan/2024-2 Formulatrix Bootcamp C#/LudoGame/";
-        Image backgroundImage = Image.FromFile(imagePath + "assets/ludoBoard.jpg");
+        Image backgroundImage = Image.FromFile("../assets/ludoBoard2.jpg");
         backgroundImage = new Bitmap(backgroundImage, this.tableLayoutPanel.Width, this.tableLayoutPanel.Height);
         this.tableLayoutPanel.BackgroundImage = backgroundImage;
 

@@ -9,10 +9,10 @@ using LudoGame.LudoObjects;
 public partial class LudoApplication
 {
     private Label _playerTurnLabel;
-    private int userInputTotemID;
     private TaskCompletionSource<bool> chooseTotemToMove;
     private bool _getTotemReachFinalCellStatus;
     private bool _getCollisionStatus;
+    private int userInputTotemID;
     
     private async void Play(){
         while(true){
@@ -62,19 +62,14 @@ public partial class LudoApplication
                                     player.Value[userInputTotemID], 
                                     color);
 
-                        // Method to check the winner (to stop the game)
-                        // Default: _gameStatus = true (when just started)
-                        _gameStatus = _ludoGameScene.GetGameStatus(player.Key, player.Value[userInputTotemID]);
-                        if (_gameStatus == false){
-                            _playerTurnLabel.Text = $"Player {player.Key.ID + 1} Win!";
-                            _startLabel.Text += $"Status: {_gameStatus}";
-
-                            await Task.Delay(100000); // Stop the game;
-                        }
-
                         // Check whether the totem reach the final cell or not
                         // If true: the same player holds.
                         _getTotemReachFinalCellStatus = _ludoGameScene.GetTotemReachFinalCellStatus(player.Value[userInputTotemID]);
+
+                        // Method to check the winner (to stop the game)
+                        // Default: _gameStatus = true (when just started)
+                        _gameStatus = _ludoGameScene.GetGameStatus(player.Key, player.Value[userInputTotemID]);
+                        SceneUpdateWinnerGameStatus(player);
                     }
                     else{
                         _getTotemReachFinalCellStatus = false; // Player doesn't have any OnPlay totems -> continue to next player
@@ -87,6 +82,15 @@ public partial class LudoApplication
 
                 } while(diceValue == 6 || _getTotemReachFinalCellStatus == true || _getCollisionStatus == true);
             }
+        }
+    }
+
+    private async void SceneUpdateWinnerGameStatus(KeyValuePair<LudoGame.GameObject.IPlayer, List<Totem>> player){
+        if (_gameStatus == false){
+            _playerTurnLabel.Text = $"Player {player.Key.ID + 1} Win!";
+            _startLabel.Text += $"Status: {_gameStatus}";
+
+            await Task.Delay(100000); // Stop the game;
         }
     }
 

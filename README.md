@@ -57,7 +57,7 @@ LudoGameGUI
 
 ## Board Coordinate Scheme
 This library is built based on the following board coordinate scheme.
-![Board-Scheme](assets/ludoScheme.jpg)
+![Board-Scheme](assets/ludoScheme2.jpg)
 
 ## Ludo Paths
 The following is the scheme of the ludo paths.
@@ -220,7 +220,7 @@ The following is the scheme of the ludo paths.
     }
     ```
 
-- For more detail, please refer to my ```./LudoGameGUI``` -> ```./LudoGameGUI/Attributes/LudoApplication.OnGame.cs```.
+- For more details, please refer to ```./LudoGameGUI/Attributes/LudoApplication.OnGame.cs```.
 
 ## Methods Explaination
 
