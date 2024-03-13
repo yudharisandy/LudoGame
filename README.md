@@ -1,6 +1,8 @@
 # LudoGame
 
-This repository is part of The Bootcamp project of Formulatrix Software Engineering, at Formulatrix Company, Salatiga City, Indonesia.
+This repo is a library for Ludo Game, a strategy board game for two to four players, in which the players race their four tokens from start to finish according to the rolls of a single die. [Read more](https://en.wikipedia.org/wiki/Ludo#:~:text=Ludo%20%28%2F%20%CB%88lju%CB%90do%CA%8A%20%2F%3B%20from%20Latin%20ludo%20%27,is%20derived%20from%20the%20Indian%20game%20Pachisi.%20).
+
+This repo is an individual project of The Bootcamp of Formulatrix Software Engineering, at Formulatrix Company, Salatiga City, Indonesia.
 
 ## Table of Contents
 - [Progress Update]()
@@ -9,6 +11,7 @@ This repository is part of The Bootcamp project of Formulatrix Software Engineer
 - [Issues]()
 - [Board Coordinate Scheme]()
 - [How to Use]()
+- [Methods Explaination]()
 - [References]()
 
 ## Progress Update
@@ -119,6 +122,9 @@ This library is built based on the following board coordinate scheme.
         }
     }
     ```
+
+## Methods Explaination
+
 
 ## References
 - [Class Diagram](https://github.com/probabilitynokami/ClassDiagram/blob/main/Ludo.md)
