@@ -45,6 +45,7 @@ public partial class LudoApplication
         _startLabel.Text = "";
         _gameStatus = _ludoGameScene.ludoContext.StartGame();
         _getTotemReachFinalCellStatus = false;
+        _getCollisionStatus = false;
         _startLabel.Text += $"Status: {_gameStatus}";
 
         Play();

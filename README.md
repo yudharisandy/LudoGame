@@ -13,6 +13,7 @@ This repo is an individual project of The Bootcamp of Formulatrix Software Engin
 - [Ludo Paths]()
 - [How to Use]()
 - [Methods Explaination]()
+- [License]()
 - [References]()
 
 ## Graphical User Interface (GUI) Example
@@ -42,12 +43,12 @@ LudoGameGUI
     - Collision rule: Send enemy's totem back to the home position.
     - Specific path/route of play for each player/totem.
     - Method to choose the winner and stop the game.    
+    - When a player kick other player's totem -> the same player holds.
     - When a totem reach the final cell -> the same player holds.
     - When a totem reach a final cell -> be able to run other totem when got non-6 dice
 - Provide a playground interface to be tried out!
 
 ## Next Plan
-- Library: When a player kick other player's totem, the same player holds.
 - Library: When there is only 1 totem OnPlay -> directly move the totem (user doesn't need to choose the totem)
 - Library: when totem kicked out, next turn to run the totem is affacted player (when accidentally click the kicked out totem)
 - GUI: GUI for handling the collision rule update.
@@ -128,13 +129,15 @@ The following is the scheme of the ludo paths.
 
                 _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
 
-                // ... method to check the winner
+                // ... method to check _gameStatus, for getting the winner
 
                 // ... method to check _getTotemReachFinalCellStatus
 
+                // ... method to check _getCollisionStatus
+
                 // ... method to update each totems position in your UI
 
-            } while (diceValue == 6 || _getTotemReachFinalCellStatus == true);
+            } while (diceValue == 6 || _getTotemReachFinalCellStatus == true || _getCollisionStatus == true);
         }
     }
     ```
@@ -151,7 +154,7 @@ The following is the scheme of the ludo paths.
     }
     ```
 
-- The same player holds if his/her totem reach the final cell. You can add the following block code in your run-loop.
+- The same player holds if his/her totem reach the final cell. You can add the following block code in your run-loop, then add to your ```while``` condition requirements.
 
     ```
     // Check whether the totem reach the final cell or not
@@ -159,7 +162,18 @@ The following is the scheme of the ludo paths.
     _getTotemReachFinalCellStatus = _ludoGameScene.GetTotemReachFinalCellStatus(player.Value[userInputTotemID]);
     ```
 
+- The same player holds if there is a collision. You can add the following block code in your run-loop, then add to your ```while``` condition requirements.
+
+    ```
+    // Check whether there is collision or not
+    _getCollisionStatus = _ludoGameScene.GetCollisionStatus(); // true: collision | false: no collision
+    ```
+
 ## Methods Explaination
+
+
+## License
+- The repo is licensed under the MIT license.
 
 
 ## References

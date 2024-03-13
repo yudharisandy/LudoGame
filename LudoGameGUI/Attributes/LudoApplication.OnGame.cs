@@ -12,6 +12,7 @@ public partial class LudoApplication
     private int userInputTotemID;
     private TaskCompletionSource<bool> chooseTotemToMove;
     private bool _getTotemReachFinalCellStatus;
+    private bool _getCollisionStatus;
     
     private async void Play(){
         while(true){
@@ -56,6 +57,9 @@ public partial class LudoApplication
                         // If true: the same player holds.
                         _getTotemReachFinalCellStatus = _ludoGameScene.GetTotemReachFinalCellStatus(player.Value[userInputTotemID]);
 
+                        // Check whether there is collision or not
+                        _getCollisionStatus = _ludoGameScene.GetCollisionStatus();
+
                         // Next: method to update scene due to collision (Priority: Minor)
                     }
                     else{
@@ -64,7 +68,7 @@ public partial class LudoApplication
 
                     await Task.Delay(500);
 
-                } while(diceValue == 6 || _getTotemReachFinalCellStatus == true);
+                } while(diceValue == 6 || _getTotemReachFinalCellStatus == true || _getCollisionStatus == true);
             }
         }
     }
