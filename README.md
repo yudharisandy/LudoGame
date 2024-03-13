@@ -5,7 +5,7 @@ This repo is a library for Ludo Game, a strategy board game for two to four play
 This repo is an individual project of The Bootcamp of Formulatrix Software Engineering, at Formulatrix Company, Salatiga City, Indonesia.
 
 ## Table of Contents
-- [Progress Update]()
+- [GUI Example]()
 - [Repository Foldering Structure]()
 - [Game Features]()
 - [Issues]()
@@ -15,7 +15,8 @@ This repo is an individual project of The Bootcamp of Formulatrix Software Engin
 - [Methods Explaination]()
 - [References]()
 
-## Progress Update
+## Graphical User Interface (GUI) Example
+The following is the example of a GUI built using Windwos Forms Apps.
 ![progress-game-app](assets/progress.png)
 
 ## Repository Foldering Structure
