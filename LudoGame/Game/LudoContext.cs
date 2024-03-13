@@ -43,6 +43,11 @@ public class LudoContext
         foreach(var totem in player.Value){ // List<Totem>
             totem.HomePosition.x = coord[index].Item1;
             totem.HomePosition.y = coord[index].Item2;
+
+            // In the beginning set Position to HomePosition
+            totem.Position.x = totem.HomePosition.x;
+            totem.Position.y = totem.HomePosition.y;
+            
             index++;
         }
     }
@@ -80,7 +85,6 @@ public class LudoContext
     }
 
     public bool StartGame(){
-        // _playerTotems -> dictionary
         return true;
     }
 }

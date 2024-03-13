@@ -9,7 +9,8 @@ using LudoGame.LudoObjects;
 public partial class LudoApplication
 {
     private Button refreshRenderingButton;
-    // private Button chooseToMoveForward;
+    private TaskCompletionSource<bool> refreshRenderingButtonTask;
+    private bool _refreshRenderingStatus;
     private TextBox _inputDiceTextBox;
 
         
@@ -26,8 +27,8 @@ public partial class LudoApplication
 
     private void refreshRenderingButton_Click(object sender, EventArgs e)
     {
-        // userChoiceSixInDice = UserChoiceSixInDice.GetOutHome;
-        // chooseOutHomeOrPlayForward.SetResult(true);
+        _refreshRenderingStatus = true;
+        refreshRenderingButtonTask.SetResult(true);
     }
 
     private void CreateInputDiceTextBox()

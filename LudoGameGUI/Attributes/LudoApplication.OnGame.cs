@@ -50,20 +50,8 @@ public partial class LudoApplication
 
                         // Check whether there is collision or not
                         _getCollisionStatus = _ludoGameScene.GetCollisionStatus();
-                        // ... next: method to update scene due to collision - Only 1 totem each time
-                        if (_getCollisionStatus == true){
-                            // Get totemToBeKicked
-                            var totemToBeKicked = _ludoGameScene.GetTotemToBeKicked();
-                            var playerToBeKicked = _ludoGameScene.GetPlayerToBeKicked();
-                            // RemoveTotem from working cell
-                            RemoveTotem(totemToBeKicked.PreviousPosition.x, totemToBeKicked.PreviousPosition.y);
-                            // MoveTotem to Home Position
-                            Color colorToBeKicked = SetTotemColor(playerToBeKicked);
-                            MoveTotem(totemToBeKicked.HomePosition.x, 
-                                    totemToBeKicked.HomePosition.y, 
-                                    totemToBeKicked, 
-                                    colorToBeKicked);
-                        }
+                        // method to update scene due to collision - Only 1 totem each time
+                        CollisionSceneUpdate();
 
                         RemoveTotem(player.Value[userInputTotemID].HomePosition.x, player.Value[userInputTotemID].HomePosition.y);
                         RemoveTotem(player.Value[userInputTotemID].PreviousPosition.x, player.Value[userInputTotemID].PreviousPosition.y);
@@ -92,10 +80,55 @@ public partial class LudoApplication
                         _getTotemReachFinalCellStatus = false; // Player doesn't have any OnPlay totems -> continue to next player
                     }
 
+                    // To refresh the object rendering process
+                    RefreshRendering();
+
                     await Task.Delay(500);
 
                 } while(diceValue == 6 || _getTotemReachFinalCellStatus == true || _getCollisionStatus == true);
             }
+        }
+    }
+
+    private void CollisionSceneUpdate(){
+        if (_getCollisionStatus == true){
+            // Get totemToBeKicked
+            var totemToBeKicked = _ludoGameScene.GetTotemToBeKicked();
+            var playerToBeKicked = _ludoGameScene.GetPlayerToBeKicked();
+            // RemoveTotem from working cell
+            RemoveTotem(totemToBeKicked.PreviousPosition.x, totemToBeKicked.PreviousPosition.y);
+            // MoveTotem to Home Position
+            Color colorToBeKicked = SetTotemColor(playerToBeKicked);
+            MoveTotem(totemToBeKicked.HomePosition.x, 
+                    totemToBeKicked.HomePosition.y, 
+                    totemToBeKicked, 
+                    colorToBeKicked);
+        }
+    }
+
+    private void RefreshRendering(){
+        refreshRenderingButtonTask = new TaskCompletionSource<bool>();
+        if (_refreshRenderingStatus == true){
+            // .. rendering method
+            // Get all totem and players from _ludoGameScene.ludoContext._playerTotems
+            
+            // Remove All Totems from the Board
+            for (int x = 0; x < 15; x++){
+                for (int y = 0; y < 15; y++){
+                    RemoveTotem(x, y);
+                }
+            }   
+            foreach(var playerRender in _ludoGameScene.ludoContext._playerTotems){
+                // MoveTotem to Home Position
+                Color colorToBeRefresh = SetTotemColor(playerRender.Key);
+                foreach(var totems in playerRender.Value){
+                    MoveTotem(totems.Position.x, 
+                                totems.Position.y, 
+                                totems, 
+                                colorToBeRefresh);
+                }
+            }
+            _refreshRenderingStatus = false; // Reset the status
         }
     }
 

@@ -229,15 +229,6 @@ public class LudoGameScene : IScene, IContextManager
             totem.Position.y = ludoContext.board.Paths.pathPlayer4[0].y;
         }
     }
-
-    // public bool CheckTotemStatus(IPlayer player, List<Totem> totemList){
-    //     foreach(var totem in totemList){
-    //         if (totem.totemStatus == TotemStatus.OnPlay){
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
 }
 
 public enum BeforeAfterMoveCell

@@ -48,12 +48,12 @@ LudoGameGUI
     - When a totem reach a final cell -> be able to run other totem when got non-6 dice.
     - When there is only 1 totem OnPlay -> directly move the totem (user doesn't need to choose the totem)
 - Provide a playground interface to be tried out!
+    - GUI: A kicked Totem automatically go back to Home collision happens.
+    - GUI: Re-Render The Objects button -> To show all totems in correct position.
 
 ## Next Plans
-- Library: when totem kicked out, next turn to run the totem is affacted player (when accidentally click the kicked out totem -> the player just remain the same -> continue to next player)
-- GUI: GUI for handling the collision rule update.
-    - GUI Bug: A kicked Totem doesn't automatically go back to Home when it is chosen to move in the next turn.
-    - Optional solution: Create a refresh button!
+- Library: when totem kicked out (when player accidentally click the kicked out totem -> the player just remain the same -> continue to next player)
+
 
 ## Board Coordinate Scheme
 This library is built based on the following board coordinate scheme.
@@ -195,6 +195,28 @@ The following is the scheme of the ludo paths.
             }
         }
         return id;
+    }
+    ```
+
+- To update the scene based on collision. The following block code is an example, can be put in the run-loop method.
+
+    ```
+    private void CollisionSceneUpdate(){
+        if (_getCollisionStatus == true){
+            // Get totemToBeKicked
+            var totemToBeKicked = _ludoGameScene.GetTotemToBeKicked();
+            var playerToBeKicked = _ludoGameScene.GetPlayerToBeKicked();
+
+            // RemoveTotem from working cell
+            RemoveTotem(totemToBeKicked.PreviousPosition.x, totemToBeKicked.PreviousPosition.y);
+            
+            // MoveTotem to Home Position
+            Color colorToBeKicked = SetTotemColor(playerToBeKicked);
+            MoveTotem(totemToBeKicked.HomePosition.x, 
+                    totemToBeKicked.HomePosition.y, 
+                    totemToBeKicked, 
+                    colorToBeKicked);
+        }
     }
     ```
 
