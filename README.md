@@ -48,8 +48,8 @@ LudoGameGUI
     - When a totem reach a final cell -> be able to run other totem when got non-6 dice.
     - When there is only 1 totem OnPlay -> directly move the totem (user doesn't need to choose the totem)
 - Provide a playground interface to be tried out!
-    - GUI: A kicked Totem automatically go back to Home collision happens.
-    - GUI: Re-Render The Objects button -> To show all totems in correct position.
+    - GUI: A kicked Totem automatically go back to ```HomePosition``` when collision happens.
+    - GUI: Re-Render the objects button -> To show all totems in correct position.
 
 ## Next Plans
 - Library: when totem kicked out (when player accidentally click the kicked out totem -> the player just remain the same -> continue to next player)
@@ -107,7 +107,7 @@ The following is the scheme of the ludo paths.
     int diceValue = _ludoGameScene.ludoContext.dice.Roll(); 
     ```
 
-- Run the game: Here is the example of block code to run the game.
+- Run the game: Here is the example of block code to run the game in your ```./Program.cs```.
 
     ```
     while (true)
@@ -130,11 +130,11 @@ The following is the scheme of the ludo paths.
 
                 _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
 
+                // ... method to check and update _getCollisionStatus
+
                 // ... method to check _gameStatus, for getting the winner
 
                 // ... method to check _getTotemReachFinalCellStatus
-
-                // ... method to check _getCollisionStatus
 
                 // ... method to update each totems position in your UI
 
@@ -209,7 +209,7 @@ The following is the scheme of the ludo paths.
 
             // RemoveTotem from working cell
             RemoveTotem(totemToBeKicked.PreviousPosition.x, totemToBeKicked.PreviousPosition.y);
-            
+
             // MoveTotem to Home Position
             Color colorToBeKicked = SetTotemColor(playerToBeKicked);
             MoveTotem(totemToBeKicked.HomePosition.x, 
@@ -219,6 +219,8 @@ The following is the scheme of the ludo paths.
         }
     }
     ```
+
+- For more detail, please refer to my ```./LudoGameGUI``` -> ```./LudoGameGUI/Attributes/LudoApplication.OnGame.cs```.
 
 ## Methods Explaination
 
