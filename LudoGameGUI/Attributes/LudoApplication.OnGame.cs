@@ -1,10 +1,13 @@
 namespace LudoGameGUI;
 
-using System;
 using System.Windows.Forms;
 using LudoGame;
+using LudoGame.Enums;
 using LudoGame.Game;
+using LudoGame.GameObject;
+using LudoGame.Interface;
 using LudoGame.LudoObjects;
+using LudoGame.Utility;
 
 public partial class LudoApplication
 {
@@ -137,30 +140,30 @@ public partial class LudoApplication
         }
     }
 
-    private int CheckTotemStatus(List<Totem> totemLists){
+    private int CheckTotemStatus(List<ITotem> totemLists){
         // A method to check how many OnPlay totems are there
         int index = 0;
         foreach(var totem in totemLists){
-            if(totem.totemStatus == TotemStatus.OnPlay){
+            if(totem.TotemStatusInfo == TotemStatus.OnPlay){
                 index++;
             }
         }
         return index;
     }
 
-    private int GetTheOnlyOnPlayTotemID(List<Totem> totemLists){
+    private int GetTheOnlyOnPlayTotemID(List<ITotem> totemLists){
         // A method to get the only one OnPlay Totem ID
         // Called only when there is one OnPlay Totem
         int id = 0;
         foreach(var totem in totemLists){
-            if(totem.totemStatus == TotemStatus.OnPlay){
+            if(totem.TotemStatusInfo == TotemStatus.OnPlay){
                 id = totem.ID;
             }
         }
         return id;
     }
 
-    private void MoveTotem(int x, int y, Totem totem, Color color)
+    private void MoveTotem(int x, int y, ITotem totem, Color color)
     {  
         // Create a circle panel
         Panel totemPanel = new Panel();
@@ -195,7 +198,7 @@ public partial class LudoApplication
         }
     }
 
-    private void AddTotem(int x, int y, Color color, Totem totem)
+    private void AddTotem(int x, int y, Color color, ITotem totem)
     {
         // Create a circle panel
         Panel circlePanel = new Panel();

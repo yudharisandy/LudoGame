@@ -1,4 +1,4 @@
-namespace LudoGame.LudoObjects;
+namespace LudoGame.Utility;
 
 public class MathVector
 {

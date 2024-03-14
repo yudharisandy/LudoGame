@@ -14,11 +14,20 @@ using LudoGame.Interface;
 public class Cell : ICell
 {
     public CellType Type { get; set; }
-    public Dictionary<IPlayer, List<Totem>>? Occupants { get; set; }
+    public Dictionary<IPlayer, List<ITotem>>? Occupants { get; set; }
     public MathVector? Position {get; set;}
 
+    public Cell(int x, int y, CellType type){
+        Occupants = new Dictionary<IPlayer, List<ITotem>>();
+        
+        Type = new CellType();
+        Type = type;
 
-    public void AddTotem(IPlayer player, Totem totem){
+        Position = new MathVector();
+        Position.X = x;
+        Position.Y = y;
+    }
+    public void AddTotem(IPlayer player, ITotem totem){
         var totemList = GetListTotemOccupants(player);
         totemList.Add(totem);
         if (Occupants is not null){ // Just to avoid warning
@@ -39,7 +48,7 @@ public class Cell : ICell
         return true; // example
     }
 
-    public List<Totem> GetListTotemOccupants(IPlayer player){
+    public List<ITotem> GetListTotemOccupants(IPlayer player){
         if(Occupants is not null){ // Just to avoid warning
             if(Occupants.Count != 0){ // Make sure the dictionary is not null
                 foreach(var occupant in Occupants){
@@ -49,9 +58,8 @@ public class Cell : ICell
                 }
             }
         }
-        return new List<Totem>();
+        return new List<ITotem>();
     }
-    // public IPlayer GetOwnership(){}
 }
 
 

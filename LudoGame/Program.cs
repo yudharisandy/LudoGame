@@ -1,8 +1,12 @@
 ﻿namespace LudoGame;
 
+using LudoGame;
+using LudoGame.Enums;
 using LudoGame.Game;
 using LudoGame.GameObject;
+using LudoGame.Interface;
 using LudoGame.LudoObjects;
+using LudoGame.Utility;
 
 public class Program
 {
@@ -23,11 +27,11 @@ public class Program
         int numberOfTotems = 4;
         foreach (var player in _ludoGameScene.ludoContext._players)
         {
-            List<Totem> totemsList = new();
+            List<ITotem> totemsList = new();
 
             for (int i = 0; i < numberOfTotems; i++)
             {
-                Totem _totem = new(i);
+                ITotem _totem = new Totem(i);
                 totemsList.Add(_totem);
             }
             bool status = _ludoGameScene.ludoContext.RegisterTotems(player, totemsList);

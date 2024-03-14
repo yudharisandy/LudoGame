@@ -6,20 +6,6 @@ using LudoGame.LudoObjects;
 using LudoGame.Interface;
 using LudoGame.Enums;
 
-public class LudoPlayer : IPlayerWithAction
-{
-    public int ID {get; set;}
-    public PlayerTotemHome PlayersTotemHome {get; set;} 
-    // private IContextManager? _contextManager;
-
-    public LudoPlayer(int id){
-        ID = id;
-        PlayersTotemHome = PlayerTotemHome.StillHaveInHome;
-    }
-}
-
-
-
 public interface IContextManager
 {
     // Ludo Context
@@ -33,7 +19,7 @@ public class LudoActionable : IActionable
 public class LudoTotemMoveTogether : LudoActionable
 {
     // - Totem
-    public void Bind(Totem a, Totem b){}
+    public void Bind(ITotem a, ITotem b){}
 }
 
 public class SingleTotemActionable : LudoActionable

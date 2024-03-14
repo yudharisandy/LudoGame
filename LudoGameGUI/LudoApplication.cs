@@ -1,7 +1,6 @@
 namespace LudoGameGUI;
 
 using LudoGame.Game;
-using LudoGame.LudoObjects;
 
 public partial class LudoApplication : Form
 {

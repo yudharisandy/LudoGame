@@ -5,13 +5,14 @@ using System.Windows.Forms;
 using LudoGame;
 using LudoGame.Game;
 using LudoGame.LudoObjects;
+using LudoGame.Interface;
 
 public partial class LudoApplication
 {
     private TextBox _inputTotemTextBox;
     private Button _inputTotemButton;
     private Label _totemsLabel;
-    private Totem _totem;
+    private ITotem _totem;
 
     private void CreateAddTotemButton()
     {
@@ -45,14 +46,14 @@ public partial class LudoApplication
         if (int.TryParse(_inputTotemTextBox.Text, out int numberOfTotems))
         {
             foreach(var player in _ludoGameScene.ludoContext._players){
-                List<Totem> totemsList = new();
+                List<ITotem> totemsList = new();
                 // Clear previous player names
                 _totemsLabel.Text = "";
 
                 // Display player names
                 for (int i = 0; i < numberOfTotems; i++)
                 {
-                    Totem _totem = new(i);
+                    ITotem _totem = new Totem(i);
                     totemsList.Add(_totem);
                     _totemsLabel.Text += $"Totem {i}, Status: False\n";
                 }

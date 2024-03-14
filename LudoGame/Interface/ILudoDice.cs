@@ -1,5 +1,9 @@
 namespace LudoGame.Interface;
 
-public class ILudoDice
+/// <summary>
+/// An interface for LudoDice.
+/// </summary>
+public interface ILudoDice
 {
+    public int Roll();
 }

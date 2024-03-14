@@ -19,6 +19,5 @@ public class LudoRule
     }
     
     public void RegisterRule(Func<IBoard,bool> func){
-
     }
 }

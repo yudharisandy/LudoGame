@@ -4,22 +4,26 @@ using LudoGame.GameObject;
 using LudoGame.Interface;
 using LudoGame.LudoObjects;
 
+/// <summary>
+/// A class for setting up the game at the beginning (initial state).
+/// </summary>
 public class LudoContext
 {
-    public List<IPlayerWithAction> _players; 
+    public List<IPlayer> _players; 
     public IBoard board;
-    public LudoDice dice;
-    public Dictionary<IPlayer, List<Totem>> _playerTotems;
+    public ILudoDice dice;
+    public Dictionary<IPlayer, List<ITotem>> _playerTotems;
     
-    // Constructor
     public LudoContext(){
-        // Create new list when Ludo context created
         board = new Board();
         dice = new LudoDice();
-        _players = new List<IPlayerWithAction>();
-        _playerTotems = new Dictionary<IPlayer, List<Totem>>();
+        _players = new List<IPlayer>();
+        _playerTotems = new Dictionary<IPlayer, List<ITotem>>();
     }
     
+    /// <summary>
+    /// Initiate the coordinates of totem home position.
+    /// </summary>
     public void AssignTotemHomePosition(){
         foreach(var player in _playerTotems){
             var coord = new List<(int,int)>();
@@ -39,7 +43,12 @@ public class LudoContext
         }
     }
 
-    private void AssignCoordinate(KeyValuePair<IPlayer, List<Totem>> player, List<(int,int)> coord){
+    /// <summary>
+    /// Apply the totem home coordinates to each totem, each player
+    /// </summary>
+    /// <param name="player">Player</param>
+    /// <param name="coord">Coordinate</param>
+    private void AssignCoordinate(KeyValuePair<IPlayer, List<ITotem>> player, List<(int,int)> coord){
         int index = 0;
         foreach(var totem in player.Value){ // List<Totem>
             totem.HomePosition.X = coord[index].Item1;
@@ -53,6 +62,10 @@ public class LudoContext
         }
     }
 
+    /// <summary>
+    /// Gets a total totem number assigned to each player.
+    /// </summary>
+    /// <returns>Number of totems</returns>
     public int GetTotalNumberTotemsEachPlayer(){
         int numberTotems = 0;
         foreach(var totems in _playerTotems){
@@ -62,30 +75,31 @@ public class LudoContext
         return numberTotems;
     }
 
-    public List<Totem> GetTotems(IPlayer? player){
-        List<Totem> result = new();
-        foreach(var i in _playerTotems){
-            if (i.Key == player){
-                result = i.Value;
-            }
-        }
-        return result;
-    }
-
-    public bool RegisterTotems(IPlayer player, List<Totem> totems){
+    /// <summary>
+    /// A method to fulfil a dictionary of totems of each player.
+    /// </summary>
+    /// <param name="player">Player</param>
+    /// <param name="totems">List of totem</param>
+    /// <returns></returns>
+    public bool RegisterTotems(IPlayer player, List<ITotem> totems){
         _playerTotems.Add(player, totems);
         return true;
     }
 
-    public bool RegisterPlayers(IPlayerWithAction player){
+    /// <summary>
+    /// A method to fulfil a list of IPlayer.
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
+    public bool RegisterPlayers(IPlayer player){
         _players.Add(player);
         return true;
     }
 
-    public List<IPlayerWithAction> GetAllPlayers(){
-        return _players;
-    }
-
+    /// <summary>
+    /// A method to change the game status to true.
+    /// </summary>
+    /// <returns>True</returns>
     public bool StartGame(){
         return true;
     }

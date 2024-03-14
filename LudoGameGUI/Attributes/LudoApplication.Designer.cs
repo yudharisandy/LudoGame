@@ -1,10 +1,14 @@
 ﻿namespace LudoGameGUI;
 
-using System;
+
 using System.Windows.Forms;
 using LudoGame;
+using LudoGame.Enums;
 using LudoGame.Game;
+using LudoGame.GameObject;
+using LudoGame.Interface;
 using LudoGame.LudoObjects;
+using LudoGame.Utility;
 
 public partial class LudoApplication
 {
