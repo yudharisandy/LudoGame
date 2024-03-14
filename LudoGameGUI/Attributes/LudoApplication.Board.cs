@@ -21,7 +21,7 @@ public partial class LudoApplication
         this.tableLayoutPanel.Name = "tableLayoutPanel";
         this.tableLayoutPanel.RowCount = 15;
         this.tableLayoutPanel.ColumnCount = 15;
-        Image backgroundImage = Image.FromFile("../assets/ludoBoard2.jpg");
+        Image backgroundImage = Image.FromFile("../assets/ludoBoard3.jpg");
         backgroundImage = new Bitmap(backgroundImage, this.tableLayoutPanel.Width, this.tableLayoutPanel.Height);
         this.tableLayoutPanel.BackgroundImage = backgroundImage;
 
