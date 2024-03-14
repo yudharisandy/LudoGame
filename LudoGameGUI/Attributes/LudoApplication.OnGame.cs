@@ -86,6 +86,9 @@ public partial class LudoApplication
                     RefreshRendering(); // Run only when "Re-Render" button is pushed.
 
                     await Task.Delay(500);
+                    
+                    // Just to mark the diceButton to be available
+                    diceButton.BackColor = Color.Gold;
 
                 } while(diceValue == 6 || _getTotemReachFinalCellStatus == true || _getCollisionStatus == true);
             }

@@ -4,14 +4,13 @@ using System.Dynamic;
 using LudoGame.GameObject;
 using LudoGame.Utility;
 
+// Create interface -> ILudoDice
+
 public class LudoDice
 {
-    private int _diceValue;
-    private Random _rnd; 
 
     public LudoDice(){
-        // To highlight the randomness -> instanciate the Random object once only.
-        _rnd = new Random(); 
+        // To highlight the randomness -> instanciate the Random object once only. 
     }
     
     // public int GetLastRoll(){
@@ -19,7 +18,8 @@ public class LudoDice
     // }
 
     public int Roll(){
-        _diceValue = _rnd.Next(1, 7);
+        Random _rnd = new();
+        int _diceValue = _rnd.Next(1, 7);
         return _diceValue;
     }
 }

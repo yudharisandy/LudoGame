@@ -3,6 +3,8 @@ namespace LudoGame.Game;
 using LudoGame.GameFramework;
 using LudoGame.GameObject;
 using LudoGame.LudoObjects;
+using LudoGame.Interface;
+using LudoGame.Enums;
 
 public class LudoGameScene : IScene, IContextManager
 {
@@ -195,7 +197,7 @@ public class LudoGameScene : IScene, IContextManager
     public void UpdateTotemPosition(IPlayer player, Totem totem, int diceValue){
         totem.PreviousPosition.X =  totem.Position.X;
         totem.PreviousPosition.Y =  totem.Position.Y;
-        #pragma warning disable CS8602 // Dereference of a possibly null reference.
+        
         if(player.ID == 0){
             // if the diceValue > total remaining path, totem.Position is not changed.
             if(diceValue < ludoContext.board.Paths?.pathPlayer1?.Count - totem.pathStatus){
@@ -225,15 +227,16 @@ public class LudoGameScene : IScene, IContextManager
                 totem.pathStatus += diceValue;
             }
         }
-        #pragma warning restore CS8602 // Dereference of a possibly null reference.
+        
     }
 
     public void UpdateOutHomePosition(IPlayer player, Totem totem){
         // Move out of HomePosition (pathPlayer[0] == Initial totem position on board)
-        #pragma warning disable CS8602 // Dereference of a possibly null reference.
         if (player.ID == 0){
+            System.Console.WriteLine("--Check------");
             totem.Position.X = ludoContext.board.Paths.pathPlayer1[0].X;
             totem.Position.Y = ludoContext.board.Paths.pathPlayer1[0].Y;
+            System.Console.WriteLine("--Check------");
         }
         else if (player.ID == 1){
             totem.Position.X = ludoContext.board.Paths.pathPlayer2[0].X;
@@ -247,12 +250,6 @@ public class LudoGameScene : IScene, IContextManager
             totem.Position.X = ludoContext.board.Paths.pathPlayer4[0].X;
             totem.Position.Y = ludoContext.board.Paths.pathPlayer4[0].Y;
         }
-        #pragma warning restore CS8602 // Dereference of a possibly null reference.
     }
 }
 
-public enum BeforeAfterMoveCell
-{
-    Before,
-    After
-}

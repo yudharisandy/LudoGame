@@ -7,10 +7,10 @@ using LudoGame.LudoObjects;
 // Property has been stored to "pathBoard.json"
 public class PathBoard
 {
-    public List<MathVector>? pathPlayer1 { get; set; }
-    public List<MathVector>? pathPlayer2 { get; set; }
-    public List<MathVector>? pathPlayer3 { get; set; }
-    public List<MathVector>? pathPlayer4 { get; set; }
+    public List<MathVector> pathPlayer1 { get; set; } = null!;
+    public List<MathVector> pathPlayer2 { get; set; } = null!;
+    public List<MathVector> pathPlayer3 { get; set; } = null!;
+    public List<MathVector> pathPlayer4 { get; set; } = null!;
 
     // private List<(int, int)> _player1PathCoordinate;
     // private List<(int, int)> _player2PathCoordinate;

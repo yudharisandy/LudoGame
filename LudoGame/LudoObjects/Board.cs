@@ -1,13 +1,17 @@
 namespace LudoGame.LudoObjects;
 
 using System.Dynamic;
+using System.Text.Json;
 using LudoGame.GameObject;
 using LudoGame.Utility;
-using System.Text.Json;
+using LudoGame.Interface;
 
-public class Board
+// Create IBoard (have at least Cells and Paths)
+// other class that is used Board -> IBoard
+
+public class Board : IBoard
 {
-    public List<Cell>? Cells {get; private set;}
+    public List<ICell>? Cells { get; set; }
     public PathBoard? Paths { get; set; }
     // private List<(int, int)>? _allNormalCellsCoordinate;
     // private List<(int, int)>? _allSafeCellsCoordinate;
@@ -29,7 +33,7 @@ public class Board
 		{
 			resultCell = sr2.ReadToEnd();
 		}
-        Cells = JsonSerializer.Deserialize<List<Cell>>(resultCell);
+        Cells = JsonSerializer.Deserialize<List<ICell>>(resultCell);
     }
 
     // private void RegisterAllCell(){

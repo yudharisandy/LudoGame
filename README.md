@@ -53,6 +53,9 @@ LudoGameGUI
     - GUI: Re-Render the objects button -> To show all totems in correct position.
 
 ## Next Plans
+- Create interface for every class
+- Create XML Documentation for every Class/method
+- Create new class diagram (for comparison)
 - Library: when totem kicked out (when player accidentally click the kicked out totem -> the player just remain the same -> continue to next player)
 - GUI: roll dice value > remaining path/route -> the totem won't be moved -> The player should be able to move another OnPlay totem if exists.
 

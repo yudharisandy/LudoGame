@@ -4,14 +4,19 @@ using System.Dynamic;
 using LudoGame.Game;
 using LudoGame.GameObject;
 using LudoGame.Utility;
+using LudoGame.Enums;
+using LudoGame.Interface;
 
-public class Cell
+// Create interface -> ICell (have at least)
+// Create all Interface -> 
+// Create a folder consist of every enums
+
+public class Cell : ICell
 {
-    public CellType Type {get; set;}
-    public Dictionary<IPlayer, List<Totem>>? Occupants {get;set;}
+    public CellType Type { get; set; }
+    public Dictionary<IPlayer, List<Totem>>? Occupants { get; set; }
     public MathVector? Position {get; set;}
 
-    // public Cell(){ }
 
     public void AddTotem(IPlayer player, Totem totem){
         var totemList = GetListTotemOccupants(player);
@@ -49,9 +54,4 @@ public class Cell
     // public IPlayer GetOwnership(){}
 }
 
-public enum CellType
-{
-    Normal,
-    Safe,
-    Final
-}
+

@@ -3,6 +3,7 @@ namespace LudoGame.Game;
 using LudoGame.GameFramework;
 using LudoGame.GameObject;
 using LudoGame.LudoObjects;
+using LudoGame.Interface;
 
 public class LudoRule
 {
@@ -17,7 +18,7 @@ public class LudoRule
         return true; // example
     }
     
-    public void RegisterRule(Func<Board,bool> func){
+    public void RegisterRule(Func<IBoard,bool> func){
 
     }
 }

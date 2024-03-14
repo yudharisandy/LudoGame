@@ -27,14 +27,4 @@ public class Totem
     public void GoHome(){}
 }
 
-public class MathVector(){
-    public int X { get; set; }
-    public int Y { get; set; }
-}
 
-public enum TotemStatus
-{
-    OnHome,
-    OnPlay,
-    OnFinal
-}

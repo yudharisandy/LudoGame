@@ -1,12 +1,13 @@
-using LudoGame.GameObject;
-using LudoGame.LudoObjects;
-
 namespace LudoGame.Game;
+
+using LudoGame.GameObject;
+using LudoGame.Interface;
+using LudoGame.LudoObjects;
 
 public class LudoContext
 {
     public List<IPlayerWithAction> _players; 
-    public Board board;
+    public IBoard board;
     public LudoDice dice;
     public Dictionary<IPlayer, List<Totem>> _playerTotems;
     

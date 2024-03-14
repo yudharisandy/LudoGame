@@ -1,4 +1,5 @@
 namespace LudoGame.LudoObjectsRendering;
+
 using LudoGame.LudoObjects;
 
 public class TotemRendering

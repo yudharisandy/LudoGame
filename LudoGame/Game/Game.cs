@@ -3,6 +3,8 @@ namespace LudoGame.Game;
 using LudoGame.GameFramework;
 using LudoGame.GameObject;
 using LudoGame.LudoObjects;
+using LudoGame.Interface;
+using LudoGame.Enums;
 
 public class LudoPlayer : IPlayerWithAction
 {
@@ -15,11 +17,8 @@ public class LudoPlayer : IPlayerWithAction
         PlayersTotemHome = PlayerTotemHome.StillHaveInHome;
     }
 }
-public enum PlayerTotemHome
-{
-    StillHaveInHome,
-    AllOnPlay
-}
+
+
 
 public interface IContextManager
 {
