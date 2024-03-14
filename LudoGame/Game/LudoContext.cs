@@ -1,6 +1,5 @@
 namespace LudoGame.Game;
 
-using LudoGame.GameObject;
 using LudoGame.Interface;
 using LudoGame.LudoObjects;
 
@@ -14,6 +13,9 @@ public class LudoContext
     public ILudoDice dice;
     public Dictionary<IPlayer, List<ITotem>> _playerTotems;
     
+    /// <summary>
+    /// Constructor.
+    /// </summary>
     public LudoContext(){
         board = new Board();
         dice = new LudoDice();

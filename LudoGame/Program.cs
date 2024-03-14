@@ -3,11 +3,13 @@
 using LudoGame;
 using LudoGame.Enums;
 using LudoGame.Game;
-using LudoGame.GameObject;
 using LudoGame.Interface;
 using LudoGame.LudoObjects;
 using LudoGame.Utility;
 
+/// <summary>
+/// A brief example of accessing the library from the user perspective.
+/// </summary>
 public class Program
 {
     static void Main()
@@ -64,13 +66,12 @@ public class Program
                     int.TryParse(userInputTotemIDString, out userInputTotemID);
                     // System.Console.WriteLine(userInputTotemID);
 
-                    _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
+                    _ludoGameScene.NextTurn(player.Key, player.Value[userInputTotemID], diceValue);
 
                     // ... method to update each totems position in your interface
 
                     System.Console.WriteLine("--------------------------");
                 } while (diceValue == 6);
-
             }
         }
 

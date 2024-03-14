@@ -1,10 +1,8 @@
 namespace LudoGame.Utility;
 
-using System.Security.Principal;
-using LudoGame.LudoObjects;
-
-// PathBoard will be build using Deserialization 
-// Property has been stored to "pathBoard.json"
+/// <summary>
+/// A class that save each player's path route on the board.
+/// </summary>
 public class PathBoard
 {
     public List<MathVector> pathPlayer1 { get; set; } = null!;
@@ -17,6 +15,9 @@ public class PathBoard
     private List<(int, int)> _player3PathCoordinate;
     private List<(int, int)> _player4PathCoordinate;
 
+    /// <summary>
+    /// The constructor.
+    /// </summary>
     public PathBoard(){
         pathPlayer1 = new List<MathVector>();
         pathPlayer2 = new List<MathVector>();
@@ -26,6 +27,9 @@ public class PathBoard
         RegisterPath();
     }
     
+    /// <summary>
+    /// A method to apply AssignToList() method for each player's List of MathVector.
+    /// </summary>
     private void RegisterPath()
     {
         AssignToList(_player1PathCoordinate, pathPlayer1);
@@ -34,6 +38,11 @@ public class PathBoard
         AssignToList(_player4PathCoordinate, pathPlayer4);
     }
 
+    /// <summary>
+    /// A method to assign the coordinate into a list.
+    /// </summary>
+    /// <param name="playerPathCoordinate">List of tuple (int, int)</param>
+    /// <param name="pathPlayer">List of MathVector from each player</param>
     private void AssignToList(List<(int, int)> playerPathCoordinate, List<MathVector> pathPlayer){
         for (int index = 0; index < 57; index++)
         { // 57 points
@@ -44,6 +53,9 @@ public class PathBoard
         }
     }
 
+    /// <summary>
+    /// A method to set every player's route in List of tuple (int, int) before saved into a List of MathVector.
+    /// </summary>
     private void SetCoordinate()
     {
         _player1PathCoordinate = new List<(int, int)> {

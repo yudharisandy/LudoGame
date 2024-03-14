@@ -1,6 +1,5 @@
 namespace LudoGameGUI;
 
-using System;
 using System.Windows.Forms;
 using LudoGame;
 using LudoGame.Game;

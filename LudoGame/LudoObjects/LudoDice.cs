@@ -9,7 +9,4 @@ public class LudoDice : ILudoDice
         int _diceValue = _rnd.Next(1, 7);
         return _diceValue;
     }
-    // public int GetLastRoll(){
-    //     return 1;
-    // }
 }

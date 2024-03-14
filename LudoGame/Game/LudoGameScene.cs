@@ -1,7 +1,5 @@
 namespace LudoGame.Game;
 
-using LudoGame.GameFramework;
-using LudoGame.GameObject;
 using LudoGame.LudoObjects;
 using LudoGame.Interface;
 using LudoGame.Enums;
@@ -9,13 +7,15 @@ using LudoGame.Enums;
 /// <summary>
 /// A class used to control the game in general. Bring the specific ludo rule.
 /// </summary>
-public class LudoGameScene : IScene, IContextManager
+public class LudoGameScene
 {
-    protected ISceneManager? _sceneManager;
     public LudoContext ludoContext;
-    private bool collisionStatus;
+    private bool _collisionStatus;
     private Dictionary<IPlayer, ITotem> _totemToBeKicked;
 
+    /// <summary>
+    /// The constructor.
+    /// </summary>
     public LudoGameScene(){
         ludoContext = new LudoContext();
         _totemToBeKicked = new Dictionary<IPlayer, ITotem>();
@@ -28,7 +28,7 @@ public class LudoGameScene : IScene, IContextManager
     /// </summary>
     /// <returns></returns>
     public bool GetCollisionStatus(){
-        return collisionStatus;
+        return _collisionStatus;
     }
 
     /// <summary>
@@ -78,7 +78,6 @@ public class LudoGameScene : IScene, IContextManager
     /// <summary>
     /// A method to check the game status. 
     /// Comparing the number of OnFinal totems of current player to the total totems.
-    /// 
     /// </summary>
     /// <param name="player"></param>
     /// <param name="totem"></param>
@@ -98,29 +97,38 @@ public class LudoGameScene : IScene, IContextManager
     }
 
 
-    public void NextTurn(IPlayer player, List<ITotem> totemList, int diceValue, int userinputTotemID){
+    /// <summary>
+    /// A method to control the update process of totem based on the dice value.
+    /// Functionized as controller-like method.
+    /// </summary>
+    /// <param name="player">Current player</param>
+    /// <param name="totem">Current totem</param>
+    /// <param name="diceValue">Current dice value</param>
+    public void NextTurn(IPlayer player, ITotem totem, int diceValue){
         if (diceValue == 6){
-            GotSixInDice(player, totemList[userinputTotemID], diceValue);
-            UpdateTotemBasedOnCellConditionBeforeMove(player, totemList[userinputTotemID]);
-            UpdateTotemBasedOnCellConditionAfterMove(player, totemList[userinputTotemID]);
-            // System.Console.WriteLine("Dice 6");
+            GotSixInDice(player, totem, diceValue);
+            UpdateTotemBasedOnCellConditionBeforeMove(player, totem);
+            UpdateTotemBasedOnCellConditionAfterMove(player, totem);
         }
         else{
-            // Move available Totem (if totemStatus is OnPlay)
-            if (totemList[userinputTotemID].TotemStatusInfo == TotemStatus.OnPlay){
-                UpdateTotemPosition(player, totemList[userinputTotemID], diceValue);
-                UpdateTotemBasedOnCellConditionBeforeMove(player, totemList[userinputTotemID]);
-                UpdateTotemBasedOnCellConditionAfterMove(player, totemList[userinputTotemID]);
-                // System.Console.WriteLine("Dice not 6 & totem OnPlay");
+            if (totem.TotemStatusInfo == TotemStatus.OnPlay){
+                UpdateTotemPosition(player, totem, diceValue);
+                UpdateTotemBasedOnCellConditionBeforeMove(player, totem);
+                UpdateTotemBasedOnCellConditionAfterMove(player, totem);
             }
-            else if (totemList[userinputTotemID].TotemStatusInfo == TotemStatus.OnHome){
-                totemList[userinputTotemID].Position.X =  totemList[userinputTotemID].HomePosition.X;
-                totemList[userinputTotemID].Position.Y =  totemList[userinputTotemID].HomePosition.Y;
-                // System.Console.WriteLine("Dice not 6 & totem OnHome");
+            else if (totem.TotemStatusInfo == TotemStatus.OnHome){
+                totem.Position.X =  totem.HomePosition.X;
+                totem.Position.Y =  totem.HomePosition.Y;
             }
         }
     }
 
+    /// <summary>
+    /// A method to remove player-totem in the cell Occupants dictinoary.
+    /// When a totem move forward (after), the previous cell (before) should delete the totem from the cell Occupants dictionary.
+    /// </summary>
+    /// <param name="player">Current player</param>
+    /// <param name="totem">Current totem</param>
     private void UpdateTotemBasedOnCellConditionBeforeMove(IPlayer player, ITotem totem){
         // Call when the totem move to another cell
         int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.Before);
@@ -131,31 +139,35 @@ public class LudoGameScene : IScene, IContextManager
         cell?.KickTotem(player);
     }
 
+    /// <summary>
+    /// A method to consider the collision rule.
+    /// Collision rule: When reach a normal cell, a totem from different player could kick another player's totem that is in the cell Occupants before.
+    /// This method will update the collisionStatus, false: No collision, true: Collision.
+    /// When collision happens, the will-be-kicked totem position will set to it's home, and reset it's attributes as initial stage.
+    /// </summary>
+    /// <param name="player">Current player</param>
+    /// <param name="totem">Current totem</param>
     private void UpdateTotemBasedOnCellConditionAfterMove(IPlayer player, ITotem totem){
         // Collision rule
-        // totem to be checked: totemList[userinputTotemID]
 
-        // Take certain cell (from ludoContext.board.Cells) with the same x, y as totemList[userinputTotemID].Position.x, y
+        // Get the working cell
         int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.After); 
         var cell = ludoContext.board.Cells?[index]; // After-move cell
 
         // Current occupant totem list of the same player in working cell
-        // var totemList = ludoContext.board.Cells[index].GetListTotemOccupants(player);
-        if (cell is not null && cell.Occupants is not null){ // Just to avoid warning
+        if (cell is not null && cell.Occupants is not null){ // Just for avoiding warning
             if (cell.Occupants.Count == 0 || cell?.Type == CellType.Safe){
                 cell.AddTotem(player, totem);
-                collisionStatus = false; // To state that there is no collision
+                _collisionStatus = false; // To state that there is no collision
             }
             else if (cell?.Occupants.Count != 0 || cell.Type == CellType.Normal){
-                #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 foreach (var playerTotem in cell.Occupants){
                     if(playerTotem.Key == player){
                         cell.AddTotem(player, totem);
-                        collisionStatus = false; // To state that there is no collision
+                        _collisionStatus = false; // To state that there is no collision
                     }
                     else{
                         // change all totems position to HomePosition 
-                        // Set status to OnHome
                         foreach(var totemToKick in playerTotem.Value){
                             totemToKick.PreviousPosition.X = totemToKick.Position.X;
                             totemToKick.PreviousPosition.Y = totemToKick.Position.Y;
@@ -168,23 +180,21 @@ public class LudoGameScene : IScene, IContextManager
                             _totemToBeKicked.Clear(); // Clear before using it
                             _totemToBeKicked.Add(playerTotem.Key, totemToKick);
                         }
-                        // To state that there is collision
-                        collisionStatus = true; 
+                        _collisionStatus = true; // To state that there is collision
 
                         cell.KickTotem(playerTotem.Key);
                     }
                 }
-                #pragma warning restore CS8602 // Dereference of a possibly null reference.
-
-
             }
         }
     }
 
     /// <summary>
     /// A method to get the current cell that has been reached out by the moved totem.
+    /// Before: The cell that was left by the totem after it moves.
+    /// After: The objective cell to move.
     /// </summary>
-    /// <param name="totem">Totem</param>
+    /// <param name="totem">Current totem</param>
     /// <param name="type">Type: Before or After</param>
     /// <returns>Index of working cell</returns>
     private int GetWorkingCellIndex(ITotem totem, BeforeAfterMoveCell type){
@@ -213,7 +223,7 @@ public class LudoGameScene : IScene, IContextManager
     /// If the chosen totem is already OnPlay, the position will be updated directly.
     /// </summary>
     /// <param name="player">Current player</param>
-    /// <param name="totem">Totem to be updated</param>
+    /// <param name="totem">Current totem</param>
     /// <param name="diceValue">Dice value</param>
     private void GotSixInDice(IPlayer player, ITotem totem, int diceValue){
         if (totem.TotemStatusInfo == TotemStatus.OnHome){
@@ -231,8 +241,8 @@ public class LudoGameScene : IScene, IContextManager
     /// Set the previous position to the current position (before move).
     /// There will be a checking of dice value and maximum path route.
     /// </summary>
-    /// <param name="player">Player</param>
-    /// <param name="totem">Totem</param>
+    /// <param name="player">Current player</param>
+    /// <param name="totem">Current totem</param>
     /// <param name="diceValue">Dice value</param>
     public void UpdateTotemPosition(IPlayer player, ITotem totem, int diceValue){
         totem.PreviousPosition.X =  totem.Position.X;
@@ -273,8 +283,8 @@ public class LudoGameScene : IScene, IContextManager
     /// <summary>
     /// A method to update totem position to it's first path route.
     /// </summary>
-    /// <param name="player">Player</param>
-    /// <param name="totem">Totem</param>
+    /// <param name="player">Current player</param>
+    /// <param name="totem">Current totem</param>
     public void UpdateOutHomePosition(IPlayer player, ITotem totem){
         // Move out of HomePosition (pathPlayer[0] == Initial totem position on board)
         if (player.ID == 0){

@@ -4,7 +4,6 @@ using System.Windows.Forms;
 using LudoGame;
 using LudoGame.Enums;
 using LudoGame.Game;
-using LudoGame.GameObject;
 using LudoGame.Interface;
 using LudoGame.LudoObjects;
 using LudoGame.Utility;
@@ -50,7 +49,7 @@ public partial class LudoApplication
                         }
                         
                         // Method to update totem position
-                        _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
+                        _ludoGameScene.NextTurn(player.Key, player.Value[userInputTotemID], diceValue);
 
                         // Check whether there is collision or not
                         _getCollisionStatus = _ludoGameScene.GetCollisionStatus();
