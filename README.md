@@ -20,7 +20,7 @@ This repo is an individual project of The Bootcamp of Formulatrix Software Engin
 The following is the example of a GUI built using Windwos Forms Apps.
 ![progress-game-app](assets/progress.gif)
 
-## <a name="repo-foldering-structure" id="repo-foldering-structure"></a>Repository Foldering Structure
+## Repository Foldering Structure
 ```
 LudoGame
 ├── Game
@@ -34,7 +34,7 @@ LudoGameGUI
           └── LudoGameGUI.exe   
 ```
 
-## <a name="fame-features" id="game-features"></a>Game Features
+## Game Features
 - Support for 2-4 players
 - Support specific Ludo rules: 
     - The totem can only go out when dice value is 6
@@ -64,7 +64,11 @@ The following is the scheme of the ludo paths.
 ![Ludo-Paths](assets/ludo_paths.svg)
 [Image source](https://en.wikipedia.org/wiki/Ludo#:~:text=Ludo%20%28%2F%20%CB%88lju%CB%90do%CA%8A%20%2F%3B%20from%20Latin%20ludo%20%27,is%20derived%20from%20the%20Indian%20game%20Pachisi.%20)
 
-## How to Use
+## How to Use The GUI
+- Install Windows Desktop Runtime. The .NET Windows Desktop Runtime is used to run Windows Forms and WPF applications, on your computer. [Download .NET Desktop Runtime](https://aka.ms/dotnet/6.0/windowsdesktop-runtime-win-x64.exe).
+
+
+## How to Use The Library
 - Clone the repo: 
 
     ``` 
@@ -235,3 +239,4 @@ The following is the scheme of the ludo paths.
 - [Class Diagram](https://github.com/probabilitynokami/ClassDiagram/blob/main/Ludo.md)
 - [Formulatrix Bootcamp Repository](https://github.com/yudharisandy/Bootcamp-Formulatrix-CSharp)
 - [System.Windows.Forms](https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms?view=windowsdesktop-8.0)
+- [.NET Fundamentals Documentation](https://learn.microsoft.com/en-us/dotnet/fundamentals/)
