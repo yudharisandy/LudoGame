@@ -10,8 +10,8 @@ public class Totem
     public MathVector Position {get;set;}
     public MathVector HomePosition {get;set;}
     public MathVector PreviousPosition {get; set;}
-    private List<int> path;
-    public IPlayer Owner {get; private set;}
+    // private List<int>? path;
+    // public IPlayer? Owner {get; private set;}
     public TotemStatus totemStatus;
     public int pathStatus;
     // Constructor
@@ -26,10 +26,12 @@ public class Totem
     public void AdvanceOnce(){}
     public void GoHome(){}
 }
+
 public class MathVector(){
-    public int x;
-    public int y;
+    public int X { get; set; }
+    public int Y { get; set; }
 }
+
 public enum TotemStatus
 {
     OnHome,

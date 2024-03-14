@@ -3,13 +3,13 @@ using LudoGame.LudoObjects;
 
 public class TotemRendering
 {
-    private Totem totem;
+    // private Totem? totem;
 }
 public class BoardRendering
 {
-    private Board board;
+    // private Board? board;
 }
 public class LudoDiceRendering
 {
-    private LudoDice dice;
+    // private LudoDice? dice;
 }

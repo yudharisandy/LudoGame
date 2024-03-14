@@ -50,13 +50,13 @@ public class Program
 
                     // Roll dice
                     System.Console.Write("Input dice: ");
-                    string diceString = Console.ReadLine();
+                    string? diceString = Console.ReadLine();
                     int.TryParse(diceString, out diceValue);
                     // System.Console.WriteLine(diceValue);
 
                     // Choose totem to be moved
                     System.Console.Write("Totem to be moved: ");
-                    string userInputTotemIDString = Console.ReadLine();
+                    string? userInputTotemIDString = Console.ReadLine();
                     int.TryParse(userInputTotemIDString, out userInputTotemID);
                     // System.Console.WriteLine(userInputTotemID);
 

@@ -46,6 +46,7 @@ public partial class LudoApplication
                             await chooseTotemToMove.Task; // Wait player to choose one totem to change "userinputTotemID" (0-3)
                         }
                         
+                        // Method to update totem position
                         _ludoGameScene.NextTurn(player.Key, player.Value, diceValue, userInputTotemID);
 
                         // Check whether there is collision or not
@@ -53,12 +54,12 @@ public partial class LudoApplication
                         // method to update scene due to collision - Only 1 totem each time
                         CollisionSceneUpdate();
 
-                        RemoveTotem(player.Value[userInputTotemID].HomePosition.x, player.Value[userInputTotemID].HomePosition.y);
-                        RemoveTotem(player.Value[userInputTotemID].PreviousPosition.x, player.Value[userInputTotemID].PreviousPosition.y);
-                        
+                        // Update GUI sccene
+                        RemoveTotem(player.Value[userInputTotemID].HomePosition.X, player.Value[userInputTotemID].HomePosition.Y);
+                        RemoveTotem(player.Value[userInputTotemID].PreviousPosition.X, player.Value[userInputTotemID].PreviousPosition.Y);
                         Color color = SetTotemColor(player.Key);
-                        MoveTotem(player.Value[userInputTotemID].Position.x, 
-                                    player.Value[userInputTotemID].Position.y, 
+                        MoveTotem(player.Value[userInputTotemID].Position.X, 
+                                    player.Value[userInputTotemID].Position.Y, 
                                     player.Value[userInputTotemID], 
                                     color);
 
@@ -69,28 +70,25 @@ public partial class LudoApplication
                         // Method to check the winner (to stop the game)
                         // Default: _gameStatus = true (when just started)
                         _gameStatus = _ludoGameScene.GetGameStatus(player.Key, player.Value[userInputTotemID]);
-                        SceneUpdateWinnerGameStatus(player);
+                        if (_gameStatus == false){
+                            _playerTurnLabel.Text = $"Player {player.Key.ID + 1} Win!";
+                            _startLabel.Text += $"Status: {_gameStatus}";
+
+                            await Task.Delay(100000); // Stop the game;
+                        }
+
                     }
                     else{
                         _getTotemReachFinalCellStatus = false; // Player doesn't have any OnPlay totems -> continue to next player
                     }
 
                     // To refresh the object rendering process
-                    RefreshRendering();
+                    RefreshRendering(); // Run only when "Re-Render" button is pushed.
 
                     await Task.Delay(500);
 
                 } while(diceValue == 6 || _getTotemReachFinalCellStatus == true || _getCollisionStatus == true);
             }
-        }
-    }
-
-    private async void SceneUpdateWinnerGameStatus(KeyValuePair<LudoGame.GameObject.IPlayer, List<Totem>> player){
-        if (_gameStatus == false){
-            _playerTurnLabel.Text = $"Player {player.Key.ID + 1} Win!";
-            _startLabel.Text += $"Status: {_gameStatus}";
-
-            await Task.Delay(100000); // Stop the game;
         }
     }
 
@@ -100,11 +98,11 @@ public partial class LudoApplication
             var totemToBeKicked = _ludoGameScene.GetTotemToBeKicked();
             var playerToBeKicked = _ludoGameScene.GetPlayerToBeKicked();
             // RemoveTotem from working cell
-            RemoveTotem(totemToBeKicked.PreviousPosition.x, totemToBeKicked.PreviousPosition.y);
+            RemoveTotem(totemToBeKicked.PreviousPosition.X, totemToBeKicked.PreviousPosition.Y);
             // MoveTotem to Home Position
             Color colorToBeKicked = SetTotemColor(playerToBeKicked);
-            MoveTotem(totemToBeKicked.HomePosition.x, 
-                    totemToBeKicked.HomePosition.y, 
+            MoveTotem(totemToBeKicked.HomePosition.X, 
+                    totemToBeKicked.HomePosition.Y, 
                     totemToBeKicked, 
                     colorToBeKicked);
         }
@@ -126,8 +124,8 @@ public partial class LudoApplication
                 // MoveTotem to Home Position
                 Color colorToBeRefresh = SetTotemColor(playerRender.Key);
                 foreach(var totems in playerRender.Value){
-                    MoveTotem(totems.Position.x, 
-                                totems.Position.y, 
+                    MoveTotem(totems.Position.X, 
+                                totems.Position.Y, 
                                 totems, 
                                 colorToBeRefresh);
                 }
@@ -184,7 +182,7 @@ public partial class LudoApplication
     private void RemoveTotem(int x, int y)
     {
         // Retrieve the control at the specified cell
-        Control control = this.tableLayoutPanel.GetControlFromPosition(x, y);
+        Control? control = this.tableLayoutPanel.GetControlFromPosition(x, y);
 
         // If a control is found, remove it from the tableLayoutPanel
         if (control != null)
@@ -215,6 +213,7 @@ public partial class LudoApplication
         // Add circle panel to the specific cell
         this.tableLayoutPanel.Controls.Add(circlePanel, x, y);
     }
+    
     private void CreatePlayerTurnLabel()
     {
         // Add a label to display player names

@@ -25,7 +25,7 @@ public class RenderSystem
 public class RenderSystem<T>
 {
     // <<static>>
-    public List<T> Renderables;
+    public List<T>? Renderables;
     public void RegisterRenderable(T something){}
 }
 public enum SceneManagementCommand

@@ -41,12 +41,12 @@ public class LudoContext
     private void AssignCoordinate(KeyValuePair<IPlayer, List<Totem>> player, List<(int,int)> coord){
         int index = 0;
         foreach(var totem in player.Value){ // List<Totem>
-            totem.HomePosition.x = coord[index].Item1;
-            totem.HomePosition.y = coord[index].Item2;
+            totem.HomePosition.X = coord[index].Item1;
+            totem.HomePosition.Y = coord[index].Item2;
 
             // In the beginning set Position to HomePosition
-            totem.Position.x = totem.HomePosition.x;
-            totem.Position.y = totem.HomePosition.y;
+            totem.Position.X = totem.HomePosition.X;
+            totem.Position.Y = totem.HomePosition.Y;
             
             index++;
         }
@@ -61,13 +61,14 @@ public class LudoContext
         return numberTotems;
     }
 
-    public List<Totem> GetTotems(IPlayer player){
+    public List<Totem> GetTotems(IPlayer? player){
+        List<Totem> result = new();
         foreach(var i in _playerTotems){
             if (i.Key == player){
-                return i.Value;
+                result = i.Value;
             }
         }
-        return null;
+        return result;
     }
 
     public bool RegisterTotems(IPlayer player, List<Totem> totems){

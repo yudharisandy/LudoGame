@@ -56,7 +56,7 @@ public partial class LudoApplication
         foreach(var totemList in _ludoGameScene.ludoContext._playerTotems){
             Color color = SetTotemColor(totemList.Key);
             foreach(var totem in totemList.Value){
-                AddTotem(totem.HomePosition.x, totem.HomePosition.y, color, totem);            
+                AddTotem(totem.HomePosition.X, totem.HomePosition.Y, color, totem);            
             } 
         }
     }

@@ -6,7 +6,7 @@ using LudoGame.LudoObjects;
 
 public class LudoGameScene : IScene, IContextManager
 {
-    protected ISceneManager _sceneManager;
+    protected ISceneManager? _sceneManager;
     public LudoContext ludoContext;
     private bool collisionStatus;
     private Dictionary<IPlayer, Totem> _totemToBeKicked;
@@ -23,25 +23,27 @@ public class LudoGameScene : IScene, IContextManager
         return collisionStatus;
     }
     public Totem GetTotemToBeKicked(){
+        Totem result = new(100); // Just random Totem
         // There is only one Totem to be kicked!
         foreach(var i in _totemToBeKicked){
-            return i.Value;
+            result = i.Value;
         }
-        return null;
+        return result;
     }
     public IPlayer GetPlayerToBeKicked(){
+        IPlayer result = new LudoPlayer(100);
         // There is only one Totem to be kicked!
         foreach(var i in _totemToBeKicked){
-            return i.Key;
+            result = i.Key;
         }
-        return null;
+        return result;
     }
 
     public bool GetTotemReachFinalCellStatus(Totem totem){
         int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.After);
-        var cell = ludoContext.board.Cells[index];
+        var cell = ludoContext.board.Cells?[index];
 
-        if (cell.Type == CellType.Final){
+        if (cell?.Type == CellType.Final){
             // this method runs every 1 totem reach the final cell
             totem.totemStatus = TotemStatus.OnFinal; // Change OnPlay -> OnFinal
             return true; // Totem reach final cell
@@ -53,10 +55,10 @@ public class LudoGameScene : IScene, IContextManager
         
         // If the finalCell.Count == TotemList.Count -> game should stop, return false
         int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.After);
-        var cell = ludoContext.board.Cells[index];
+        var cell = ludoContext.board.Cells?[index];
 
         // this method run each 1 totem reach the final cell
-        if (cell.Type == CellType.Final){
+        if (cell?.Type == CellType.Final){
             var totemListToCheck = cell.GetListTotemOccupants(player);
 
             // If the final cell contains totem as many as totems registered -> stop the game
@@ -85,8 +87,8 @@ public class LudoGameScene : IScene, IContextManager
                 // System.Console.WriteLine("Dice not 6 & totem OnPlay");
             }
             else if (totemList[userinputTotemID].totemStatus == TotemStatus.OnHome){
-                totemList[userinputTotemID].Position.x =  totemList[userinputTotemID].HomePosition.x;
-                totemList[userinputTotemID].Position.y =  totemList[userinputTotemID].HomePosition.y;
+                totemList[userinputTotemID].Position.X =  totemList[userinputTotemID].HomePosition.X;
+                totemList[userinputTotemID].Position.Y =  totemList[userinputTotemID].HomePosition.Y;
                 // System.Console.WriteLine("Dice not 6 & totem OnHome");
             }
         }
@@ -95,11 +97,11 @@ public class LudoGameScene : IScene, IContextManager
     private void UpdateTotemBasedOnCellConditionBeforeMove(IPlayer player, Totem totem){
         // Call when the totem move to another cell
         int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.Before);
-        var cell = ludoContext.board.Cells[index];
+        var cell = ludoContext.board.Cells?[index];
 
         // [WARNING] Possibility to kick all available totem in a cell (from the same player)
         // While only one totem move forward.
-        cell.KickTotem(player);
+        cell?.KickTotem(player);
     }
 
     private void UpdateTotemBasedOnCellConditionAfterMove(IPlayer player, Totem totem){
@@ -108,43 +110,47 @@ public class LudoGameScene : IScene, IContextManager
 
         // Take certain cell (from ludoContext.board.Cells) with the same x, y as totemList[userinputTotemID].Position.x, y
         int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.After); 
-        var cell = ludoContext.board.Cells[index]; // After-move cell
+        var cell = ludoContext.board.Cells?[index]; // After-move cell
 
         // Current occupant totem list of the same player in working cell
         // var totemList = ludoContext.board.Cells[index].GetListTotemOccupants(player);
-
-        if (cell.Occupants.Count == 0 || cell.Type == CellType.Safe){
-            cell.AddTotem(player, totem);
-            collisionStatus = false; // To state that there is no collision
-        }
-        else if (cell.Occupants.Count != 0 || cell.Type == CellType.Normal){
-            foreach(var playerTotem in cell.Occupants){
-                if(playerTotem.Key == player){
-                    cell.AddTotem(player, totem);
-                    collisionStatus = false; // To state that there is no collision
-                }
-                else{
-                    // change all totems position to HomePosition 
-                    // Set status to OnHome
-                    foreach(var totemToKick in playerTotem.Value){
-                        totemToKick.PreviousPosition.x = totemToKick.Position.x;
-                        totemToKick.PreviousPosition.y = totemToKick.Position.y;
-                        totemToKick.Position.x = totemToKick.HomePosition.x;
-                        totemToKick.Position.y = totemToKick.HomePosition.y; 
-                        totemToKick.totemStatus = TotemStatus.OnHome;
-                        totemToKick.pathStatus = 0; // Reset the path/route history
-
-                        // Save the totem to be kicked
-                        _totemToBeKicked.Clear(); // Clear before using it
-                        _totemToBeKicked.Add(playerTotem.Key, totemToKick);
-                    }
-                    // To state that there is collision
-                    collisionStatus = true; 
-
-                    cell.KickTotem(playerTotem.Key);
-                }
+        if (cell is not null && cell.Occupants is not null){ // Just to avoid warning
+            if (cell.Occupants.Count == 0 || cell?.Type == CellType.Safe){
+                cell.AddTotem(player, totem);
+                collisionStatus = false; // To state that there is no collision
             }
-            
+            else if (cell?.Occupants.Count != 0 || cell.Type == CellType.Normal){
+                #pragma warning disable CS8602 // Dereference of a possibly null reference.
+                foreach (var playerTotem in cell.Occupants){
+                    if(playerTotem.Key == player){
+                        cell.AddTotem(player, totem);
+                        collisionStatus = false; // To state that there is no collision
+                    }
+                    else{
+                        // change all totems position to HomePosition 
+                        // Set status to OnHome
+                        foreach(var totemToKick in playerTotem.Value){
+                            totemToKick.PreviousPosition.X = totemToKick.Position.X;
+                            totemToKick.PreviousPosition.Y = totemToKick.Position.Y;
+                            totemToKick.Position.X = totemToKick.HomePosition.X;
+                            totemToKick.Position.Y = totemToKick.HomePosition.Y; 
+                            totemToKick.totemStatus = TotemStatus.OnHome;
+                            totemToKick.pathStatus = 0; // Reset the path/route history
+
+                            // Save the totem to be kicked
+                            _totemToBeKicked.Clear(); // Clear before using it
+                            _totemToBeKicked.Add(playerTotem.Key, totemToKick);
+                        }
+                        // To state that there is collision
+                        collisionStatus = true; 
+
+                        cell.KickTotem(playerTotem.Key);
+                    }
+                }
+                #pragma warning restore CS8602 // Dereference of a possibly null reference.
+
+
+            }
         }
     }
 
@@ -153,18 +159,19 @@ public class LudoGameScene : IScene, IContextManager
         int index = 0;
 
         if (type == BeforeAfterMoveCell.After){
-            for(index = 0; index < ludoContext.board.Cells.Count; index++){
-                if (totem.Position.x == ludoContext.board.Cells[index].Position.x 
-                    && totem.Position.y == ludoContext.board.Cells[index].Position.y){
+            for (index = 0; index < ludoContext.board.Cells?.Count; index++){
+                if (totem.Position.X == ludoContext.board.Cells[index].Position?.X 
+                    && totem.Position.Y == ludoContext.board.Cells[index].Position?.Y){
                     return index;
                 }
             }
+
             return 0;
         }
         else{ // Before-move cell
-            for(index = 0; index < ludoContext.board.Cells.Count; index++){
-                if (totem.PreviousPosition.x == ludoContext.board.Cells[index].Position.x 
-                    && totem.PreviousPosition.y == ludoContext.board.Cells[index].Position.y){
+            for(index = 0; index < ludoContext.board.Cells?.Count; index++){
+                if (totem.PreviousPosition.X == ludoContext.board.Cells[index].Position?.X 
+                    && totem.PreviousPosition.Y == ludoContext.board.Cells[index].Position?.Y){
                     return index;
                 }
             }
@@ -186,48 +193,61 @@ public class LudoGameScene : IScene, IContextManager
     }
 
     public void UpdateTotemPosition(IPlayer player, Totem totem, int diceValue){
-        totem.PreviousPosition.x =  totem.Position.x;
-        totem.PreviousPosition.y =  totem.Position.y;
-        if(player.ID == 0){    
-            totem.Position.x = ludoContext.board.Paths.pathPlayer1[totem.pathStatus + diceValue].x;
-            totem.Position.y = ludoContext.board.Paths.pathPlayer1[totem.pathStatus + diceValue].y;
-            totem.pathStatus += diceValue;
+        totem.PreviousPosition.X =  totem.Position.X;
+        totem.PreviousPosition.Y =  totem.Position.Y;
+        #pragma warning disable CS8602 // Dereference of a possibly null reference.
+        if(player.ID == 0){
+            // if the diceValue > total remaining path, totem.Position is not changed.
+            if(diceValue < ludoContext.board.Paths?.pathPlayer1?.Count - totem.pathStatus){
+                totem.Position.X = ludoContext.board.Paths.pathPlayer1[totem.pathStatus + diceValue].X;
+                totem.Position.Y = ludoContext.board.Paths.pathPlayer1[totem.pathStatus + diceValue].Y;
+                totem.pathStatus += diceValue;
+            }
         }
         else if(player.ID == 1){
-            totem.Position.x = ludoContext.board.Paths.pathPlayer2[totem.pathStatus + diceValue].x;
-            totem.Position.y = ludoContext.board.Paths.pathPlayer2[totem.pathStatus + diceValue].y;
-            totem.pathStatus += diceValue;
+            if(diceValue < ludoContext.board.Paths?.pathPlayer2?.Count - totem.pathStatus){
+                totem.Position.X = ludoContext.board.Paths.pathPlayer2[totem.pathStatus + diceValue].X;
+                totem.Position.Y = ludoContext.board.Paths.pathPlayer2[totem.pathStatus + diceValue].Y;
+                totem.pathStatus += diceValue;
+            }
         }
         else if(player.ID == 2){
-            totem.Position.x = ludoContext.board.Paths.pathPlayer3[totem.pathStatus + diceValue].x;
-            totem.Position.y = ludoContext.board.Paths.pathPlayer3[totem.pathStatus + diceValue].y;
-            totem.pathStatus += diceValue;
+            if(diceValue < ludoContext.board.Paths?.pathPlayer3?.Count - totem.pathStatus){
+                totem.Position.X = ludoContext.board.Paths.pathPlayer3[totem.pathStatus + diceValue].X;
+                totem.Position.Y = ludoContext.board.Paths.pathPlayer3[totem.pathStatus + diceValue].Y;
+                totem.pathStatus += diceValue;
+            }
         }
         else{
-            totem.Position.x = ludoContext.board.Paths.pathPlayer4[totem.pathStatus + diceValue].x;
-            totem.Position.y = ludoContext.board.Paths.pathPlayer4[totem.pathStatus + diceValue].y;
-            totem.pathStatus += diceValue;
+            if(diceValue < ludoContext.board.Paths?.pathPlayer4?.Count - totem.pathStatus){
+                totem.Position.X = ludoContext.board.Paths.pathPlayer4[totem.pathStatus + diceValue].X;
+                totem.Position.Y = ludoContext.board.Paths.pathPlayer4[totem.pathStatus + diceValue].Y;
+                totem.pathStatus += diceValue;
+            }
         }
+        #pragma warning restore CS8602 // Dereference of a possibly null reference.
     }
 
     public void UpdateOutHomePosition(IPlayer player, Totem totem){
         // Move out of HomePosition (pathPlayer[0] == Initial totem position on board)
+        #pragma warning disable CS8602 // Dereference of a possibly null reference.
         if (player.ID == 0){
-            totem.Position.x = ludoContext.board.Paths.pathPlayer1[0].x;
-            totem.Position.y = ludoContext.board.Paths.pathPlayer1[0].y;
+            totem.Position.X = ludoContext.board.Paths.pathPlayer1[0].X;
+            totem.Position.Y = ludoContext.board.Paths.pathPlayer1[0].Y;
         }
         else if (player.ID == 1){
-            totem.Position.x = ludoContext.board.Paths.pathPlayer2[0].x;
-            totem.Position.y = ludoContext.board.Paths.pathPlayer2[0].y;
+            totem.Position.X = ludoContext.board.Paths.pathPlayer2[0].X;
+            totem.Position.Y = ludoContext.board.Paths.pathPlayer2[0].Y;
         }
         else if (player.ID == 2){
-            totem.Position.x = ludoContext.board.Paths.pathPlayer3[0].x;
-            totem.Position.y = ludoContext.board.Paths.pathPlayer3[0].y;
+            totem.Position.X = ludoContext.board.Paths.pathPlayer3[0].X;
+            totem.Position.Y = ludoContext.board.Paths.pathPlayer3[0].Y;
         }
         else{
-            totem.Position.x = ludoContext.board.Paths.pathPlayer4[0].x;
-            totem.Position.y = ludoContext.board.Paths.pathPlayer4[0].y;
+            totem.Position.X = ludoContext.board.Paths.pathPlayer4[0].X;
+            totem.Position.Y = ludoContext.board.Paths.pathPlayer4[0].Y;
         }
+        #pragma warning restore CS8602 // Dereference of a possibly null reference.
     }
 }
 

@@ -22,6 +22,7 @@ public partial class LudoApplication
         this.Controls.Add(this._inputPlayerButton);
         this._inputPlayerButton.Click += PlayerInputButton_Click;
     }
+
     private void CreateInputPlayerTextBox()
     {
         // Create a text box for inputting the number of players
@@ -30,6 +31,7 @@ public partial class LudoApplication
         this._inputPlayerTextBox.Size = new System.Drawing.Size(100, 20);
         this.Controls.Add(this._inputPlayerTextBox);
     }
+
     private void CreatePlayersLabel()
     {
         // Add a label to display player names
@@ -39,6 +41,7 @@ public partial class LudoApplication
         this._playersLabel.Location = new System.Drawing.Point(70, 345);
         this.Controls.Add(this._playersLabel);
     }
+    
     private void PlayerInputButton_Click(object sender, EventArgs e)
     {
         // Get the input number of players
