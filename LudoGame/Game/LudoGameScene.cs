@@ -3,6 +3,8 @@ namespace LudoGame.Game;
 using LudoGame.LudoObjects;
 using LudoGame.Interface;
 using LudoGame.Enums;
+using System.Net;
+
 
 /// <summary>
 /// A class used to control the game in general. Bring the specific ludo rule.
@@ -11,6 +13,8 @@ public class LudoGameScene
 {
     public LudoContext ludoContext;
     private bool _collisionStatus;
+    private bool _mergeTotemAfterMoveStatus;
+    private bool _mergeTotemBeforeMoveStatus;
     private Dictionary<IPlayer, ITotem> _totemToBeKicked;
 
     /// <summary>
@@ -21,14 +25,39 @@ public class LudoGameScene
         _totemToBeKicked = new Dictionary<IPlayer, ITotem>();
     }
 
-    public void Update(){}
-
     /// <summary>
     /// A method to get the status of collisions.
     /// </summary>
     /// <returns></returns>
     public bool GetCollisionStatus(){
         return _collisionStatus;
+    }
+
+    /// <summary>
+    /// A method to get Merge Totem Status in the after-move cell (the movement objective cell).
+    /// True: After-cell is merged, False: Not.
+    /// </summary>
+    /// <returns>The merge status </returns>
+    public bool GetMergeTotemAfterMoveStatus(){
+        return _mergeTotemAfterMoveStatus;
+    }
+
+    /// <summary>
+    /// A method to get Merge Totem Status in the before-move cell (the left cell).
+    /// True: Before-cell is merged, False: Not.
+    /// </summary>
+    /// <returns>The merge status </returns>
+    public bool GetMergeTotemBeforeMoveStatus(){
+        return _mergeTotemBeforeMoveStatus;
+    }
+
+    /// <summary>
+    /// A method to set Merge Totem Status in the before-move cell (the left cell).
+    /// True: Before-cell is merged, False: Not.
+    /// </summary>
+    /// <param name="status">The merge status</param>
+    public void SetMergeTotemBeforeMoveStatus(bool status){
+        _mergeTotemBeforeMoveStatus = status;
     }
 
     /// <summary>
@@ -64,8 +93,7 @@ public class LudoGameScene
     /// <param name="totem"></param>
     /// <returns>True, if totem reachs final cell. False, if not.</returns>
     public bool GetTotemReachFinalCellStatus(ITotem totem){
-        int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.After);
-        var cell = ludoContext.board.Cells?[index];
+        var cell = GetWorkingCell(totem, BeforeAfterMoveCell.After);
 
         if (cell?.Type == CellType.Final){
             // this method runs every 1 totem reach the final cell
@@ -83,9 +111,7 @@ public class LudoGameScene
     /// <param name="totem"></param>
     /// <returns>False, if all totems of a player has been reach the final cell. True, if not.</returns>
     public bool GetGameStatus(IPlayer player, ITotem totem){
-        int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.After);
-        var cell = ludoContext.board.Cells?[index];
-
+        var cell = GetWorkingCell(totem, BeforeAfterMoveCell.After);
         if (cell?.Type == CellType.Final){
             var totemListToCheck = cell.GetListTotemOccupants(player);
             int totalNumTotemsEachPlayer = ludoContext.GetTotalNumberTotemsEachPlayer();
@@ -109,6 +135,7 @@ public class LudoGameScene
             GotSixInDice(player, totem, diceValue);
             UpdateTotemBasedOnCellConditionBeforeMove(player, totem);
             UpdateTotemBasedOnCellConditionAfterMove(player, totem);
+            System.Console.WriteLine(_mergeTotemAfterMoveStatus);
         }
         else{
             if (totem.TotemStatusInfo == TotemStatus.OnPlay){
@@ -130,13 +157,29 @@ public class LudoGameScene
     /// <param name="player">Current player</param>
     /// <param name="totem">Current totem</param>
     private void UpdateTotemBasedOnCellConditionBeforeMove(IPlayer player, ITotem totem){
-        // Call when the totem move to another cell
-        int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.Before);
-        var cell = ludoContext.board.Cells?[index];
+        if(totem.PathStatus != 0 ){
+            System.Console.WriteLine("PathStatus != 0");
+            // Call when the totem move to another cell
+            var cell = GetWorkingCell(totem, BeforeAfterMoveCell.Before);
+            cell.KickTotem(player, totem);
 
-        // [WARNING] Possibility to kick all available totem in a cell (from the same player)
-        // While only one totem move forward.
-        cell?.KickTotem(player);
+            int remainingTotems = 0;
+            foreach(var i in cell.Occupants){
+                if(i.Value.Count != 0){
+                    remainingTotems = i.Value.Count;
+                }
+            }
+            System.Console.WriteLine($"Before: remaining totems: {remainingTotems}");
+
+            if(remainingTotems> 0){ // The totem left other totems in previous cell
+                _mergeTotemBeforeMoveStatus = true;
+            }
+            else{ // There is no totem left when a totem move forward
+                _mergeTotemBeforeMoveStatus = false;
+            }
+            System.Console.WriteLine($"_mergeTotemBeforeMoveStatus: {_mergeTotemBeforeMoveStatus}");
+        }
+        // [Potential BUG] -> for the second player, who just go out the totem -> got true if previous player is true (can't be modified)
     }
 
     /// <summary>
@@ -151,25 +194,53 @@ public class LudoGameScene
         // Collision rule
 
         // Get the working cell
-        int index = GetWorkingCellIndex(totem, BeforeAfterMoveCell.After); 
-        var cell = ludoContext.board.Cells?[index]; // After-move cell
+        var cell = GetWorkingCell(totem, BeforeAfterMoveCell.After); // After-move cell
+
+        int remainingTotems = 0;
+        if(cell.Occupants is not null){
+            foreach(var i in cell.Occupants){
+                if(i.Value.Count != 0){
+                    remainingTotems = i.Value.Count;
+                }
+            }
+        }
+        System.Console.WriteLine($"After: remaining totems: {remainingTotems}");
 
         // Current occupant totem list of the same player in working cell
         if (cell is not null && cell.Occupants is not null){ // Just for avoiding warning
-            if (cell.Occupants.Count == 0 || cell?.Type == CellType.Safe){
+            if (remainingTotems == 0){
                 cell.AddTotem(player, totem);
                 _collisionStatus = false; // To state that there is no collision
+                _mergeTotemAfterMoveStatus = false; // To state that there is no merging process
             }
-            else if (cell?.Occupants.Count != 0 || cell.Type == CellType.Normal){
-                foreach (var playerTotem in cell.Occupants){
+            else if(remainingTotems > 0 && cell?.Type == CellType.Safe){
+                cell.AddTotem(player, totem);
+                _mergeTotemAfterMoveStatus = true; // To state that there is merging process
+                System.Console.WriteLine($"cell.Occupants.Count: {remainingTotems}");
+                _collisionStatus = false; // To state that there is no collision
+            }
+            else if(remainingTotems > 0 && cell?.Type == CellType.Final){
+                cell.AddTotem(player, totem);
+                _mergeTotemAfterMoveStatus = true; // To state that there is merging process
+                System.Console.WriteLine($"cell.Occupants.Count: {remainingTotems}");
+                _collisionStatus = false; // To state that there is no collision
+            }
+            else if (remainingTotems > 0 && cell.Type == CellType.Normal){
+                Dictionary<IPlayer, List<ITotem>> temp1 = new Dictionary<IPlayer, List<ITotem>>(cell.Occupants);
+                foreach (var playerTotem in temp1){
                     if(playerTotem.Key == player){
                         cell.AddTotem(player, totem);
                         _collisionStatus = false; // To state that there is no collision
+                        _mergeTotemAfterMoveStatus = true; // To state that there is merging process
                     }
                     else{
+                        // Collision happens
                         // change all totems position to HomePosition 
-                        foreach(var totemToKick in playerTotem.Value){
-                            totemToKick.PreviousPosition.X = totemToKick.Position.X;
+                        List<ITotem> temp = new List<ITotem>(playerTotem.Value);
+                        // temp = playerTotem.Value.Select(x => x.Clone()).ToList();
+
+                        foreach(var totemToKick in temp){
+                            totemToKick.PreviousPosition.X = totemToKick.Position.X; // To kick the totem to
                             totemToKick.PreviousPosition.Y = totemToKick.Position.Y;
                             totemToKick.Position.X = totemToKick.HomePosition.X;
                             totemToKick.Position.Y = totemToKick.HomePosition.Y; 
@@ -179,13 +250,16 @@ public class LudoGameScene
                             // Save the totem to be kicked
                             _totemToBeKicked.Clear(); // Clear before using it
                             _totemToBeKicked.Add(playerTotem.Key, totemToKick);
+                            cell.KickTotem(playerTotem.Key, totemToKick);
                         }
+                        _mergeTotemAfterMoveStatus = false;
                         _collisionStatus = true; // To state that there is collision
-
-                        cell.KickTotem(playerTotem.Key);
+                        // cell.AddTotem(player, totem);
                     }
                 }
             }
+            System.Console.WriteLine($"_collisionStatus: {_collisionStatus}");
+            System.Console.WriteLine($"_mergeTotemAfterMoveStatus: {_mergeTotemAfterMoveStatus}");
         }
     }
 
@@ -196,24 +270,32 @@ public class LudoGameScene
     /// </summary>
     /// <param name="totem">Current totem</param>
     /// <param name="type">Type: Before or After</param>
-    /// <returns>Index of working cell</returns>
-    private int GetWorkingCellIndex(ITotem totem, BeforeAfterMoveCell type){
+    /// <returns>Working cell</returns>
+    public ICell GetWorkingCell(ITotem totem, BeforeAfterMoveCell type){
         int index = 0;
         if (type == BeforeAfterMoveCell.After){
-            for (index = 0; index < ludoContext.board.Cells?.Count; index++){
-                if (totem.Position.X == ludoContext.board.Cells[index].Position?.X 
-                    && totem.Position.Y == ludoContext.board.Cells[index].Position?.Y){
-                    return index;
+            for (index = 0; index < ludoContext.board.Cells.Count; index++){
+                if (totem.Position.X == ludoContext.board.Cells[index].Position.X 
+                    && totem.Position.Y == ludoContext.board.Cells[index].Position.Y){
+                    System.Console.WriteLine("return good cell"); // Good
+                    return ludoContext.board.Cells[index]; // After-move cell
                 }
-            } return 0;
+            } 
+            System.Console.WriteLine($"{totem.Position.X}, {totem.Position.Y}");
+            System.Console.WriteLine("return null cell");
+            return null;
         }
         else{
-            for(index = 0; index < ludoContext.board.Cells?.Count; index++){
-                if (totem.PreviousPosition.X == ludoContext.board.Cells[index].Position?.X 
-                    && totem.PreviousPosition.Y == ludoContext.board.Cells[index].Position?.Y){
-                    return index;
+            for(index = 0; index < ludoContext.board.Cells.Count; index++){
+                if (totem.PreviousPosition.X == ludoContext.board.Cells[index].Position.X 
+                    && totem.PreviousPosition.Y == ludoContext.board.Cells[index].Position.Y){
+                    return ludoContext.board.Cells[index];
                 }
-            } return 0; 
+                
+            } 
+            System.Console.WriteLine($"{totem.PreviousPosition.X}, {totem.PreviousPosition.Y}"); // BUG: 0,0
+            System.Console.WriteLine("return null " + $"{ludoContext.board.Cells.Count}"); // Works well
+            return null; // return this value -> Bug
         }
     }
     
@@ -287,6 +369,7 @@ public class LudoGameScene
     /// <param name="totem">Current totem</param>
     public void UpdateOutHomePosition(IPlayer player, ITotem totem){
         // Move out of HomePosition (pathPlayer[0] == Initial totem position on board)
+        
         if (player.ID == 0){
             totem.Position.X = ludoContext.board.Paths.pathPlayer1[0].X;
             totem.Position.Y = ludoContext.board.Paths.pathPlayer1[0].Y;
@@ -303,6 +386,8 @@ public class LudoGameScene
             totem.Position.X = ludoContext.board.Paths.pathPlayer4[0].X;
             totem.Position.Y = ludoContext.board.Paths.pathPlayer4[0].Y;
         }
+        totem.PreviousPosition.X = totem.Position.X;
+        totem.PreviousPosition.Y = totem.Position.Y;
     }
 }
 

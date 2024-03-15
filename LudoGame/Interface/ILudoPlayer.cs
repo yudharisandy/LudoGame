@@ -3,10 +3,12 @@ namespace LudoGame.Interface;
 using LudoGame.Enums;
 
 /// <summary>
-/// An interface for LudoPlayer.
+/// Represent an interface for Ludo Game Player (user).
 /// </summary>
 public interface ILudoPlayer : IPlayer
 {
+    /// <summary>
+    /// Represent an id of a player.
+    /// </summary>
     public int ID {get; set;}
-    public PlayerTotemHome PlayersTotemHome {get; set;}
 }

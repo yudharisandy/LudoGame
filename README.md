@@ -52,6 +52,8 @@ LudoGameGUI
     - When there is only 1 totem OnPlay -> directly move the totem (user doesn't need to choose the totem)
     - If roll dice > remaining path/route -> the totem won't be moved (can be happened near the final cell).
 - Provide a playground GUI to be tried out!
+    - GUI: One cell could show up more than one totem (from the same player).
+    - GUI: One cell could show up more than one totem (from different players only in safe cell -> BUG in color choosing).
     - GUI: A kicked Totem automatically go back to ```HomePosition``` when collision happens.
     - GUI: Re-Render the objects button -> To show all totems in correct position.
 
@@ -59,7 +61,8 @@ LudoGameGUI
 - Create new class diagram (for comparison)
 - Library: when totem kicked out (when player accidentally click the kicked out totem -> the player just remain the same -> continue to next player)
 - GUI: roll dice value > remaining path/route -> the totem won't be moved -> The player should be able to move another OnPlay totem if exists.
-- GUI: One cell can't show up more than one totem.
+- GUI: Bug of totem coloring in different player merging.
+
 
 ## Board Coordinate Scheme
 This library is built based on the following board coordinate scheme.

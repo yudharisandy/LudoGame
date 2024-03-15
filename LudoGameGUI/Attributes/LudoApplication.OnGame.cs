@@ -14,28 +14,37 @@ public partial class LudoApplication
     private TaskCompletionSource<bool> chooseTotemToMove;
     private bool _getTotemReachFinalCellStatus;
     private bool _getCollisionStatus;
+    private bool _mergeTotemAfterMoveStatus;
+    private bool _mergeTotemBeforeMoveStatus;
     private int userInputTotemID;
+    private string _totemNameOnPanel;
+    private Label totemLabel;
+    private int numberTotemOnPlay;
     
     private async void Play(){
         while(true){
             // Loop for every player
             foreach(var player in _ludoGameScene.ludoContext._playerTotems){
-                
+                Color color = SetTotemColor(player.Key);
                 // Logic for dice-6 rule (the same player holds)
                 do {
 
                     _playerTurnLabel.Text = $"Turn: Player {player.Key.ID + 1}";
                     
+                    // Specify color for each player
+                    SpecifyColorUIAttribute(color);
+                    
                     rollDiceClickedTask = new TaskCompletionSource<bool>();
                     await rollDiceClickedTask.Task; // // Wait player push "Roll Dice" to change the "diceValue" (1-6)
                     
                     // To check whether the totem OnPlay exist(s) or not.
-                    int numberTotemOnPlay = CheckTotemStatus(player.Value);
+                    numberTotemOnPlay = CheckTotemStatus(player.Value);
 
                     // If there is no Totem OnPlay and dice != 6, continue to next player directly
                     if (diceValue == 6 || numberTotemOnPlay >= 1){ 
                         
                         // If there is only 1 OnPlay totem, user doesn't need to choose anymore.
+                        // If not, user will choose by using totem button.
                         if (numberTotemOnPlay == 1 && diceValue != 6){
                             // method to get that one totem ID
                             // When get dice 6, user can choose themselves
@@ -53,17 +62,25 @@ public partial class LudoApplication
 
                         // Check whether there is collision or not
                         _getCollisionStatus = _ludoGameScene.GetCollisionStatus();
-                        // method to update scene due to collision - Only 1 totem each time
-                        CollisionSceneUpdate();
+                        CollisionSceneUpdate(); // method to update scene due to collision - Only 1 totem each time
 
                         // Update GUI sccene
-                        RemoveTotem(player.Value[userInputTotemID].HomePosition.X, player.Value[userInputTotemID].HomePosition.Y);
+                        RemoveTotem(player.Value[userInputTotemID].HomePosition.X, player.Value[userInputTotemID].HomePosition.Y);                   
                         RemoveTotem(player.Value[userInputTotemID].PreviousPosition.X, player.Value[userInputTotemID].PreviousPosition.Y);
-                        Color color = SetTotemColor(player.Key);
-                        MoveTotem(player.Value[userInputTotemID].Position.X, 
-                                    player.Value[userInputTotemID].Position.Y, 
-                                    player.Value[userInputTotemID], 
-                                    color);
+
+                        // Check totem merging process (after-move)
+                        _mergeTotemAfterMoveStatus = _ludoGameScene.GetMergeTotemAfterMoveStatus();
+                        var cell2 = _ludoGameScene.GetWorkingCell(player.Value[userInputTotemID], BeforeAfterMoveCell.After);
+                        MergeTotemAfterMoveSceneUpdate(cell2);
+                        
+                        // Move totem to new coordinate
+                        MoveTotemAfter(player.Key, player.Value[userInputTotemID].Position.X, player.Value[userInputTotemID].Position.Y, player.Value[userInputTotemID], color);
+
+                        // Check totem merging process (before-move)
+                        _mergeTotemBeforeMoveStatus = _ludoGameScene.GetMergeTotemBeforeMoveStatus();
+                        var cell1 = _ludoGameScene.GetWorkingCell(player.Value[userInputTotemID], BeforeAfterMoveCell.Before);
+                        MergeTotemBeforeMoveSceneUpdate(cell1, color);
+                        // the above line works while it doesn't suppose to.
 
                         // Check whether the totem reach the final cell or not
                         // If true: the same player holds.
@@ -74,25 +91,67 @@ public partial class LudoApplication
                         _gameStatus = _ludoGameScene.GetGameStatus(player.Key, player.Value[userInputTotemID]);
                         if (_gameStatus == false){
                             _playerTurnLabel.Text = $"Player {player.Key.ID + 1} Win!";
-                            _startLabel.Text += $"Status: {_gameStatus}";
+                            _startLabel.Text = $"Status: {_gameStatus}";
 
                             await Task.Delay(100000); // Stop the game;
                         }
-
                     }
                     else{
                         _getTotemReachFinalCellStatus = false; // Player doesn't have any OnPlay totems -> continue to next player
                     }
 
                     // To refresh the object rendering process
-                    RefreshRendering(); // Run only when "Re-Render" button is pushed.
+                    // RefreshRendering(); // Run only when "Re-Render" button is pushed.
 
                     await Task.Delay(500);
-                    
-                    // Just to mark the diceButton to be available
-                    diceButton.BackColor = Color.Gold;
 
                 } while(diceValue == 6 || _getTotemReachFinalCellStatus == true || _getCollisionStatus == true);
+            }
+        }
+    }
+
+    private void SpecifyColorUIAttribute(Color color){
+        _playerTurnLabel.BackColor = color; 
+        _totem1PlayerButton.BackColor = color;
+        _totem2PlayerButton.BackColor = color;
+        _totem3PlayerButton.BackColor = color;
+        _totem4PlayerButton.BackColor = color;
+        diceButton.BackColor = color;
+    }
+
+    private void MergeTotemBeforeMoveSceneUpdate(ICell cell, Color color){
+        // assumption: there is no control anymore in the before-move cell (need to be confirmed)
+        IPlayer playerKey = new LudoPlayer(1000);
+        ITotem totemValue = new Totem(1000);
+
+        if(_mergeTotemBeforeMoveStatus == true){
+            _totemNameOnPanel = "";
+            foreach(var player in cell.Occupants){
+                foreach(var totem in player.Value){    
+                    _totemNameOnPanel += $"{(TotemName)totem.ID}{player.Key.ID + 1},"; // Update the _totemNameOnPanel = All totem name
+                    totemValue = totem;
+                    playerKey = player.Key;
+                }
+            }
+            // [Potential BUG]
+            MoveTotemBefore(playerKey, totemValue.Position.X, totemValue.Position.Y, totemValue, color);
+            _mergeTotemBeforeMoveStatus = false; // Are not updated in the library // To make sure every next player start from False
+            _ludoGameScene.SetMergeTotemBeforeMoveStatus(false); // Update in the library
+
+        }
+        
+    }
+
+    private void MergeTotemAfterMoveSceneUpdate(ICell cell){
+        System.Console.WriteLine(_mergeTotemAfterMoveStatus);
+        if(_mergeTotemAfterMoveStatus == true){
+            _totemNameOnPanel = "";
+            foreach(var player in cell.Occupants){
+                // [Potential BUG: cell.Occupants already contains current totem]
+                foreach(var totem in player.Value){    
+                    _totemNameOnPanel += $"{(TotemName)totem.ID}{player.Key.ID + 1},"; // Update the _totemNameOnPanel = All totem name
+                    RemoveTotem(totem.Position.X, totem.Position.Y); // Remove all existing control at the working cell
+                }
             }
         }
     }
@@ -106,7 +165,8 @@ public partial class LudoApplication
             RemoveTotem(totemToBeKicked.PreviousPosition.X, totemToBeKicked.PreviousPosition.Y);
             // MoveTotem to Home Position
             Color colorToBeKicked = SetTotemColor(playerToBeKicked);
-            MoveTotem(totemToBeKicked.HomePosition.X, 
+            MoveTotemCollision(playerToBeKicked,
+                    totemToBeKicked.HomePosition.X, 
                     totemToBeKicked.HomePosition.Y, 
                     totemToBeKicked, 
                     colorToBeKicked);
@@ -129,7 +189,8 @@ public partial class LudoApplication
                 // MoveTotem to Home Position
                 Color colorToBeRefresh = SetTotemColor(playerRender.Key);
                 foreach(var totems in playerRender.Value){
-                    MoveTotem(totems.Position.X, 
+                    MoveTotemAfter(playerRender.Key,
+                                totems.Position.X, 
                                 totems.Position.Y, 
                                 totems, 
                                 colorToBeRefresh);
@@ -162,7 +223,7 @@ public partial class LudoApplication
         return id;
     }
 
-    private void MoveTotem(int x, int y, ITotem totem, Color color)
+    private void MoveTotemBefore(IPlayer player, int x, int y, ITotem totem, Color color)
     {  
         // Create a circle panel
         Panel totemPanel = new Panel();
@@ -173,12 +234,83 @@ public partial class LudoApplication
         totemPanel.Dock = DockStyle.Fill;
 
         // Add label with the specified letter
-        Label label = new Label();
-        label.Text = $"T{totem.ID}"; // T: Totem
-        label.TextAlign = ContentAlignment.MiddleCenter;
-        label.Dock = DockStyle.Fill;
-        label.ForeColor = Color.White; // Change text color as needed
-        totemPanel.Controls.Add(label);
+        totemLabel = new Label();
+
+        if( _mergeTotemBeforeMoveStatus == false){ // A single totem, No merging process
+            _totemNameOnPanel = $"{(TotemName)totem.ID}{player.ID + 1}";
+            totemLabel.Font = new Font("Arial", 8, FontStyle.Regular);
+        }
+        else{
+            totemLabel.Font = new Font("Arial", 6, FontStyle.Regular);
+        }
+
+        totemLabel.Text = _totemNameOnPanel;
+        totemLabel.TextAlign = ContentAlignment.MiddleCenter;
+        totemLabel.Dock = DockStyle.Fill;
+        totemLabel.ForeColor = Color.White; // Change text color as needed
+        totemPanel.Controls.Add(totemLabel);
+
+        // Add circle panel to the specific cell
+        this.tableLayoutPanel.Controls.Add(totemPanel, x, y);
+    }
+
+private void MoveTotemCollision(IPlayer player, int x, int y, ITotem totem, Color color)
+    {  
+        // Create a circle panel
+        Panel totemPanel = new Panel();
+        totemPanel.BackColor = color; // Change color as needed
+        totemPanel.Width = 20; // Adjust size as needed
+        totemPanel.Height = 20; // Adjust size as needed
+        totemPanel.BorderStyle = BorderStyle.FixedSingle; // Add border if needed
+        totemPanel.Dock = DockStyle.Fill;
+
+        // Add label with the specified letter
+        totemLabel = new Label();
+
+        if(_getCollisionStatus == true){ // Collusion happen
+            _totemNameOnPanel = $"{(TotemName)totem.ID}{player.ID + 1}";
+            totemLabel.Font = new Font("Arial", 8, FontStyle.Regular);
+        }
+        else{
+            totemLabel.Font = new Font("Arial", 6, FontStyle.Regular);
+        }
+
+        totemLabel.Text = _totemNameOnPanel;
+        totemLabel.TextAlign = ContentAlignment.MiddleCenter;
+        totemLabel.Dock = DockStyle.Fill;
+        totemLabel.ForeColor = Color.White; // Change text color as needed
+        totemPanel.Controls.Add(totemLabel);
+
+        // Add circle panel to the specific cell
+        this.tableLayoutPanel.Controls.Add(totemPanel, x, y);
+    }
+
+    private void MoveTotemAfter(IPlayer player, int x, int y, ITotem totem, Color color)
+    {  
+        // Create a circle panel
+        Panel totemPanel = new Panel();
+        totemPanel.BackColor = color; // Change color as needed
+        totemPanel.Width = 20; // Adjust size as needed
+        totemPanel.Height = 20; // Adjust size as needed
+        totemPanel.BorderStyle = BorderStyle.FixedSingle; // Add border if needed
+        totemPanel.Dock = DockStyle.Fill;
+
+        // Add label with the specified letter
+        totemLabel = new Label();
+
+        if(_mergeTotemAfterMoveStatus == false){ // A single totem, No merging process
+            _totemNameOnPanel = $"{(TotemName)totem.ID}{player.ID + 1}";
+            totemLabel.Font = new Font("Arial", 8, FontStyle.Regular);
+        }
+        else{
+            totemLabel.Font = new Font("Arial", 6, FontStyle.Regular);
+        }
+
+        totemLabel.Text = _totemNameOnPanel;
+        totemLabel.TextAlign = ContentAlignment.MiddleCenter;
+        totemLabel.Dock = DockStyle.Fill;
+        totemLabel.ForeColor = Color.White; // Change text color as needed
+        totemPanel.Controls.Add(totemLabel);
 
         // Add circle panel to the specific cell
         this.tableLayoutPanel.Controls.Add(totemPanel, x, y);
@@ -197,7 +329,7 @@ public partial class LudoApplication
         }
     }
 
-    private void AddTotem(int x, int y, Color color, ITotem totem)
+    private void AddTotem(IPlayer player, int x, int y, Color color, ITotem totem)
     {
         // Create a circle panel
         Panel circlePanel = new Panel();
@@ -209,7 +341,8 @@ public partial class LudoApplication
 
         // Add label with the specified letter
         Label label = new Label();
-        label.Text = $"T{totem.ID}"; // T: Totem
+        _totemNameOnPanel = $"{(TotemName)totem.ID}{player.ID + 1}";
+        label.Text = _totemNameOnPanel;
         label.TextAlign = ContentAlignment.MiddleCenter;
         label.Dock = DockStyle.Fill;
         label.ForeColor = Color.White; // Change text color as needed
@@ -222,13 +355,14 @@ public partial class LudoApplication
     private void CreatePlayerTurnLabel()
     {
         // Add a label to display player names
-        this._playerTurnLabel = new Label();
-        this._playerTurnLabel.Text = "Turn: -";
-        this._playerTurnLabel.ForeColor = Color.DarkBlue;
-        this._playerTurnLabel.Font = new Font("Arial", 10, FontStyle.Bold);
-        this._playerTurnLabel.AutoSize = true;
-        this._playerTurnLabel.Location = new Point(80, 110);
-        this.Controls.Add(this._playerTurnLabel);
+        _playerTurnLabel = new Label();
+        _playerTurnLabel.Text = "Turn: -";
+        _playerTurnLabel.BackColor = Color.Gainsboro;
+        _playerTurnLabel.ForeColor = Color.White;
+        _playerTurnLabel.Font = new Font("Arial", 10, FontStyle.Bold);
+        _playerTurnLabel.AutoSize = true;
+        _playerTurnLabel.Location = new Point(80, 110);
+        Controls.Add(_playerTurnLabel);
     }
 }
 

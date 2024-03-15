@@ -17,12 +17,12 @@ public partial class LudoApplication
     private void CreateStartButton()
     {
         // Add a button for confirming the number of players
-        this._startButton = new Button();
-        this._startButton.Text = "Start The Game";
-        this._startButton.Size = new Size(123, 70);
-        this._startButton.Location = new Point(150, 690); // Position the button below the text box
-        this.Controls.Add(this._startButton);
-        this._startButton.Click += StartButton_Click;
+        _startButton = new Button();
+        _startButton.Text = "Start The Game";
+        _startButton.Size = new Size(123, 70);
+        _startButton.Location = new Point(150, 690); // Position the button below the text box
+        Controls.Add(_startButton);
+        _startButton.Click += StartButton_Click;
     }
 
     private void CreateStartLabel()
@@ -47,6 +47,7 @@ public partial class LudoApplication
         _getCollisionStatus = false;
         _refreshRenderingStatus = false;
         _startLabel.Text += $"Status: {_gameStatus}";
+        _startButton.BackColor = Color.Gainsboro;
 
         Play();
     }
@@ -55,7 +56,7 @@ public partial class LudoApplication
         foreach(var totemList in _ludoGameScene.ludoContext._playerTotems){
             Color color = SetTotemColor(totemList.Key);
             foreach(var totem in totemList.Value){
-                AddTotem(totem.HomePosition.X, totem.HomePosition.Y, color, totem);            
+                AddTotem(totemList.Key, totem.HomePosition.X, totem.HomePosition.Y, color, totem);            
             } 
         }
     }

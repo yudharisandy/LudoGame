@@ -16,12 +16,13 @@ public partial class LudoApplication
     private void CreateAddTotemButton()
     {
         // Add a button for confirming the number of players
-        this._inputTotemButton = new Button();
-        this._inputTotemButton.Text = "Add Totem";
-        this._inputTotemButton.Size = new Size(123, 50);
-        this._inputTotemButton.Location = new Point(90, 500); // Position the button below the text box
-        this.Controls.Add(this._inputTotemButton);
-        this._inputTotemButton.Click += TotemInputButton_Click;
+        _inputTotemButton = new Button();
+        _inputTotemButton.Text = "Add Totem";
+        _inputTotemButton.Size = new Size(123, 50);
+        _inputTotemButton.BackColor = Color.Gold;
+        _inputTotemButton.Location = new Point(90, 500); // Position the button below the text box
+        Controls.Add(_inputTotemButton);
+        _inputTotemButton.Click += TotemInputButton_Click;
     }
     private void CreateInputTotemTextBox()
     {
@@ -54,10 +55,12 @@ public partial class LudoApplication
                 {
                     ITotem _totem = new Totem(i);
                     totemsList.Add(_totem);
-                    _totemsLabel.Text += $"Totem {i}, Status: False\n";
+                    _totemsLabel.Text += $"Totem {(TotemName)i}, Status: True\n";
                 }
                 bool status = _ludoGameScene.ludoContext.RegisterTotems(player, totemsList);
             }
+            _inputTotemButton.BackColor = Color.Gainsboro;
+            _startButton.BackColor = Color.Gold;
         }
         else
         {
@@ -65,5 +68,13 @@ public partial class LudoApplication
             MessageBox.Show("Please enter a valid number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
+}
+
+public enum TotemName
+{
+    A,
+    B,
+    C,
+    D
 }
 

@@ -22,7 +22,8 @@ public partial class LudoApplication
         diceButton = new System.Windows.Forms.Button();
         diceButton.Text = "Roll Dice";
         diceButton.Size = new System.Drawing.Size(100, 50);
-        diceButton.BackColor = Color.Gold;
+        diceButton.BackColor = Color.Gainsboro;
+        diceButton.ForeColor = Color.White;
         diceButton.Location = new System.Drawing.Point(100, 10); // Position the button on the left side
         Controls.Add(diceButton);
 

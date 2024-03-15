@@ -17,12 +17,13 @@ public partial class LudoApplication
     private void CreateAddPlayerButton()
     {
         // Add a button for confirming the number of players
-        this._inputPlayerButton = new Button();
-        this._inputPlayerButton.Text = "Add Player";
-        this._inputPlayerButton.Size = new Size(123, 50);
-        this._inputPlayerButton.Location = new Point(90, 285);
-        this.Controls.Add(this._inputPlayerButton);
-        this._inputPlayerButton.Click += PlayerInputButton_Click;
+        _inputPlayerButton = new Button();
+        _inputPlayerButton.Text = "Add Player";
+        _inputPlayerButton.Size = new Size(123, 50);
+        _inputPlayerButton.BackColor = Color.Gold;
+        _inputPlayerButton.Location = new Point(90, 285);
+        Controls.Add(_inputPlayerButton);
+        _inputPlayerButton.Click += PlayerInputButton_Click;
     }
 
     private void CreateInputPlayerTextBox()
@@ -57,8 +58,9 @@ public partial class LudoApplication
             {
                 LudoPlayer _ludoPlayer = new(i);
                 bool status = _ludoGameScene.ludoContext.RegisterPlayers(_ludoPlayer);
-                _playersLabel.Text += $"Player {i}, Status: {status}\n";
+                _playersLabel.Text += $"Player {i + 1}, Status: {status}\n";
             }
+            _inputPlayerButton.BackColor = Color.Gainsboro;
         }
         else
         {
