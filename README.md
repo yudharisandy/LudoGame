@@ -1,6 +1,6 @@
 # LudoGame
 
-This repo is a library for Ludo Game, a strategy board game for two to four players, in which the players race their four tokens from start to finish according to the rolls of a single dice, 100% written in C#. [Read more](https://en.wikipedia.org/wiki/Ludo#:~:text=Ludo%20%28%2F%20%CB%88lju%CB%90do%CA%8A%20%2F%3B%20from%20Latin%20ludo%20%27,is%20derived%20from%20the%20Indian%20game%20Pachisi.%20).
+This repo is a library for Ludo Game, a strategy board game for two to four players, in which the players race their four tokens from start to finish according to the rolls of a single dice. [Read more](https://en.wikipedia.org/wiki/Ludo#:~:text=Ludo%20%28%2F%20%CB%88lju%CB%90do%CA%8A%20%2F%3B%20from%20Latin%20ludo%20%27,is%20derived%20from%20the%20Indian%20game%20Pachisi.%20).
 
 The main developing focus is to build the library that can be used by other users. Furthermore, to excercise and implement the OOP principle in C# syntax/rule. The GUI provided is only an implementation example in order to deliver the exact logic/syntax to run the library.
 
@@ -55,13 +55,15 @@ LudoGameGUI
     - GUI: One cell could show up more than one totem (from the same player).
     - GUI: One cell could show up more than one totem (from different players only in safe cell -> BUG in color choosing).
     - GUI: A kicked Totem automatically go back to ```HomePosition``` when collision happens.
-    - GUI: Re-Render the objects button -> To show all totems in correct position.
 
 ## Next Plans
 - Create new class diagram (for comparison)
 - Library: when totem kicked out (when player accidentally click the kicked out totem -> the player just remain the same -> continue to next player)
 - GUI: roll dice value > remaining path/route -> the totem won't be moved -> The player should be able to move another OnPlay totem if exists.
 - GUI: Bug of totem coloring in different player merging.
+- GUI: Re-Render the objects button -> To show all totems in correct position.
+- Desererialize just Cell -> not ICell.
+- Up to Github Repo (comment in classroom)
 
 
 ## Board Coordinate Scheme
@@ -247,7 +249,8 @@ The following is the scheme of the ludo paths.
 
 
 ## References
-- [Class Diagram](https://github.com/probabilitynokami/ClassDiagram/blob/main/Ludo.md)
+- [My Class Diagram](https://gist.github.com/yudharisandy/86ff028f3066bb9c1422117a43533189)
+- [Mr. Dion's Class Diagram](https://github.com/probabilitynokami/ClassDiagram/blob/main/Ludo.md)
 - [Formulatrix Bootcamp Repository](https://github.com/yudharisandy/Bootcamp-Formulatrix-CSharp)
 - [System.Windows.Forms](https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms?view=windowsdesktop-8.0)
 - [.NET Fundamentals Documentation](https://learn.microsoft.com/en-us/dotnet/fundamentals/)
