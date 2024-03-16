@@ -2,7 +2,7 @@
 
 This repo is a library for Ludo Game, a strategy board game for two to four players, in which the players race their four tokens from start to finish according to the rolls of a single dice. [Read more](https://en.wikipedia.org/wiki/Ludo#:~:text=Ludo%20%28%2F%20%CB%88lju%CB%90do%CA%8A%20%2F%3B%20from%20Latin%20ludo%20%27,is%20derived%20from%20the%20Indian%20game%20Pachisi.%20).
 
-The main developing focus is to build the library that can be used by other users. Furthermore, to excercise and implement the OOP principle in C# syntax/rule. The GUI provided is only an implementation example in order to deliver the exact logic/syntax to run the library.
+The main developing focus is to build the library that can be used by other users. Furthermore, to practice and implement the OOP principle in C# syntax/rule. The GUI provided is only an implementation example in order to deliver the exact logic/syntax to run the library. You can find the class diagram [here](https://gist.github.com/yudharisandy/86ff028f3066bb9c1422117a43533189).
 
 This repo is an individual project of The Software Engineering Bootcamp, at Formulatrix, Salatiga City, Indonesia.
 
@@ -20,7 +20,7 @@ This repo is an individual project of The Software Engineering Bootcamp, at Form
 
 ## Graphical User Interface (GUI) Example
 The following is the example of a GUI built using Windwos Forms Apps.
-![progress-game-app](assets/progress.gif)
+![game-demo](assets/demo1.gif)
 
 ## Repository Foldering Structure
 ```
