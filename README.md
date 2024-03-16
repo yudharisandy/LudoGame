@@ -26,7 +26,7 @@ The following is the example of a Playground GUI built using Windwos Forms Apps,
 
 ![game-demo](assets/demo2.gif)
 
-- Collision demo (look at B1 Totem):
+- Collision demo (look at the B1 totem):
 
 ![collision-demo](assets/demo3_collision.gif)
 
