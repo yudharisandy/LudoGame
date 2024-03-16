@@ -19,8 +19,13 @@ This repo is an individual project of The Software Engineering Bootcamp, at Form
 - [References](#references)
 
 ## Graphical User Interface (GUI) Example
-The following is the example of a GUI built using Windwos Forms Apps, [video](https://youtu.be/p3X7EjOjbbc)
+The following is the example of a GUI built using Windwos Forms Apps, [video](https://youtu.be/p3X7EjOjbbc).
+
+Demo:
 ![game-demo](assets/demo2.gif)
+
+Collision demo:
+![collision-demo](assets/demo3_collision.gif)
 
 ## Repository Foldering Structure
 ```
