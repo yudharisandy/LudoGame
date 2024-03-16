@@ -64,13 +64,12 @@ LudoGameGUI
     - GUI: A kicked Totem automatically go back to ```HomePosition``` when collision happens.
 
 ## Next Plans
-- Create new class diagram (for comparison)
-- Library: when totem kicked out (when player accidentally click the kicked out totem -> the player just remain the same -> continue to next player)
-- GUI: roll dice value > remaining path/route -> the totem won't be moved -> The player should be able to move another OnPlay totem if exists.
-- GUI: Bug of totem coloring in different player merging.
-- GUI: Re-Render the objects button -> To show all totems in correct position.
 - Desererialize just Cell -> not ICell.
-- Up to Github Repo (comment in classroom)
+- Library: when totem kicked out (when player accidentally click the kicked out totem -> the player just remain the same -> continue to next player)
+- GUI: roll dice value -> remaining path/route -> the totem won't be moved -> The player should be able to move another OnPlay totem if exists.
+- GUI: Totem coloring in different player merging.
+- GUI: Re-Render the objects button -> To show all totems in correct position.
+
 
 
 ## Board Coordinate Scheme
