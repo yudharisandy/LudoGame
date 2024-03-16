@@ -19,7 +19,7 @@ This repository is an individual project of The Software Engineering Bootcamp at
 - [References](#references)
 
 ## Graphical User Interface (GUI) Example
-The following is the example of a GUI built using Windwos Forms Apps, [video](https://youtu.be/p3X7EjOjbbc).
+The following is the example of a Playground GUI built using Windwos Forms Apps, see the video [here](https://youtu.be/p3X7EjOjbbc).
 
 - Demo:
 
