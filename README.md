@@ -25,7 +25,7 @@ The following is the example of a GUI built using Windwos Forms Apps, [video](ht
 
 ![game-demo](assets/demo2.gif)
 
-- Collision demo:
+- Collision demo (look at B1 Totem):
 
 ![collision-demo](assets/demo3_collision.gif)
 
