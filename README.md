@@ -13,7 +13,8 @@ This repository is an individual project of The Software Engineering Bootcamp at
 - [Next Plans](#next-plans)
 - [Board Coordinate Scheme](#board-coordinate-scheme)
 - [Ludo Paths](#ludo-paths)
-- [How to Use](#how-to-use)
+- [How to Use The Example GUI](#how-to-use-the-example-gui)
+- [How to Use The Library](#how-to-use-the-library)
 - [Methods Explaination](#methods-explaination)
 - [License](#license)
 - [References](#references)
@@ -81,7 +82,7 @@ The following is the scheme of the ludo paths.
 ![Ludo-Paths](assets/ludo_paths.svg)
 [Image source](https://en.wikipedia.org/wiki/Ludo#:~:text=Ludo%20%28%2F%20%CB%88lju%CB%90do%CA%8A%20%2F%3B%20from%20Latin%20ludo%20%27,is%20derived%20from%20the%20Indian%20game%20Pachisi.%20)
 
-## How to Use The GUI Example
+## How to Use The Example GUI 
 - Install .NET Windows Desktop Runtime, in case you haven't installed yet. The .NET Windows Desktop Runtime is used to run Windows Forms and WPF applications, on your computer. [Download .NET Desktop Runtime](https://aka.ms/dotnet/6.0/windowsdesktop-runtime-win-x64.exe).
 - Run the LudoGameGUI.exe, following the path in [Repository Foldering Structure](#repository-foldering-structure) section (BUG ALERT!).
 
