@@ -1,10 +1,10 @@
 # LudoGame
 
-This repo is a library for Ludo Game, a strategy board game for two to four players, in which the players race their four tokens from start to finish according to the rolls of a single dice. [Read more](https://en.wikipedia.org/wiki/Ludo#:~:text=Ludo%20%28%2F%20%CB%88lju%CB%90do%CA%8A%20%2F%3B%20from%20Latin%20ludo%20%27,is%20derived%20from%20the%20Indian%20game%20Pachisi.%20).
+This repository is a library for the Ludo Game, a strategy board game for two to four players, in which the players race their four tokens from start to finish according to the rolls of a single die, [read more](https://en.wikipedia.org/wiki/Ludo#:~:text=Ludo%20%28%2F%20%CB%88lju%CB%90do%CA%8A%20%2F%3B%20from%20Latin%20ludo%20%27,is%20derived%20from%20the%20Indian%20game%20Pachisi.%20).
 
-The main developing focus is to build the library that can be used by other users. Furthermore, to practice and implement the OOP principle in C# syntax/rule. The GUI provided is only an implementation example in order to deliver the exact logic/syntax to run the library. You can find the class diagram [here](https://gist.github.com/yudharisandy/86ff028f3066bb9c1422117a43533189).
+The main focus of development is to build a library that can be used by other users. Furthermore, it aims to practice and implement Object-Oriented Programming principles in C# syntax/rules. The provided GUI is merely an implementation example designed to illustrate the exact logic/syntax needed to run the library. Find the class diagram [here](https://gist.github.com/yudharisandy/86ff028f3066bb9c1422117a43533189).
 
-This repo is an individual project of The Software Engineering Bootcamp, at Formulatrix, Salatiga City, Indonesia.
+This repository is an individual project of The Software Engineering Bootcamp at Formulatrix, located in Salatiga City, Indonesia.
 
 ## Table of Contents
 - [GUI Example](#graphical-user-interface-gui-example)
