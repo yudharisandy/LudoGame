@@ -1,10 +1,8 @@
 ﻿using System.Text.Json;
 
-using System;
 using LudoGame;
 using LudoGame.Enums;
 using LudoGame.Game;
-using LudoGame.GameObject;
 using LudoGame.Interface;
 using LudoGame.LudoObjects;
 using LudoGame.Utility;
@@ -18,22 +16,42 @@ class Program
 	static void Main() 
 	{
         // [Serialize]
-        // IBoard board = new Board();
+        // Board board = new Board();
 
-		// string json = JsonSerializer.Serialize(board.Cells);
+		// string json = JsonSerializer.Serialize(board.CellsToBeSerialized);
 
 		// using(StreamWriter sw = new("CellTypeCoordinate.json")) 
 		// {
-		// 	sw.WriteLine(json);
+		// 	sw.Write(json);
 		// }
 
         // [Deserialize]
-        string resultCell;
+		
+		string resultCell;
+		// using(StreamReader sr2 = new("../../LudoGame/Utility/CellTypeCoordinate.json")) 
 		using(StreamReader sr2 = new("CellTypeCoordinate.json")) 
 		{
 			resultCell = sr2.ReadToEnd();
 		}
-        List<ICell>? Cells = JsonSerializer.Deserialize<List<ICell>>(resultCell);
+        List<Cell> _cellsToBeDeserialized = JsonSerializer.Deserialize<List<Cell>>(resultCell);   
+		// System.Console.WriteLine(_cellsToBeDeserialized?.Count);
+		// System.Console.WriteLine(_cellsToBeDeserialized?.Count);   
+
+		// foreach(var i in _cellsToBeDeserialized){
+		// 	System.Console.WriteLine($"{i.Position.X}, {i.Position.Y}");
+		// }
+
+		List<ICell> Cells = new List<ICell>();
+        foreach(var cells in _cellsToBeDeserialized){
+            ICell subject = cells as ICell;
+            if (subject != null)
+            {
+                Cells.Add(subject);
+            }
+        }
         System.Console.WriteLine(Cells?.Count);
+		foreach(var i in Cells){
+			System.Console.WriteLine($"{i.Position.X}, {i.Position.Y}");
+		}
 	}
 }

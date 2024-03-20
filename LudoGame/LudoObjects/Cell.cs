@@ -28,6 +28,11 @@ public class Cell : ICell
     public MathVector? Position {get; set;}
 
     /// <summary>
+    /// Initializes a new instance of the LudoGame.Cell class using a parameterless constructor.
+    /// </summary>
+    public Cell(){ }
+
+    /// <summary>
     /// Initializes a new instance of the LudoGame.Cell class using a default x, y, and type.
     /// </summary>
     /// <param name="x">Horizontal position.</param>

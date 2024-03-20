@@ -1,6 +1,7 @@
 namespace LudoGame.Interface;
 
 using LudoGame.Utility;
+using LudoGame.LudoObjects;
 
 /// <summary>
 /// Represent an interface of playing board in Ludo Game.
@@ -11,6 +12,8 @@ public interface IBoard
     /// Represent a container cell of all available cells in the game.
     /// </summary>
     public List<ICell>? Cells { get; set; }
+    public List<Cell>? CellsToBeSerialized { get; set; }
+    public List<Cell>? CellsToBeDeserialized { get; set; }
 
     /// <summary>
     /// Represent an object that contains all players' totem path.

@@ -3,18 +3,35 @@ namespace LudoGame.Game;
 using LudoGame.LudoObjects;
 using LudoGame.Interface;
 using LudoGame.Enums;
-using System.Net;
-
 
 /// <summary>
 /// A class used to control the game in general. Bring the specific ludo rule.
 /// </summary>
 public class LudoGameScene
 {
+    /// <summary>
+    /// Represent a basic need of the game (board, list of totem from each player, and so on).
+    /// </summary>
     public LudoContext ludoContext;
+
+    /// <summary>
+    /// Represent a state that informs whether a collision happens or not.
+    /// </summary>
     private bool _collisionStatus;
+
+    /// <summary>
+    /// Represent a state that informs whether a merging process happens or not in the next cell goal.
+    /// </summary>
     private bool _mergeTotemAfterMoveStatus;
+
+    /// <summary>
+    /// Represent a state that informs whether a merging process happens or not in the left cell.
+    /// </summary>
     private bool _mergeTotemBeforeMoveStatus;
+
+    /// <summary>
+    /// Represent a dictionary that contains totem(s) to be kicked as the collision consequences.
+    /// </summary>
     private Dictionary<IPlayer, ITotem> _totemToBeKicked;
 
     /// <summary>

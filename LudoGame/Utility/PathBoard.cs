@@ -5,14 +5,44 @@ namespace LudoGame.Utility;
 /// </summary>
 public class PathBoard
 {
+    /// <summary>
+    /// Represent path/route of player 1.
+    /// </summary>
     public List<MathVector> pathPlayer1 { get; set; } = null!;
+
+    /// <summary>
+    /// Represent path/route of player 2.
+    /// </summary>
     public List<MathVector> pathPlayer2 { get; set; } = null!;
+
+    /// <summary>
+    /// Represent path/route of player 3.
+    /// </summary>
     public List<MathVector> pathPlayer3 { get; set; } = null!;
+
+    /// <summary>
+    /// Represent path/route of player 4.
+    /// </summary>
     public List<MathVector> pathPlayer4 { get; set; } = null!;
 
+    /// <summary>
+    /// Represent a list of coordinate that will be assign to player 1 path.
+    /// </summary>
     private List<(int, int)> _player1PathCoordinate;
+
+    /// <summary>
+    /// Represent a list of coordinate that will be assign to player 2 path.
+    /// </summary>
     private List<(int, int)> _player2PathCoordinate;
+
+    /// <summary>
+    /// Represent a list of coordinate that will be assign to player 3 path.
+    /// </summary>
     private List<(int, int)> _player3PathCoordinate;
+
+    /// <summary>
+    /// Represent a list of coordinate that will be assign to player 4 path.
+    /// </summary>
     private List<(int, int)> _player4PathCoordinate;
 
     /// <summary>

@@ -8,9 +8,24 @@ using LudoGame.LudoObjects;
 /// </summary>
 public class LudoContext
 {
+    /// <summary>
+    /// Represent a list of all players in the game.
+    /// </summary>
     public List<IPlayer> _players; 
+
+    /// <summary>
+    /// Represent a playground board in the game.
+    /// </summary>
     public IBoard board;
+
+    /// <summary>
+    /// Represent a dice used to get the random number in the game.
+    /// </summary>
     public ILudoDice dice;
+
+    /// <summary>
+    /// Represent an information contains totems of each player.
+    /// </summary>
     public Dictionary<IPlayer, List<ITotem>> _playerTotems;
     
     /// <summary>
