@@ -66,19 +66,23 @@ LudoGameGUI
 
 
 ## Next Plans
-- Desererialize just Cell -> not ICell.
-- Add Logging (Game Controller and Program.cs)
-- List -> change to IEnumerable
-- Dictionary -> change to IDictionary
-- Library: when totem kicked out (when player accidentally click the kicked out totem -> the player just remain the same -> continue to next player)
-- GUI: roll dice value -> remaining path/route -> the totem won't be moved -> The player should be able to move another OnPlay totem if exists.
-- GUI: Totem coloring in different player merging.
-- GUI: Re-Render the objects button -> To show all totems in correct position.
+- Upgrade: 
+    - Add Logging (Game Controller and Program.cs).
+    - List -> change to IEnumerable & Dictionary -> change to IDictionary.
+    - Add unit testing.
+- The library bug: 
+    - when totem kicked out (when player accidentally click the kicked out totem -> the player just remain the same -> continue to next player)
+    - when totem in final cell accidently clicked, will add the totem number in final cell counted.
+- The GUI bug: 
+    - roll dice value -> remaining path/route -> the totem won't be moved -> The player should be able to move another OnPlay totem if exists.
+    - Totem coloring in different player merging.
+    - Re-Render the objects button -> To show all totems in correct position.
 
 
 ## Board Coordinate Scheme
 This library is built based on the following board coordinate scheme.
 ![Board-Scheme](assets/ludoScheme2.jpg)
+
 
 ## Ludo Paths
 The following is the scheme of the ludo paths.
