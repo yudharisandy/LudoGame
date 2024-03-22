@@ -1,8 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "RKCT+wDrjJPNtKoytyCJKwpAckl1ggRYxCM/Ia6ei77Z9wIGIcS/HKXCGpPrWGUfD01SHhiBB+jgacd0+8TSyw==",
+  "dgSpecHash": "KSV/GAC50j4E0qpjTL/WOY89MyriDKLqY4iAWpEsO+x5Tu87+8CN1aqPT9QagltJSOEgTZ438fbE3hwhrqHH3A==",
   "success": true,
   "projectFilePath": "E:\\Kelapa\\Course, Seminar, Pelatihan\\2024-2 Formulatrix Bootcamp C#\\LudoGame\\LudoGame\\LudoGame.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Yudha Putra Arisandy\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\Yudha Putra Arisandy\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\8.0.0\\microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",
+    "C:\\Users\\Yudha Putra Arisandy\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\Yudha Putra Arisandy\\.nuget\\packages\\microsoft.extensions.logging\\8.0.0\\microsoft.extensions.logging.8.0.0.nupkg.sha512",
+    "C:\\Users\\Yudha Putra Arisandy\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\Yudha Putra Arisandy\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
+    "C:\\Users\\Yudha Putra Arisandy\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "C:\\Users\\Yudha Putra Arisandy\\.nuget\\packages\\nlog\\5.2.8\\nlog.5.2.8.nupkg.sha512",
+    "C:\\Users\\Yudha Putra Arisandy\\.nuget\\packages\\nlog.extensions.logging\\5.3.8\\nlog.extensions.logging.5.3.8.nupkg.sha512"
+  ],
   "logs": []
 }

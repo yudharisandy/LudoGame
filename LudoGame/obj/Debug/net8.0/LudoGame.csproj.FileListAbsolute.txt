@@ -43,3 +43,14 @@ E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\Lud
 E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\LudoGame.pdb
 e:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\LudoGame.genruntimeconfig.cache
 e:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\ref\LudoGame.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\NLog.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\bin\Debug\net8.0\NLog.Extensions.Logging.dll
+E:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\LudoGame.csproj.AssemblyReference.cache
+e:\Kelapa\Course, Seminar, Pelatihan\2024-2 Formulatrix Bootcamp C#\LudoGame\LudoGame\obj\Debug\net8.0\LudoGame.csproj.Up2Date

@@ -4,6 +4,8 @@ using LudoGame.LudoObjects;
 using LudoGame.Interface;
 using LudoGame.Enums;
 
+using Microsoft.Extensions.Logging;
+
 /// <summary>
 /// A class used to control the game in general. Bring the specific ludo rule.
 /// </summary>
@@ -35,11 +37,19 @@ public class LudoGameScene
     private Dictionary<IPlayer, ITotem> _totemToBeKicked;
 
     /// <summary>
+    /// Represent a logging variable to store the log messages.
+    /// </summary>
+    private ILogger<LudoGameScene>? _log;
+
+    /// <summary>
     /// The constructor.
     /// </summary>
-    public LudoGameScene(){
+    public LudoGameScene(ILogger<LudoGameScene>? logger = null){
         ludoContext = new LudoContext();
         _totemToBeKicked = new Dictionary<IPlayer, ITotem>();
+
+        _log = logger;
+        _log?.LogInformation("Ludo Game Scene was created.");
     }
 
     /// <summary>
@@ -47,6 +57,7 @@ public class LudoGameScene
     /// </summary>
     /// <returns></returns>
     public bool GetCollisionStatus(){
+        _log?.LogInformation("Get collision status of {status}.", _collisionStatus);
         return _collisionStatus;
     }
 
@@ -56,6 +67,7 @@ public class LudoGameScene
     /// </summary>
     /// <returns>The merge status </returns>
     public bool GetMergeTotemAfterMoveStatus(){
+        _log?.LogInformation("Get merge-totem-after-move status of {status}.", _mergeTotemAfterMoveStatus);
         return _mergeTotemAfterMoveStatus;
     }
 
@@ -65,6 +77,7 @@ public class LudoGameScene
     /// </summary>
     /// <returns>The merge status </returns>
     public bool GetMergeTotemBeforeMoveStatus(){
+        _log?.LogInformation("Get merge-totem-before-move status of {status}.", _mergeTotemBeforeMoveStatus);
         return _mergeTotemBeforeMoveStatus;
     }
 
@@ -75,6 +88,7 @@ public class LudoGameScene
     /// <param name="status">The merge status</param>
     public void SetMergeTotemBeforeMoveStatus(bool status){
         _mergeTotemBeforeMoveStatus = status;
+        _log?.LogInformation("Set merge-totem-before-move status to be {status}.", status);
     }
 
     /// <summary>
@@ -83,10 +97,13 @@ public class LudoGameScene
     /// <returns>A totem to be kicked</returns>
     public ITotem GetTotemToBeKicked(){
         ITotem result = new Totem(100); // Just random Totem
+        
         // There is only one Totem to be kicked!
         foreach(var i in _totemToBeKicked){
             result = i.Value;
         }
+        
+        _log?.LogInformation("Get Totem {totem ID} to be kicked.", result.ID);
         return result;
     }
 
@@ -96,10 +113,13 @@ public class LudoGameScene
     /// <returns>Player to be kicked</returns>
     public IPlayer GetPlayerToBeKicked(){
         IPlayer result = new LudoPlayer(100);
+
         // There is only one Totem to be kicked!
         foreach(var i in _totemToBeKicked){
             result = i.Key;
         }
+
+        _log?.LogInformation("Get Player {player} to be kicked.", result.ID);
         return result;
     }
 
@@ -115,8 +135,10 @@ public class LudoGameScene
         if (cell?.Type == CellType.Final){
             // this method runs every 1 totem reach the final cell
             totem.TotemStatusInfo = TotemStatus.OnFinal; // Change OnPlay -> OnFinal
+            _log?.LogInformation("Get totem-reach-final-cell status of {status}", true);
             return true;
         }
+        _log?.LogInformation("Get totem-reach-final-cell status of {status}", false);
         return false;
     }
 
@@ -133,9 +155,11 @@ public class LudoGameScene
             var totemListToCheck = cell.GetListTotemOccupants(player);
             int totalNumTotemsEachPlayer = ludoContext.GetTotalNumberTotemsEachPlayer();
             if (totemListToCheck.Count == totalNumTotemsEachPlayer){ 
+                _log?.LogInformation("Get game status of {status}.", false);
                 return false;
             }
         }
+        _log?.LogInformation("Get game status of {status}.", true);
         return true;
     }
 
@@ -148,23 +172,27 @@ public class LudoGameScene
     /// <param name="totem">Current totem</param>
     /// <param name="diceValue">Current dice value</param>
     public void NextTurn(IPlayer player, ITotem totem, int diceValue){
+        _log?.LogInformation("Next turn: Player {player id}, Totem {totem id}, dice value is {dice value}.\n", player.ID, totem.ID, diceValue);
         if (diceValue == 6){
             GotSixInDice(player, totem, diceValue);
             UpdateTotemBasedOnCellConditionBeforeMove(player, totem);
             UpdateTotemBasedOnCellConditionAfterMove(player, totem);
             System.Console.WriteLine(_mergeTotemAfterMoveStatus);
+            _log?.LogInformation("Run the logic of dice value {dice}", diceValue);
         }
         else{
             if (totem.TotemStatusInfo == TotemStatus.OnPlay){
                 UpdateTotemPosition(player, totem, diceValue);
                 UpdateTotemBasedOnCellConditionBeforeMove(player, totem);
                 UpdateTotemBasedOnCellConditionAfterMove(player, totem);
+                _log?.LogInformation("Run the non-six dice logic, Totem status is {totem status}", TotemStatus.OnPlay);
             }
             else if (totem.TotemStatusInfo == TotemStatus.OnHome){
                 totem.Position.X =  totem.HomePosition.X;
                 totem.Position.Y =  totem.HomePosition.Y;
+                _log?.LogInformation("Run the non-six dice logic, Totem status is {totem status}", TotemStatus.OnHome);
             }
-        }
+        }        
     }
 
     /// <summary>
