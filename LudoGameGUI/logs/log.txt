@@ -1,0 +1,17 @@
+2024-03-22 16:49:49.6660 | Info | Ludo Game Scene was created. 
+2024-03-22 16:49:56.1088 | Info | Run the logic of dice value 6 
+2024-03-22 16:49:56.1101 | Info | Next turn: Player 0, Totem 0, dice value is 6.
+ 
+2024-03-22 16:49:56.1101 | Info | Get collision status of False. 
+2024-03-22 16:49:56.1657 | Info | Get merge-totem-after-move status of False. 
+2024-03-22 16:49:56.2124 | Info | Get merge-totem-before-move status of False. 
+2024-03-22 16:49:56.2124 | Info | Get totem-reach-final-cell status of False 
+2024-03-22 16:49:56.2124 | Info | Get game status of True. 
+2024-03-22 16:49:57.8138 | Info | Run the non-six dice logic, Totem status is OnPlay 
+2024-03-22 16:49:57.8138 | Info | Next turn: Player 0, Totem 0, dice value is 1.
+ 
+2024-03-22 16:49:57.8138 | Info | Get collision status of False. 
+2024-03-22 16:49:57.8518 | Info | Get merge-totem-after-move status of False. 
+2024-03-22 16:49:57.9639 | Info | Get merge-totem-before-move status of False. 
+2024-03-22 16:49:57.9639 | Info | Get totem-reach-final-cell status of False 
+2024-03-22 16:49:57.9639 | Info | Get game status of True. 
